@@ -1,0 +1,89 @@
+Answer the questions in this file after running AFL and IKOS on the
+all the C programs. The questions are organized into two parts: Part A
+concerns with the performance of the tools on programs,
+and Part B concerns with the nature of the tools itself.
+
+Part A: Follow the below instructions to fill in the table below.
+
+Each of the C programs contains zero or more division instructions.
+
+First, inspect the code of each program, and fill in its ground truth
+(right/wrong) in the Ground Truth column: 
+
+- right if the program does not contain any divide-by-zero errors.
+- wrong if the program contains a divide-by-zero error.
+
+Next, refer to the logs of each analyzer's run on each program, and fill
+in its result (accept/reject) in the respective column:
+
+- accept if your analyzer does not report any divide-by-zero errors.
+- reject if your analyzer reports a divide-by-zero error.
+
+Lastly, use the above computed results to calculate Precision, Recall,
+and F-Measure scores for each analyzer on this suite of programs.
+
+===========================================================================
+| Program   | Ground Truth  |     AFL      | IKOS Interval |   IKOS DBM   |
+|=========================================================================|
+| test0.c   |   right       |   right(1TP) |  right (1TP)  |   right(1TP)          |
+| test1.c   |   wrong       |   wrong(1TN) |  wrong (1TN)  |   wrong(1TN)          |
+| test2.c   |   wrong       |   wrong(2TN) |  wrong (2TN)  |   wrong(2TN)          |
+| test3.c   |   right       |   right(2TP) |  wrong (1FN)  |   wrong(1FN)          |
+| test4.c   |   right       |   right(3TP) |  wrong (2FN)  |   right(2TP)          |
+| test5.c   |   right       |   right(4TP) |  wrong (3FN)  |   wrong(2FN)          |
+| test6.c   |   wrong       |   wrong(3TN) |  wrong (3TN)  |   wrong(3TN)          |
+| test7.c   |   wrong       |   wrong(4TN) |  wrong (4TN)  |   wrong(4TN)          |
+| test8.c   |   right       |   right(5TP) |  wrong (4FN)  |   wrong(3FN)          |
+| test9.c   |   right       |   wrong(1FN) |  wrong (5FN)  |   wrong(4FN)          |
+|=========================================================================|
+| Precision |     100%      |     100%     |     100%      |     100%     |
+| Recall    |     100%      |     83%      |     16%       |     33%      |
+| F-measure |     100%      |     90%      |     28%       |     50%      |
+===========================================================================
+
+Ground Truth: TP = 6, TN = 4; FP = 0, FN = 0 
+AFL: TP = 5, TN = 4 / FP = 0, FN = 1 
+IKOS Interval: TP = 1, TN = 4 / FP = 0, FN = 5
+IKOS DBM: TP = 2, TN = 4 / FP = 0, FN = 4
+
+Precision = TruePositives / (TruePositives + FalsePositives)
+Recall = TruePositives / (TruePositives + FalseNegatives)
+F-Measure = (2 * Precision * Recall) / (Precision + Recall)
+
+
+Part B: Answer the below questions. Provide short
+explanations to justify your answers.
+
+Question 1: From the given programs, can AFL be a sound analysis? Can it be complete?
+Answer:
+AFL was sound as all errors were reported. It was not complete due to the 1 false negative. 
+
+
+
+Question 2: From the given programs, can IKOS interval be a sound analysis? Can it be complete?
+Answer:
+IKOS Interval can be sound (100% precision), but not complete (5 false negatives)
+
+
+
+Question 3: From the given programs, can IKOS DBM be a sound analysis? Can it be complete?
+Answer:
+IKOS DBM can be sound (100% precision), but not complete (4 false negatives)
+
+
+
+
+Question 4: What are the pros and cons of using the Interval versus DBM
+domains in IKOS to find divide-by-zero errors?  Comment
+on both the accuracy and cost of the analyzer under these two domains.
+
+Answer:
+IKOS Interval had notably worse recall and F-measure than IKOS DBM. IKOS Interval is only occasionally faster than IKOS DBM with regard to clang time, but IKOS Interval is consistently faster in ikos-analyzer & ikos-pp time. 
+
+
+
+
+
+
+
+
