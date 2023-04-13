@@ -13,7 +13,7 @@ using namespace llvm;
  * Modulo         -> %
  * Addition       -> +
  * Subtraction    -> -
- */
+*/
 char getBinOpSymbol(Instruction::BinaryOps Opcode);
 
 /**

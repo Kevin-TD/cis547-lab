@@ -1,3 +1,5 @@
+// make ; cd ../ ; cd test ;clang -emit-llvm -S -fno-discard-value-names -c -o simple0.ll simple0.c -g ; opt -load ../build/StaticAnalysisPass.so -StaticAnalysisPass -S simple0.ll -o simple0.static.ll ; opt -load ../build/DynamicAnalysisPass.so -DynamicAnalysisPass -S simple0.ll -o simple0.dynamic.ll ; clang -o simple0 -L../build -lruntime simple0.dynamic.ll ; ./simple0 ; make clean ; cd ../ ; cd build
+
 #include "Instrument.h"
 #include "Utils.h"
 
@@ -21,6 +23,7 @@ bool Instrument::runOnFunction(Function &F) {
   outs() << "Instrument Instructions\n";
   LLVMContext &Context = F.getContext();
   Module *M = F.getParent();
+  
 
   Type *VoidType = Type::getVoidTy(Context);
   Type *Int32Type = Type::getInt32Ty(Context);
@@ -48,6 +51,13 @@ bool Instrument::runOnFunction(Function &F) {
      * TODO: Add code to check if the instruction is a BinaryOperator and if so,
      * instrument the instruction as specified in the Lab document.
      */
+    if (Inst.isBinaryOp()) {  
+       BinaryOperator *binaryOperator = dyn_cast<BinaryOperator>(&Inst);
+
+       instrumentBinOpOperands(M, binaryOperator, Line, Col);
+
+    }
+
   }
 
   return true;
@@ -77,6 +87,18 @@ void instrumentBinOpOperands(Module *M, BinaryOperator *BinOp, int Line,
    * its location, operation type and the runtime values of its
    * operands.
    */
+  Type *VoidType = Type::getVoidTy(Context);
+  Type *Int8Type = Type::getInt8Ty(Context);
+
+  M->getOrInsertFunction(BINOP_OPERANDS_FUNCTION_NAME, VoidType, Int8Type,
+                         Int32Type, Int32Type, Int32Type, Int32Type);
+  
+  // keep on getting memory address 
+  llvm::Value* Val = BinOp->getOperand(0); 
+  outs() << *Val->getType() << "\n";
+  outs() << *Val << "\n";
+  
+
 }
 
 char Instrument::ID = 1;
