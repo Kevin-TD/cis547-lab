@@ -2,6 +2,7 @@
 
 #include "Instrument.h"
 #include "Utils.h"
+#include <map> 
 
 using namespace llvm;
 
@@ -11,6 +12,7 @@ const auto PASS_NAME = "DynamicAnalysisPass";
 const auto PASS_DESC = "Dynamic Analysis Pass";
 const auto COVERAGE_FUNCTION_NAME = "__coverage__";
 const auto BINOP_OPERANDS_FUNCTION_NAME = "__binop_op__";
+std::map<StringRef, int> varToValueMap; 
 
 void instrumentCoverage(Module *M, Instruction &I, int Line, int Col);
 void instrumentBinOpOperands(Module *M, BinaryOperator *BinOp, int Line,
@@ -51,9 +53,31 @@ bool Instrument::runOnFunction(Function &F) {
      * TODO: Add code to check if the instruction is a BinaryOperator and if so,
      * instrument the instruction as specified in the Lab document.
      */
+    
+    if (StoreInst *SI = dyn_cast<StoreInst>(&Inst)) {
+      // Check if the stored value is an i32
+      Value *storedValue = SI->getValueOperand();
+      if (storedValue->getType() == Type::getInt32Ty(Inst.getContext())) {
+        Value* Sval = SI -> getValueOperand();
+        Value* Sptr = SI -> getPointerOperand();
+
+        StringRef name; 
+        int value; 
+
+        if (AllocaInst *allocaInst = dyn_cast<AllocaInst>(Sptr)) {
+          name = allocaInst->getName();
+        }
+
+        if (ConstantInt *constInt = dyn_cast<ConstantInt>(Sval)) {
+          value = constInt->getSExtValue();
+          varToValueMap[name] = value; 
+        }
+      }
+    }
+
+    
     if (Inst.isBinaryOp()) {  
        BinaryOperator *binaryOperator = dyn_cast<BinaryOperator>(&Inst);
-
        instrumentBinOpOperands(M, binaryOperator, Line, Col);
 
     }
@@ -93,12 +117,22 @@ void instrumentBinOpOperands(Module *M, BinaryOperator *BinOp, int Line,
   M->getOrInsertFunction(BINOP_OPERANDS_FUNCTION_NAME, VoidType, Int8Type,
                          Int32Type, Int32Type, Int32Type, Int32Type);
   
-  // keep on getting memory address 
-  llvm::Value* Val = BinOp->getOperand(0); 
-  outs() << *Val->getType() << "\n";
-  outs() << *Val << "\n";
-  
+  Type* IntType =Type::getInt32Ty(Context);
 
+  llvm::Value* val1 = BinOp->getOperand(0); 
+  llvm::Value* val2 = BinOp->getOperand(1); 
+
+  LoadInst *LI1 = dyn_cast<LoadInst>(BinOp->getOperand(0));
+  Value* L1 = LI1 -> getPointerOperand();  
+
+  LoadInst *LI2 = dyn_cast<LoadInst>(BinOp->getOperand(1));
+  Value* L2 = LI2 -> getPointerOperand();
+
+  int op1Value = varToValueMap[L1->getName()]; 
+  int op2Value = varToValueMap[L2->getName()]; 
+  
+  outs() << "Division on Line "<< Line << ", Column " << Col << " with first operator=" << op1Value << " and second operator=" << op2Value << "\n";
+  
 }
 
 char Instrument::ID = 1;

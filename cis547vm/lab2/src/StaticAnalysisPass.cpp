@@ -35,15 +35,14 @@ bool Instrument::runOnFunction(Function &F) {
     if (Inst.isBinaryOp()) {  
       BinaryOperator::BinaryOps Opcode = (llvm::BinaryOperator::BinaryOps)Inst.getOpcode();
       std::string Opname = getBinOpName(getBinOpSymbol(Opcode));
-      std::string operator1_name = "%0", operator2_name = "%1";
 
-      if (Inst.getOperand(0)->hasName()) {
-        operator1_name = Inst.getOperand(0)->getName();
-      }
+      LoadInst *LI1 = dyn_cast<LoadInst>(Inst.getOperand(0));
+      Value* L1 = LI1 -> getPointerOperand();  
+      StringRef operator1_name = L1->getName();
 
-      if (Inst.getOperand(1)->hasName()) {
-        operator2_name = Inst.getOperand(1)->getName();
-      }
+      LoadInst *LI2 = dyn_cast<LoadInst>(Inst.getOperand(1));
+      Value* L2 = LI2 -> getPointerOperand();  
+      StringRef operator2_name = L2->getName();
 
       outs() << Opname << " on Line " << Line << ", Column " << Col << " with first operand " << operator1_name << " and second operand " << operator2_name << "\n";
     }
@@ -57,3 +56,4 @@ char Instrument::ID = 1;
 static RegisterPass<Instrument> X(PASS_NAME, PASS_NAME, false, false);
 
 } // namespace instrument
+  
