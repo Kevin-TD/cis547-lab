@@ -1,0 +1,10 @@
+/lab6/build/CMakeFiles/install/strip.dir
+/lab6/build/CMakeFiles/install.dir
+/lab6/build/CMakeFiles/list_install_components.dir
+/lab6/build/CMakeFiles/DivZeroPass.dir
+/lab6/build/CMakeFiles/install-DivZeroPass-stripped.dir
+/lab6/build/CMakeFiles/intrinsics_gen.dir
+/lab6/build/CMakeFiles/edit_cache.dir
+/lab6/build/CMakeFiles/install/local.dir
+/lab6/build/CMakeFiles/install-DivZeroPass.dir
+/lab6/build/CMakeFiles/rebuild_cache.dir

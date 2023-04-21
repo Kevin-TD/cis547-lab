@@ -31,6 +31,14 @@ bool DivZeroAnalysis::check(Instruction *Inst) {
    *
    * Hint: getOrExtract function may be useful to simplify your code.
    */
+  if (Inst->getOpcode() == Instruction::SDiv || Inst->getOpcode() == Instruction::UDiv) {
+    auto *divisor = Inst->getOperand(1);
+
+    auto divisorDomain = getOrExtract(InMap[Inst], divisor);
+    if (Domain::equal(*divisorDomain, Domain::Element::Zero)) {
+        return true; 
+    }
+  }
   return false;
 }
 

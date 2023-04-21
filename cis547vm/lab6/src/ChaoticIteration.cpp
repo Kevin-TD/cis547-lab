@@ -73,6 +73,16 @@ Memory *join(Memory *Mem1, Memory *Mem2) {
    *   domain D2, then Domain::join D1 and D2 to find the new domain D,
    *   and add instruction I with domain D to the Result.
    */
+  std::map<std::string, Domain *>::iterator it;
+  for (it = Mem1->begin(); it != Mem1->end(); it++) {
+      errs() << it->first    // string (key) 
+                << ':'
+                << it->second   // string's value 
+                << "\n";
+  }
+
+  
+
   return NULL;
 }
 
@@ -84,6 +94,11 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
    *   + Get the Out Memory of Pred using OutMap.
    *   + Join the Out Memory with InMem.
    */
+  std::vector<llvm::Instruction*> predsInst = getPredecessors(Inst);
+  for (auto pred : predsInst) {
+    Memory* outMem = OutMap[pred];
+    join(outMem, InMem);
+  }
 }
 
 /**
@@ -134,6 +149,19 @@ void DivZeroAnalysis::doAnalysis(Function &F) {
    *   memory, to check if there is a difference between the two to update the
    *   OutMap and add all successors to WorkSet.
    */
+  for(inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I) {
+    WorkSet.insert(&(*I));
+  }
+  while(!WorkSet.empty()) {
+    Instruction* top = WorkSet.front(); 
+    Memory* topMemory = InMap[top];
+    flowIn(top, topMemory);
+
+
+    WorkSet.remove(WorkSet.front());
+  }
+  
+
 }
 
 } // namespace dataflow

@@ -1,6 +1,12 @@
 #include "DivZeroAnalysis.h"
 #include "Utils.h"
 
+// (in build) step 4 
+// make clean ; cmake -DUSE_REFERENCE=ON .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test03.ll test03.c ; opt -mem2reg -S test03.ll -o test03.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll > test03.out 2> test03.err ; cd ../ ; cd build
+
+// (in build) step 5 
+// make clean ; cmake -DUSE_REFERENCE=ON .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test03.ll test03.c ; opt -mem2reg -S test03.ll -o test03.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll > test03.out 2> test03.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll ; cd ../ ; cd build
+
 namespace dataflow {
 
 /**
@@ -53,6 +59,27 @@ Domain *eval(BinaryOperator *BinOp, const Memory *InMem) {
    * TODO: Write your code here that evaluates +, -, * and /
    * based on the Domains of the operands.
    */
+  const char *OpName = BinOp->getOpcodeName(); 
+  Value *LHS = BinOp->getOperand(0); 
+  Value *RHS = BinOp->getOperand(1); 
+  auto val1 = getOrExtract(InMem, LHS); 
+  auto val2 = getOrExtract(InMem, RHS); 
+
+    
+  if (BinOp->getOpcode() == Instruction::Add) {
+    return Domain::add(val1, val2);
+  }
+  else if (BinOp->getOpcode() == Instruction::Sub) {
+    return Domain::sub(val1, val2);
+  }
+  else if (BinOp->getOpcode() == Instruction::Mul) {
+    return Domain::mul(val1, val2);
+  }
+  else if (BinOp->getOpcode() == Instruction::SDiv) {
+    return Domain::div(val1, val2);
+  }
+
+
 }
 
 /**
@@ -66,7 +93,15 @@ Domain *eval(CastInst *Cast, const Memory *InMem) {
   /**
    * TODO: Write your code here to evaluate Cast instruction.
    */
-  return NULL;
+  unsigned Opcode = Cast->getOpcode();
+
+  // Get the destination type of the cast
+  Type *DestType = Cast->getDestTy();
+
+  // Get the source value being cast
+  Value *SrcValue = Cast->getOperand(0);
+
+  return getOrExtract(InMem, SrcValue);
 }
 
 /**
@@ -85,7 +120,52 @@ Domain *eval(CmpInst *Cmp, const Memory *InMem) {
    * NOTE: There is a lot of scope for refining this, but you can just return
    * MaybeZero for comparisons other than equality.
    */
-   return NULL;
+  auto op = Cmp->getPredicate(); 
+
+  Value *LHS = Cmp->getOperand(0); 
+  Value *RHS = Cmp->getOperand(1); 
+  auto val1 = getOrExtract(InMem, LHS); 
+  auto val2 = getOrExtract(InMem, RHS); 
+  
+  if (op == CmpInst::ICMP_EQ) {
+    // 0 and 0 case (1)
+    if (Domain::equal(*val1, Domain::Element::Zero) && Domain::equal(*val2, Domain::Element::Zero)) {
+      auto* d = new Domain(Domain::Element::NonZero);
+      return d;
+    }
+    
+    // S n and S m case 
+    if (Domain::equal(*val1, Domain::Element::NonZero) && Domain::equal(*val2, Domain::Element::NonZero)) {
+       auto* d = new Domain(Domain::Element::MaybeZero);
+       return d;
+    }
+    
+    // 0 and S n case or S n and 0 case 
+    auto* d = new Domain(Domain::Element::Zero);
+    return d;
+  }
+  else if (op == CmpInst::ICMP_NE) {
+     // 0 and 0 case (1)
+    if (Domain::equal(*val1, Domain::Element::Zero) && Domain::equal(*val2, Domain::Element::Zero)) {
+      auto* d = new Domain(Domain::Element::Zero);
+      return d;
+    }
+    
+    // S n and S m case 
+    if (Domain::equal(*val1, Domain::Element::NonZero) && Domain::equal(*val2, Domain::Element::NonZero)) {
+       auto* d = new Domain(Domain::Element::MaybeZero);
+       return d;
+    }
+    
+    // 0 and S n case or S n and 0 case 
+    auto* d = new Domain(Domain::Element::NonZero);
+    return d;
+  }
+  
+  // IMCP_SLT (signed less than)
+  // SLE, SGT, SGE
+  auto* d = new Domain(Domain::Element::MaybeZero);
+  return d;
 }
 
 void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
