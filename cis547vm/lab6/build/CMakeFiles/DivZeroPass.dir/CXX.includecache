@@ -42,6 +42,12 @@ llvm/Support/raw_ostream.h
 DivZeroAnalysis.h
 ../include/DivZeroAnalysis.h
 
+/lab6/src/ChaoticIteration.cpp
+DivZeroAnalysis.h
+/lab6/src/DivZeroAnalysis.h
+Utils.h
+/lab6/src/Utils.h
+
 /lab6/src/DivZeroAnalysis.cpp
 DivZeroAnalysis.h
 /lab6/src/DivZeroAnalysis.h

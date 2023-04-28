@@ -66,7 +66,7 @@ CMAKE_BINARY_DIR = /lab6/build
 CMakeFiles/DivZeroPass.dir/all:
 	$(MAKE) -f CMakeFiles/DivZeroPass.dir/build.make CMakeFiles/DivZeroPass.dir/depend
 	$(MAKE) -f CMakeFiles/DivZeroPass.dir/build.make CMakeFiles/DivZeroPass.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/lab6/build/CMakeFiles --progress-num=1,2,3,4,5 "Built target DivZeroPass"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/lab6/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target DivZeroPass"
 .PHONY : CMakeFiles/DivZeroPass.dir/all
 
 # Include target in all.
@@ -76,7 +76,7 @@ all: CMakeFiles/DivZeroPass.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/DivZeroPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/DivZeroPass.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/build/CMakeFiles 0
 .PHONY : CMakeFiles/DivZeroPass.dir/rule
@@ -108,7 +108,7 @@ CMakeFiles/install-DivZeroPass-stripped.dir/all: CMakeFiles/DivZeroPass.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/install-DivZeroPass-stripped.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/install-DivZeroPass-stripped.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/build/CMakeFiles 0
 .PHONY : CMakeFiles/install-DivZeroPass-stripped.dir/rule
@@ -172,7 +172,7 @@ CMakeFiles/install-DivZeroPass.dir/all: CMakeFiles/DivZeroPass.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/install-DivZeroPass.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/build/CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/build/CMakeFiles 6
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/install-DivZeroPass.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/build/CMakeFiles 0
 .PHONY : CMakeFiles/install-DivZeroPass.dir/rule

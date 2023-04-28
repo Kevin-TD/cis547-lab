@@ -5,7 +5,19 @@
 // make clean ; cmake -DUSE_REFERENCE=ON .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test03.ll test03.c ; opt -mem2reg -S test03.ll -o test03.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll > test03.out 2> test03.err ; cd ../ ; cd build
 
 // (in build) step 5 
-// make clean ; cmake -DUSE_REFERENCE=ON .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test03.ll test03.c ; opt -mem2reg -S test03.ll -o test03.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll > test03.out 2> test03.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll ; cd ../ ; cd build
+//  make clean ; cmake -DUSE_REFERENCE=ON .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test03.ll test03.c ; opt -mem2reg -S test03.ll -o test03.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll > test03.out 2> test03.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll ; cd ../ ; cd build
+
+// rm CMakeCache.txt
+//  make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test03.ll test03.c ; opt -mem2reg -S test03.ll -o test03.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll > test03.out 2> test03.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll ; cd ../ ; cd build
+
+// test04 
+// make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test04.ll test04.c ; opt -mem2reg -S test04.ll -o test04.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test04.opt.ll > test04.out 2> test04.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test04.opt.ll ; cd ../ ; cd build
+
+// test06
+// make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test06.ll test06.c ; opt -mem2reg -S test06.ll -o test06.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test06.opt.ll > test06.out 2> test06.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test06.opt.ll ; cd ../ ; cd build
+
+// test01
+// make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test01.ll test01.c ; opt -mem2reg -S test01.ll -o test01.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll > test01.out 2> test01.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll ; cd ../ ; cd build
 
 namespace dataflow {
 
@@ -94,10 +106,7 @@ Domain *eval(CastInst *Cast, const Memory *InMem) {
    * TODO: Write your code here to evaluate Cast instruction.
    */
   unsigned Opcode = Cast->getOpcode();
-
-  // Get the destination type of the cast
-  Type *DestType = Cast->getDestTy();
-
+  
   // Get the source value being cast
   Value *SrcValue = Cast->getOperand(0);
 
@@ -178,13 +187,25 @@ void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
     NOut[variable(Phi)] = eval(Phi, In);
   } else if (auto BinOp = dyn_cast<BinaryOperator>(Inst)) {
     // Evaluate BinaryOperator
+    errs() << "var name = " << variable(BinOp) << " of size " << variable(BinOp).size() << "\n";
+    printMemory(In);
     NOut[variable(BinOp)] = eval(BinOp, In);
+    errs() << "eval = ";
+    eval(BinOp, In)->print(errs());
   } else if (auto Cast = dyn_cast<CastInst>(Inst)) {
     // Evaluate Cast instruction
     NOut[variable(Cast)] = eval(Cast, In);
+    printMemory(In);
+    errs() << "var name = " << variable(Cast) << " of size " << variable(Cast).size() << "\n";
+    errs() << "eval = ";
+    eval(Cast, In)->print(errs());
   } else if (auto Cmp = dyn_cast<CmpInst>(Inst)) {
     // Evaluate Comparision instruction
     NOut[variable(Cmp)] = eval(Cmp, In);
+    printMemory(In);
+    errs() << "var name = " << variable(Cmp) << "of size " << variable(Cmp).size() << "\n";
+    errs() << "eval = ";
+    eval(Cmp, In)->print(errs());
   } else if (auto Alloca = dyn_cast<AllocaInst>(Inst)) {
     // Used for the next lab, do nothing here.
   } else if (auto Store = dyn_cast<StoreInst>(Inst)) {

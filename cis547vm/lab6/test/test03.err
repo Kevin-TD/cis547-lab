@@ -1,3 +1,339 @@
+inst =   %cmp = icmp eq i32 0, 0
+inst name = cmp
+b4 flowin
+1-flowin
+preds size = 0
+2-flowin
+
+b5 flowin
+b4 transfer
+
+var name = %cmp    of size 8
+eval = NonZero  prev top out memory size = 1
+top mem size = 0
+b5 transfer
+same? 0 found = 0
+b4 flowout 
+1
+inst name = %cmp of size 4
+2
+3
+4 
+5 domains = 
+Uninit   NonZero  NonZero  6
+7
+8
+b5 flowout 
+inst =   %conv = zext i1 %cmp to i32
+inst name = conv
+b4 flowin
+1-flowin
+preds size = 1
+2-flowin
+3-flowin
+flow inst =   %cmp = icmp eq i32 0, 0
+4-flowin
+flowin predname = %cmp    
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+5-flowin
+    [ %cmp     |-> NonZero   ]
+b5 flowin
+b4 transfer
+    [ %cmp     |-> NonZero   ]
+var name = %conv    of size 8
+eval = NonZero  prev top out memory size = 1
+top mem size = 1
+b5 transfer
+same? 0 found = 1
+found:     [ %cmp     |-> NonZero   ]
+b4 flowout 
+1
+inst name = %conv of size 5
+2
+3
+4 
+5 domains = 
+Uninit   NonZero  NonZero  6
+7
+8
+theory: flow inst = cmp
+b5 flowout 
+inst =   %div = sdiv i32 0, %conv
+inst name = div
+b4 flowin
+1-flowin
+preds size = 1
+2-flowin
+3-flowin
+flow inst =   %conv = zext i1 %cmp to i32
+4-flowin
+flowin predname = %conv   
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+1-join
+2-join
+string = %conv   
+3-join
+4-join
+5-flowin
+3-flowin
+flow inst =   %cmp = icmp eq i32 0, 0
+4-flowin
+flowin predname = %cmp    
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+5-join
+6-join
+7-join
+8-join
+5-flowin
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+b5 flowin
+b4 transfer
+var name = %div     of size 8
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+eval = Zero     prev top out memory size = 1
+top mem size = 2
+b5 transfer
+same? 0 found = 1
+found:     [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+b4 flowout 
+1
+inst name = %div of size 4
+2
+3
+4 
+5 domains = 
+Uninit   Zero     Zero     6
+7
+8
+theory: flow inst = conv
+theory: flow inst = cmp
+b5 flowout 
+inst =   %div1 = sdiv i32 %div, %div
+inst name = div1
+b4 flowin
+1-flowin
+preds size = 1
+2-flowin
+3-flowin
+flow inst =   %div = sdiv i32 0, %conv
+4-flowin
+flowin predname = %div    
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+1-join
+2-join
+string = %conv   
+3-join
+4-join
+1-join
+2-join
+string = %div    
+3-join
+4-join
+5-flowin
+3-flowin
+flow inst =   %conv = zext i1 %cmp to i32
+4-flowin
+flowin predname = %conv   
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+1-join
+2-join
+string = %conv   
+3-join
+4-join
+5-join
+6-join
+7-join
+8-join
+5-flowin
+3-flowin
+flow inst =   %cmp = icmp eq i32 0, 0
+4-flowin
+flowin predname = %cmp    
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+5-join
+6-join
+7-join
+8-join
+5-join
+6-join
+7-join
+8-join
+5-flowin
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+b5 flowin
+b4 transfer
+var name = %div1    of size 8
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+eval = Uninit   prev top out memory size = 1
+top mem size = 3
+b5 transfer
+same? 0 found = 1
+found:     [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+b4 flowout 
+1
+inst name = %div1 of size 5
+2
+3
+4 
+5 domains = 
+Uninit   Uninit   Uninit   theory: flow inst = div
+theory: flow inst = conv
+theory: flow inst = cmp
+b5 flowout 
+inst =   ret i32 0
+inst name = 
+b4 flowin
+1-flowin
+preds size = 1
+2-flowin
+3-flowin
+flow inst =   %div1 = sdiv i32 %div, %div
+4-flowin
+flowin predname = %div1   
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+1-join
+2-join
+string = %conv   
+3-join
+4-join
+1-join
+2-join
+string = %div    
+3-join
+4-join
+1-join
+2-join
+string = %div1   
+3-join
+4-join
+5-flowin
+3-flowin
+flow inst =   %div = sdiv i32 0, %conv
+4-flowin
+flowin predname = %div    
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+1-join
+2-join
+string = %conv   
+3-join
+4-join
+1-join
+2-join
+string = %div    
+3-join
+4-join
+5-join
+6-join
+7-join
+8-join
+5-flowin
+3-flowin
+flow inst =   %conv = zext i1 %cmp to i32
+4-flowin
+flowin predname = %conv   
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+1-join
+2-join
+string = %conv   
+3-join
+4-join
+5-join
+6-join
+7-join
+8-join
+5-join
+6-join
+7-join
+8-join
+5-flowin
+3-flowin
+flow inst =   %cmp = icmp eq i32 0, 0
+4-flowin
+flowin predname = %cmp    
+1-join
+2-join
+string = %cmp    
+3-join
+4-join
+5-join
+6-join
+7-join
+8-join
+5-join
+6-join
+7-join
+8-join
+5-join
+6-join
+7-join
+8-join
+5-flowin
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+b5 flowin
+b4 transfer
+prev top out memory size = 0
+top mem size = 4
+b5 transfer
+same? 0 found = 1
+found:     [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+b4 flowout 
+empty string!
+theory: flow inst = div1
+theory: flow inst = div
+theory: flow inst = conv
+theory: flow inst = cmp
+b5 flowout 
 Dataflow Analysis Results:
 Instruction:   %cmp = icmp eq i32 0, 0
 In set: 

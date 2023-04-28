@@ -24,6 +24,7 @@ entry:
   %3 = load i32, i32* %c, align 4
   %div = sdiv i32 %2, %3
   store i32 %div, i32* %d, align 4
+  store i32 1, i32* %e, align 4
   %4 = load i32, i32* %d, align 4
   %5 = load i32, i32* %d, align 4
   %div1 = sdiv i32 %4, %5
