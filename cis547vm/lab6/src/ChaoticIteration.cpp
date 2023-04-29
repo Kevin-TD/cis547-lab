@@ -3,6 +3,15 @@
 
 namespace dataflow {
 
+std::string getInstName(Instruction* I) {
+  if (I->getName().size() == 0) return "";
+  std::string instName = "%" + I->getName().str();
+  while (instName.size() != 8) {
+    instName += " ";
+  }
+  return instName; 
+}
+
 /**
  * @brief Get the Predecessors of a given instruction in the control-flow graph.
  *
@@ -126,21 +135,20 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
   while(predsInst.size() != 0) {
     for (auto pred : predsInst) {
 
-      if (pred->getName().str().size() == 0) continue;  // ?
+      if (pred->getName().str().size() == 0) continue; 
 
       errs() << "3-flowin\n";
       errs() << "flow inst = " << *pred << "\n";
 
       Memory* outMem = OutMap[pred];
       errs() << "4-flowin\n";
-      std::string predName =  "%" + pred->getName().str(); 
-      while (predName.size() != 8) {
-        predName += " ";
-      }
+      std::string predName = getInstName(pred);
 
       errs() << "flowin predname = " << predName << "\n";
 
-      InMem->emplace(std::make_pair(predName, join(outMem, InMem)->at(predName))); // ⭐️
+      Memory* joinedMemory = join(outMem, InMem); 
+      printMemory(joinedMemory);
+      InMem->emplace(std::make_pair(predName, joinedMemory->at(predName))); // ⭐️
 
       errs() << "5-flowin\n";
     }
@@ -181,19 +189,14 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
    * and post-transfer memory, and update the OutMap.
    * If the OutMap changed then also update the WorkSet.
    */
-  if (!Inst->getName().str().size()) {
+  if (getInstName(Inst).size() == 0) {
     errs() << "empty string!\n";
-
-    //* makes sense to check pre if instruction is entered twice. make sure that is a plasuible case to handle 
 
     auto predsInst = getPredecessors(Inst);
     while (predsInst.size() != 0) {
       for (auto pred : predsInst) {
         if (pred->getName().str().size() == 0) continue; 
-        std::string predName =  "%" + pred->getName().str(); 
-        while (predName.size() != 8) {
-          predName += " ";
-        }
+        std::string predName = getInstName(pred);
         Domain* D;
         if (!OutMap[pred]->count(predName)) {
           D = new Domain(Domain::Uninit);
@@ -213,11 +216,7 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
 
 
   errs() << "1\n";
-  std::string InstName = "%" + Inst->getName().str(); 
-  errs() << "inst name = " << InstName << " of size " << InstName.size() << "\n";
-  while (InstName.size() != 8) {
-    InstName += " ";
-  }
+  std::string InstName = getInstName(Inst);
 
   errs() << "2\n";
 
@@ -261,10 +260,7 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
     for (auto pred : predsInst) {
       if (pred->getName().str().size() == 0) continue; 
 
-      std::string predName =  "%" + pred->getName().str(); 
-      while (predName.size() != 8) {
-        predName += " ";
-      }
+      std::string predName = getInstName(pred);
       Domain* D;
       if (!OutMap[pred]->count(predName)) {
         D = new Domain(Domain::Uninit);
@@ -310,7 +306,6 @@ void DivZeroAnalysis::doAnalysis(Function &F) {
         
     errs() << "b4 flowin\n";
     flowIn(top, topMemory);
-    Memory* prevTopOutMemory = OutMap[top]; 
 
     errs() << "b5 flowin\n";
 
@@ -321,21 +316,21 @@ void DivZeroAnalysis::doAnalysis(Function &F) {
    
    transfer(top, topMemory, *OutMap[top]);
    
-   errs() << "prev top out memory size = " << prevTopOutMemory->size() << "\n";
    errs() << "top mem size = " << topMemory->size() << "\n";
     
     errs() << "b5 transfer\n";
 
-    // prevtop and out are aliased; need to get copy 
 
     Memory* outMemory = OutMap[top];
-
+    
+    // prev out memory should be same instruction name as current instruction. if there is no match, then prev out memory is simply domain Uninit 
     Memory* prevOutMemory; 
+    std::string instName = getInstName(top);
     std::vector<llvm::Instruction*> predsInst = getPredecessors(top);
     bool stop = false; 
     while (predsInst.size() != 0 && !stop) {
       for (auto pred : predsInst) {
-        if (pred->getName().str().size() == 0) continue;
+        if (getInstName(pred) != instName) continue;
         prevOutMemory = OutMap[pred];
         stop = true; 
         break; 
@@ -344,9 +339,7 @@ void DivZeroAnalysis::doAnalysis(Function &F) {
     }
 
 
-    errs() << "same? " << (prevOutMemory == outMemory) << " found = " << stop << "\n"; 
-    if (stop) {
-      
+    if (stop) {      
       errs() << "found: ";
       printMemory(prevOutMemory);
     }

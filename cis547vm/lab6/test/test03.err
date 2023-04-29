@@ -9,13 +9,10 @@ b5 flowin
 b4 transfer
 
 var name = %cmp    of size 8
-eval = NonZero  prev top out memory size = 1
-top mem size = 0
+eval = NonZero  top mem size = 0
 b5 transfer
-same? 0 found = 0
 b4 flowout 
 1
-inst name = %cmp of size 4
 2
 3
 4 
@@ -39,20 +36,17 @@ flowin predname = %cmp
 string = %cmp    
 3-join
 4-join
+    [ %cmp     |-> NonZero   ]
 5-flowin
     [ %cmp     |-> NonZero   ]
 b5 flowin
 b4 transfer
     [ %cmp     |-> NonZero   ]
 var name = %conv    of size 8
-eval = NonZero  prev top out memory size = 1
-top mem size = 1
+eval = NonZero  top mem size = 1
 b5 transfer
-same? 0 found = 1
-found:     [ %cmp     |-> NonZero   ]
 b4 flowout 
 1
-inst name = %conv of size 5
 2
 3
 4 
@@ -82,6 +76,8 @@ string = %cmp
 string = %conv   
 3-join
 4-join
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
 5-flowin
 3-flowin
 flow inst =   %cmp = icmp eq i32 0, 0
@@ -96,6 +92,8 @@ string = %cmp
 6-join
 7-join
 8-join
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
 5-flowin
     [ %cmp     |-> NonZero   ]
     [ %conv    |-> NonZero   ]
@@ -104,15 +102,10 @@ b4 transfer
 var name = %div     of size 8
     [ %cmp     |-> NonZero   ]
     [ %conv    |-> NonZero   ]
-eval = Zero     prev top out memory size = 1
-top mem size = 2
+eval = Zero     top mem size = 2
 b5 transfer
-same? 0 found = 1
-found:     [ %cmp     |-> NonZero   ]
-    [ %conv    |-> NonZero   ]
 b4 flowout 
 1
-inst name = %div of size 4
 2
 3
 4 
@@ -148,6 +141,9 @@ string = %conv
 string = %div    
 3-join
 4-join
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
 5-flowin
 3-flowin
 flow inst =   %conv = zext i1 %cmp to i32
@@ -167,6 +163,9 @@ string = %conv
 6-join
 7-join
 8-join
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
 5-flowin
 3-flowin
 flow inst =   %cmp = icmp eq i32 0, 0
@@ -185,6 +184,9 @@ string = %cmp
 6-join
 7-join
 8-join
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
 5-flowin
     [ %cmp     |-> NonZero   ]
     [ %conv    |-> NonZero   ]
@@ -195,16 +197,10 @@ var name = %div1    of size 8
     [ %cmp     |-> NonZero   ]
     [ %conv    |-> NonZero   ]
     [ %div     |-> Zero      ]
-eval = Uninit   prev top out memory size = 1
-top mem size = 3
+eval = Uninit   top mem size = 3
 b5 transfer
-same? 0 found = 1
-found:     [ %cmp     |-> NonZero   ]
-    [ %conv    |-> NonZero   ]
-    [ %div     |-> Zero      ]
 b4 flowout 
 1
-inst name = %div1 of size 5
 2
 3
 4 
@@ -243,6 +239,10 @@ string = %div
 string = %div1   
 3-join
 4-join
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
 5-flowin
 3-flowin
 flow inst =   %div = sdiv i32 0, %conv
@@ -267,6 +267,10 @@ string = %div
 6-join
 7-join
 8-join
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
 5-flowin
 3-flowin
 flow inst =   %conv = zext i1 %cmp to i32
@@ -290,6 +294,10 @@ string = %conv
 6-join
 7-join
 8-join
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
 5-flowin
 3-flowin
 flow inst =   %cmp = icmp eq i32 0, 0
@@ -312,6 +320,10 @@ string = %cmp
 6-join
 7-join
 8-join
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
 5-flowin
     [ %cmp     |-> NonZero   ]
     [ %conv    |-> NonZero   ]
@@ -319,14 +331,8 @@ string = %cmp
     [ %div1    |-> Uninit    ]
 b5 flowin
 b4 transfer
-prev top out memory size = 0
 top mem size = 4
 b5 transfer
-same? 0 found = 1
-found:     [ %cmp     |-> NonZero   ]
-    [ %conv    |-> NonZero   ]
-    [ %div     |-> Zero      ]
-    [ %div1    |-> Uninit    ]
 b4 flowout 
 empty string!
 theory: flow inst = div1

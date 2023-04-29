@@ -35,7 +35,10 @@ bool DivZeroAnalysis::check(Instruction *Inst) {
     auto *divisor = Inst->getOperand(1);
 
     auto divisorDomain = getOrExtract(InMap[Inst], divisor);
-    if (Domain::equal(*divisorDomain, Domain::Element::Zero)) {
+    if (
+        Domain::equal(*divisorDomain, Domain::Element::Zero) || 
+        Domain::equal(*divisorDomain, Domain::Element::MaybeZero)
+    ) {
         return true; 
     }
   }
