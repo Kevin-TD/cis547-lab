@@ -1,6 +1,8 @@
 #include "DivZeroAnalysis.h"
 #include "Utils.h"
 
+typedef llvm::ValueMap<llvm::Instruction *, dataflow::Memory *> MapType;
+
 namespace dataflow {
 
 std::string getInstName(Instruction* I) {
@@ -12,8 +14,10 @@ std::string getInstName(Instruction* I) {
   return instName; 
 }
 
+
 /**
  * @brief Get the Predecessors of a given instruction in the control-flow graph.
+ * NOTE: after code testing, this only gives one predecessor. I find it kinda weird that it's name "getPredecessors", implying that you will get **several** preds. But as soon as the code finds a single one, it returns a vector of size 1. Strange! 
  *
  * @param Inst The instruction to get the predecessors of.
  * @return Vector of all predecessors of Inst.
@@ -40,6 +44,7 @@ std::vector<Instruction *> getPredecessors(Instruction *Inst) {
 
 /**
  * @brief Get the successors of a given instruction in the control-flow graph.
+ * NOTE: after code testing, this only gives one successor. 
  *
  * @param Inst The instruction to get the successors of.
  * @return Vector of all successors of Inst.
@@ -64,6 +69,37 @@ std::vector<Instruction *> getSuccessors(Instruction *Inst) {
   return Ret;
 }
 
+Memory* getPrevMemOfInst(Instruction* I, MapType& Map) {
+  std::string instName = getInstName(I);
+  std::vector<llvm::Instruction*> predsInst = getPredecessors(I);
+  while (predsInst.size() != 0) {
+    for (auto pred : predsInst) {
+      if (getInstName(pred) != instName) continue;
+      return Map[pred];
+    }
+    predsInst = getPredecessors(predsInst[0]);
+  }
+  return new Memory(); 
+}
+
+void constructMap(Instruction* I, MapType& Map) {
+  auto predsInst = getPredecessors(I);
+  while (predsInst.size() != 0) {
+    for (auto pred : predsInst) {
+      if (pred->getName().str().size() == 0) continue; 
+      std::string predName = getInstName(pred);
+      Domain* D;
+      if (!Map[pred]->count(predName)) {
+        D = new Domain(Domain::Uninit);
+      } else {
+        D = Map[pred]->at(predName);
+      }
+      Map[I]->emplace(std::make_pair(predName, D));
+    }
+    predsInst = getPredecessors(predsInst[0]);
+  }
+}
+
 /**
  * @brief Joins two Memory objects (Mem1 and Mem2), accounting for Domain
  * values.
@@ -84,14 +120,10 @@ Memory *join(Memory *Mem1, Memory *Mem2) {
    */
   Memory* Result = new Memory();
 
-  // Iterate over all instructions in Mem1 and add them to the result.
+  // iterates over all instructions in Mem1 and add them to the result
   for (auto Pair : *Mem1) {
-    errs() << "1-join\n";
     std::string I = Pair.first;
-    errs() << "2-join\n";
-    errs() << "string = " << I << "\n";
     Domain* D1 = Pair.second;
-    errs() << "3-join\n";
 
     if (!Mem2->count(I)) {
       Result->emplace(std::make_pair(I, D1));
@@ -99,20 +131,15 @@ Memory *join(Memory *Mem1, Memory *Mem2) {
       Domain *D2 = Mem2->at(I);
       Result->at(I) = Domain::join(D1, D2);
     }
-    errs() << "4-join\n";
   }
 
-  // Iterate over all instructions in Mem2 that are not already in the result and add them to the result.
+  // Iterate over all instructions in Mem2 that are not already in the result and add them to the result
   for (auto Pair : *Mem2) {
-    errs() << "5-join\n";
     std::string I = Pair.first;
     Domain *D2 = Pair.second;
-    errs() << "6-join\n";
     if (!Result->count(I)) {
-      errs() << "7-join\n";
       Result->emplace(std::make_pair(I, D2));
     }
-    errs() << "8-join\n";
   }
 
   
@@ -127,57 +154,24 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
    *   + Get the Out Memory of Pred using OutMap.
    *   + Join the Out Memory with InMem.
    */
-  errs() << "1-flowin\n";
-  std::vector<llvm::Instruction*> predsInst = getPredecessors(Inst); // this acutally only gives one successor before 
-  errs() << "preds size = " << predsInst.size() << "\n";
 
-  errs() << "2-flowin\n";
+  // builds InMem (crucial in making the analysis work, specifically with the transfer function analysis)
+  std::vector<llvm::Instruction*> predsInst = getPredecessors(Inst);
   while(predsInst.size() != 0) {
     for (auto pred : predsInst) {
 
-      if (pred->getName().str().size() == 0) continue; 
-
-      errs() << "3-flowin\n";
-      errs() << "flow inst = " << *pred << "\n";
-
+      if (getInstName(pred).size() == 0) continue; 
       Memory* outMem = OutMap[pred];
-      errs() << "4-flowin\n";
       std::string predName = getInstName(pred);
 
-      errs() << "flowin predname = " << predName << "\n";
-
       Memory* joinedMemory = join(outMem, InMem); 
-      printMemory(joinedMemory);
       InMem->emplace(std::make_pair(predName, joinedMemory->at(predName))); // ⭐️
 
-      errs() << "5-flowin\n";
     }
     predsInst = getPredecessors(predsInst[0]);
   }
-  printMemory(InMem);
 
 
-}
-
-/**
- * @brief This function returns true if the two memories Mem1 and Mem2 are
- * equal.
- *
- * @param Mem1 First memory
- * @param Mem2 Second memory
- * @return true if the two memories are equal, false otherwise.
- */
-bool equal(Memory *Mem1, Memory *Mem2) {
-  /**
-   * TODO: Write your code to implement check for equality of two memories.
-   *
-   * If any instruction I is present in one of Mem1 or Mem2,
-   *   but not in both and the Domain of I is not UnInit, the memories are
-   *   unequal.
-   * If any instruction I is present in Mem1 with domain D1 and in Mem2
-   *   with domain D2, if D1 and D2 are unequal, then the memories are unequal.
-   */
-  return false;
 }
 
 void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
@@ -189,37 +183,14 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
    * and post-transfer memory, and update the OutMap.
    * If the OutMap changed then also update the WorkSet.
    */
+
   if (getInstName(Inst).size() == 0) {
-    errs() << "empty string!\n";
-
-    auto predsInst = getPredecessors(Inst);
-    while (predsInst.size() != 0) {
-      for (auto pred : predsInst) {
-        if (pred->getName().str().size() == 0) continue; 
-        std::string predName = getInstName(pred);
-        Domain* D;
-        if (!OutMap[pred]->count(predName)) {
-          D = new Domain(Domain::Uninit);
-        } else {
-          D = OutMap[pred]->at(predName);
-        }
-
-        OutMap[Inst]->emplace(std::make_pair(predName, D));
-
-        errs() << "theory: flow inst = " << pred->getName().str() << "\n";
-      }
-      predsInst = getPredecessors(predsInst[0]);
-    }
-
+    constructMap(Inst, OutMap);
     return;
   }
 
 
-  errs() << "1\n";
   std::string InstName = getInstName(Inst);
-
-  errs() << "2\n";
-
   Domain *PreDomain; 
   if (!Pre->count(InstName)) {
     PreDomain = new Domain(Domain::Uninit);
@@ -228,54 +199,18 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
     PreDomain = Pre->at(InstName);
   }
 
-   errs() << "3\n";
-
   Domain *PostDomain = Post->at(InstName);
-   errs() << "4 \n";
-
   Domain *MergedDomain = Domain::join(PreDomain, PostDomain);
-   errs() << "5 domains = \n";
   
-  PreDomain->print(errs());
-  PostDomain->print(errs());
-  MergedDomain->print(errs());
-
-
-  // Merge the previous Out Memory of Inst with the current Out Memory for each instruction to update the OutMap and WorkSet as needed.
   
   if (!Domain::equal(*PreDomain, *MergedDomain)) {
-     errs() << "6\n";
     OutMap[Inst]->at(InstName) = MergedDomain;
-     errs() << "7\n";
-    auto successors = getSuccessors(Inst);
-
-    for (auto succ : successors) {
-      WorkSet.insert(succ);
-    }
-     errs() << "8\n";
   }
 
-  auto predsInst = getPredecessors(Inst);
-  while (predsInst.size() != 0) {
-    for (auto pred : predsInst) {
-      if (pred->getName().str().size() == 0) continue; 
-
-      std::string predName = getInstName(pred);
-      Domain* D;
-      if (!OutMap[pred]->count(predName)) {
-        D = new Domain(Domain::Uninit);
-      } else {
-        D = OutMap[pred]->at(predName);
-      }
-
-      OutMap[Inst]->emplace(std::make_pair(predName, D));
-
-      errs() << "theory: flow inst = " << pred->getName().str() << "\n";
-    }
-    predsInst = getPredecessors(predsInst[0]);
-  }
+  constructMap(Inst, OutMap);
 
 }
+
 
 void DivZeroAnalysis::doAnalysis(Function &F) {
   SetVector<Instruction *> WorkSet;
@@ -299,59 +234,21 @@ void DivZeroAnalysis::doAnalysis(Function &F) {
   }
   while(!WorkSet.empty()) {
     Instruction* top = WorkSet.front(); 
-    errs() << "inst = " << *top << "\n";
-    errs() << "inst name = " << top->getName() << "\n";
-    
     Memory* topMemory = InMap[top];
-        
-    errs() << "b4 flowin\n";
-    flowIn(top, topMemory);
 
-    errs() << "b5 flowin\n";
+    flowIn(top, topMemory); // construct top memory 
 
-    errs() << "b4 transfer\n";
-
-    // really unsure about the params of transfer
-    // prev attempts have just made it so in/out maps are not populated with anything, just like one instruction 
-   
-   transfer(top, topMemory, *OutMap[top]);
-   
-   errs() << "top mem size = " << topMemory->size() << "\n";
-    
-    errs() << "b5 transfer\n";
-
+    transfer(top, topMemory, *OutMap[top]); // use top memory to evaluate instruction's domain. put result into outmap 
 
     Memory* outMemory = OutMap[top];
-    
-    // prev out memory should be same instruction name as current instruction. if there is no match, then prev out memory is simply domain Uninit 
-    Memory* prevOutMemory; 
-    std::string instName = getInstName(top);
-    std::vector<llvm::Instruction*> predsInst = getPredecessors(top);
-    bool stop = false; 
-    while (predsInst.size() != 0 && !stop) {
-      for (auto pred : predsInst) {
-        if (getInstName(pred) != instName) continue;
-        prevOutMemory = OutMap[pred];
-        stop = true; 
-        break; 
-      }
-      predsInst = getPredecessors(predsInst[0]);
-    }
+    Memory* prevOutMemory = getPrevMemOfInst(top, OutMap); 
 
-
-    if (stop) {      
-      errs() << "found: ";
-      printMemory(prevOutMemory);
-    }
-    
-    errs() << "b4 flowout \n";
-
-    // Merge the previous Out Memory of Inst with the current Out Memory for each instruction to update the OutMap and WorkSet as needed.
+    // compare pre and post out memory for differences. if there are differneces, adjust outmap's result
     flowOut(top, prevOutMemory, outMemory, WorkSet);
-    errs() << "b5 flowout \n";
+
+    // doesnt seem like i need to add successor as code still works without a call to getSuccessors
 
     WorkSet.remove(WorkSet.front());
-
   }
   
 

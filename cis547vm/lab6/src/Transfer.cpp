@@ -187,25 +187,13 @@ void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
     NOut[variable(Phi)] = eval(Phi, In);
   } else if (auto BinOp = dyn_cast<BinaryOperator>(Inst)) {
     // Evaluate BinaryOperator
-    errs() << "var name = " << variable(BinOp) << " of size " << variable(BinOp).size() << "\n";
-    printMemory(In);
     NOut[variable(BinOp)] = eval(BinOp, In);
-    errs() << "eval = ";
-    eval(BinOp, In)->print(errs());
   } else if (auto Cast = dyn_cast<CastInst>(Inst)) {
     // Evaluate Cast instruction
     NOut[variable(Cast)] = eval(Cast, In);
-    printMemory(In);
-    errs() << "var name = " << variable(Cast) << " of size " << variable(Cast).size() << "\n";
-    errs() << "eval = ";
-    eval(Cast, In)->print(errs());
   } else if (auto Cmp = dyn_cast<CmpInst>(Inst)) {
     // Evaluate Comparision instruction
     NOut[variable(Cmp)] = eval(Cmp, In);
-    printMemory(In);
-    errs() << "var name = " << variable(Cmp) << "of size " << variable(Cmp).size() << "\n";
-    errs() << "eval = ";
-    eval(Cmp, In)->print(errs());
   } else if (auto Alloca = dyn_cast<AllocaInst>(Inst)) {
     // Used for the next lab, do nothing here.
   } else if (auto Store = dyn_cast<StoreInst>(Inst)) {
