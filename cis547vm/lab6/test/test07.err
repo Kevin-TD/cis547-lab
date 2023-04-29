@@ -1,0 +1,70 @@
+Dataflow Analysis Results:
+Instruction:   %call = call i32 @getchar()
+In set: 
+
+Out set: 
+    [ %call    |-> MaybeZero ]
+
+Instruction:   %cmp = icmp sgt i32 %call, 10
+In set: 
+    [ %call    |-> MaybeZero ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+
+Instruction:   br i1 %cmp, label %if.then, label %if.else
+In set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+
+Instruction:   br label %if.end
+In set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+
+Instruction:   br label %if.end
+In set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+
+Instruction:   %y.0 = phi i32 [ 1, %if.then ], [ 2, %if.else ]
+In set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %y.0     |-> NonZero   ]
+
+Instruction:   %div = sdiv i32 %call, %y.0
+In set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %y.0     |-> NonZero   ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %y.0     |-> NonZero   ]
+
+Instruction:   ret void
+In set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %y.0     |-> NonZero   ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %y.0     |-> NonZero   ]
+

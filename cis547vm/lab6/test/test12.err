@@ -1,0 +1,679 @@
+inst =   %call = call i32 @getchar() name = %call   
+b4 flow in
+b5 flow in
+b4 transfer
+reached transfer
+b5 transfer
+b4 flowout
+inst name = %call    for inst   %call = call i32 @getchar()
+domains = 
+Uninit   MaybeZeroMaybeZerob4 construct map
+b5 construct map
+b5 flowout
+inst =   br label %while.cond name = 
+b4 flow in
+path len = 0
+code goes here
+pred name = %call    and   %call = call i32 @getchar()
+join i = %call   
+pre count
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+b5 flow in
+b4 transfer
+reached transfer
+b5 transfer
+pred = %call   
+b4 flowout
+b5 flowout
+inst =   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] name = %sum.0  
+b4 flow in
+path len = 0
+code goes here
+pred name =  and   br label %while.cond
+code goes here
+pred name =  and   br label %while.cond
+path len = 2
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call
+flowin-b4 make pair
+path len = 3
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end
+path len = 4
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+flowin-b4 make pair
+path len = 5
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+flowin-b4 make pair
+path len = 6
+code goes here
+(flowin) we just may be loopin. found   br label %while.cond and 1
+b5 flow in
+b4 transfer
+reached transfer
+b5 transfer
+pred = 
+pred = 
+pred = %add    
+pred = 
+pred = %cmp    
+pred = %sum.0  
+b4 flowout
+inst name = %sum.0   for inst   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+domains = 
+Zero     Zero     Zero     b4 construct map
+(cmap) we just may be loopin. found   br label %while.cond and 1
+b5 construct map
+b5 flowout
+inst =   %cmp = icmp slt i32 %sum.0, 50 name = %cmp    
+b4 flow in
+path len = 0
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 1
+code goes here
+pred name =  and   br label %while.cond
+code goes here
+pred name =  and   br label %while.cond
+path len = 3
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call
+join i (d2) = %sum.0  
+flowin-b4 make pair
+done size check
+path len = 4
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end
+path len = 5
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+join i (d2) = %sum.0  
+flowin-b4 make pair
+done size check
+path len = 6
+code goes here
+(flowin) we just may be loopin. found   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] and 1
+b5 flow in
+b4 transfer
+reached transfer
+b5 transfer
+pred = %sum.0  
+pred = 
+pred = 
+pred = %add    
+pred = 
+pred = %cmp    
+b4 flowout
+inst name = %cmp     for inst   %cmp = icmp slt i32 %sum.0, 50
+domains = 
+MaybeZeroMaybeZeroMaybeZerob4 construct map
+(cmap) we just may be loopin. found   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] and 1
+b5 construct map
+b5 flowout
+inst =   br i1 %cmp, label %while.body, label %while.end name = 
+b4 flow in
+path len = 0
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %cmp    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 2
+code goes here
+pred name =  and   br label %while.cond
+code goes here
+pred name =  and   br label %while.cond
+path len = 4
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+flowin-b4 make pair
+done size check
+path len = 5
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end
+path len = 6
+code goes here
+(flowin) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
+b5 flow in
+b4 transfer
+reached transfer
+b5 transfer
+pred = %cmp    
+pred = %sum.0  
+pred = 
+b4 flowout
+(cmap) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
+b5 flowout
+inst =   %add = add nsw i32 %sum.0, %call name = %add    
+b4 flow in
+path len = 0
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end
+path len = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 2
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %cmp    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 3
+code goes here
+pred name =  and   br label %while.cond
+code goes here
+pred name =  and   br label %while.cond
+path len = 5
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+flowin-b4 make pair
+done size check
+path len = 6
+code goes here
+(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flow in
+b4 transfer
+reached transfer
+opname = add opcode = 12
+b5 transfer
+pred = 
+pred = %cmp    
+pred = %sum.0  
+pred = 
+pred = 
+pred = %add    
+b4 flowout
+inst name = %add     for inst   %add = add nsw i32 %sum.0, %call
+domains = 
+Uninit   Uninit   Uninit   b4 construct map
+(cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 construct map
+b5 flowout
+inst =   br label %while.cond name = 
+b4 flow in
+path len = 0
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end
+path len = 2
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 3
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %cmp    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 4
+code goes here
+pred name =  and   br label %while.cond
+code goes here
+pred name =  and   br label %while.cond
+path len = 6
+code goes here
+(flowin) we just may be loopin. found   %add = add nsw i32 %sum.0, %call and 1
+b5 flow in
+b4 transfer
+reached transfer
+b5 transfer
+pred = %add    
+pred = 
+b4 flowout
+(cmap) we just may be loopin. found   %add = add nsw i32 %sum.0, %call and 1
+b5 flowout
+inst =   %sub = sub nsw i32 %sum.0, 55 name = %sub    
+b4 flow in
+path len = 0
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end
+path len = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 2
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %cmp    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 3
+code goes here
+pred name =  and   br label %while.cond
+code goes here
+pred name =  and   br label %while.cond
+path len = 5
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 6
+code goes here
+(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flow in
+b4 transfer
+reached transfer
+opname = sub opcode = 14
+b5 transfer
+pred = 
+pred = %cmp    
+pred = %sum.0  
+pred = 
+pred = 
+pred = %add    
+(prevmem) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b4 flowout
+inst name = %sub     for inst   %sub = sub nsw i32 %sum.0, 55
+domains = 
+Uninit   NonZero  NonZero  b4 construct map
+(cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 construct map
+b5 flowout
+inst =   %div = sdiv i32 %call, %sub name = %div    
+b4 flow in
+path len = 0
+code goes here
+pred name = %sub     and   %sub = sub nsw i32 %sum.0, 55
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end
+path len = 2
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %sub    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 3
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %cmp    
+join i (d2) = %sub    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 4
+code goes here
+pred name =  and   br label %while.cond
+code goes here
+pred name =  and   br label %while.cond
+path len = 6
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %cmp    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 7
+code goes here
+(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flow in
+b4 transfer
+reached transfer
+opname = sdiv opcode = 19
+b5 transfer
+pred = %sub    
+pred = 
+pred = %cmp    
+pred = %sum.0  
+pred = 
+pred = 
+pred = %add    
+(prevmem) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b4 flowout
+inst name = %div     for inst   %div = sdiv i32 %call, %sub
+domains = 
+Uninit   Uninit   Uninit   b4 construct map
+(cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 construct map
+b5 flowout
+inst =   ret void name = 
+b4 flow in
+path len = 0
+code goes here
+pred name = %div     and   %div = sdiv i32 %call, %sub
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 1
+code goes here
+pred name = %sub     and   %sub = sub nsw i32 %sum.0, 55
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %div    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 2
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end
+path len = 3
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %div    
+join i (d2) = %sub    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 4
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 5
+code goes here
+pred name =  and   br label %while.cond
+code goes here
+pred name =  and   br label %while.cond
+path len = 7
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call
+join i = %add    
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+path len = 8
+code goes here
+(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flow in
+b4 transfer
+reached transfer
+b5 transfer
+pred = %div    
+pred = %sub    
+pred = 
+b4 flowout
+(cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flowout
+Dataflow Analysis Results:
+Instruction:   %call = call i32 @getchar()
+In set: 
+
+Out set: 
+    [ %call    |-> MaybeZero ]
+
+Instruction:   br label %while.cond
+In set: 
+    [ %call    |-> MaybeZero ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+
+Instruction:   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+In set: 
+
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   %cmp = icmp slt i32 %sum.0, 50
+In set: 
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   br i1 %cmp, label %while.body, label %while.end
+In set: 
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   %add = add nsw i32 %sum.0, %call
+In set: 
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   br label %while.cond
+In set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   %sub = sub nsw i32 %sum.0, 55
+In set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   %div = sdiv i32 %call, %sub
+In set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   ret void
+In set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+

@@ -1,0 +1,133 @@
+Dataflow Analysis Results:
+Instruction:   br label %for.cond
+In set: 
+
+Out set: 
+
+
+Instruction:   %sum.0 = phi i32 [ 0, %entry ], [ %add, %for.inc ]
+In set: 
+
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> Uninit    ]
+    [ %i.0     |-> Uninit    ]
+    [ %inc     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   %i.0 = phi i32 [ 0, %entry ], [ %inc, %for.inc ]
+In set: 
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> Uninit    ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   %cmp = icmp slt i32 %i.0, 10
+In set: 
+    [ %i.0     |-> Zero      ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   br i1 %cmp, label %for.body, label %for.end
+In set: 
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> Uninit    ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   %add = add nsw i32 %sum.0, 1
+In set: 
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   br label %for.inc
+In set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   %inc = add nsw i32 %i.0, 1
+In set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   br label %for.cond
+In set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   %div = sdiv i32 %i.0, %sum.0
+In set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+
+Instruction:   ret void
+In set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+Out set: 
+    [ %add     |-> NonZero   ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+    [ %i.0     |-> Zero      ]
+    [ %inc     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+

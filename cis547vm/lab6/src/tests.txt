@@ -1,0 +1,46 @@
+must be in build dir 
+
+test01
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test01.ll test01.c ; opt -mem2reg -S test01.ll -o test01.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll > test01.out 2> test01.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll ; cd ../ ; cd build
+
+test02
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test02.ll test02.c ; opt -mem2reg -S test02.ll -o test02.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test02.opt.ll > test02.out 2> test02.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test02.opt.ll ; cd ../ ; cd build
+
+test03
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test03.ll test03.c ; opt -mem2reg -S test03.ll -o test03.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll > test03.out 2> test03.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll ; cd ../ ; cd build
+
+test04
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test04.ll test04.c ; opt -mem2reg -S test04.ll -o test04.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test04.opt.ll > test04.out 2> test04.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test04.opt.ll ; cd ../ ; cd build
+
+test05
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test05.ll test05.c ; opt -mem2reg -S test05.ll -o test05.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test05.opt.ll > test05.out 2> test05.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test05.opt.ll ; cd ../ ; cd build
+
+-- Unable to deduce that a div by zero actually does not happen. This is not suprising, as our code does not handle making logical deducements, such as "since x = 0,  the statement x!=0 is false, and "y/x" will not be called, so there will not be a div by zero error". It does say it is a potential div by zero. I think this is fine for now. 
+
+test06
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test06.ll test06.c ; opt -mem2reg -S test06.ll -o test06.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test06.opt.ll > test06.out 2> test06.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test06.opt.ll ; cd ../ ; cd build
+
+test07
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test07.ll test07.c ; opt -mem2reg -S test07.ll -o test07.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test07.opt.ll > test07.out 2> test07.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test07.opt.ll ; cd ../ ; cd build
+
+-- Correctly deduces that a div by zero does not happen
+
+test08
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test08.ll test08.c ; opt -mem2reg -S test08.ll -o test08.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test08.opt.ll > test08.out 2> test08.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test08.opt.ll ; cd ../ ; cd build
+
+test09
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test09.ll test09.c ; opt -mem2reg -S test09.ll -o test09.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test09.opt.ll > test09.out 2> test09.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test09.opt.ll ; cd ../ ; cd build
+
+test10
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test10.ll test10.c ; opt -mem2reg -S test10.ll -o test10.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test10.opt.ll > test10.out 2> test10.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test10.opt.ll ; cd ../ ; cd build
+
+test11
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test11.ll test11.c ; opt -mem2reg -S test11.ll -o test11.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test11.opt.ll > test11.out 2> test11.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test11.opt.ll ; cd ../ ; cd build
+
+-- Unable to deduce that a div zero does not happen
+-- It can properly deduce that the add instruction returns something that is non zero (%add is labeled nonzero) but it cannot connect that fact with the sum variable (which remains labeled zero after definition). The analysis (probably) also doesn't know how many times to run the for loop. A better output would be that it sees that sum is either 0 or nonzero, and lubs them to deduce that sum is MaybeZero. The best output would be that it sees that sum will definitely be nonzero as the loop def runs at least once and will make it pos, thus there is no div by zero error. 
+
+test12
+make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test12.ll test12.c ; opt -mem2reg -S test12.ll -o test12.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test12.opt.ll > test12.out 2> test12.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test12.opt.ll ; cd ../ ; cd build
+
+-- Should ideally say there could be div by zero. Picks up on none. i could be equal to 55 and the while condition runs for the first time, and those conditions could cause div by zero. But program ignores while loop facts, or is unable to connect that %cmp |-> MaybeZero should cause a change in sum's labelling 

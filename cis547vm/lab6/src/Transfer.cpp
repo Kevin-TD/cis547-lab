@@ -10,14 +10,16 @@
 // rm CMakeCache.txt
 //  make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test03.ll test03.c ; opt -mem2reg -S test03.ll -o test03.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll > test03.out 2> test03.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test03.opt.ll ; cd ../ ; cd build
 
-// test04 
-// make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test04.ll test04.c ; opt -mem2reg -S test04.ll -o test04.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test04.opt.ll > test04.out 2> test04.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test04.opt.ll ; cd ../ ; cd build
-
-// test06
-// make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test06.ll test06.c ; opt -mem2reg -S test06.ll -o test06.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test06.opt.ll > test06.out 2> test06.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test06.opt.ll ; cd ../ ; cd build
-
 // test01
 // make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test01.ll test01.c ; opt -mem2reg -S test01.ll -o test01.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll > test01.out 2> test01.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll ; cd ../ ; cd build
+
+
+#define DEBUG false
+#if DEBUG
+#define logout(x) errs() << x << "\n";
+#else
+#define logout(x) 
+#endif 
 
 namespace dataflow {
 
@@ -77,6 +79,8 @@ Domain *eval(BinaryOperator *BinOp, const Memory *InMem) {
   auto val1 = getOrExtract(InMem, LHS); 
   auto val2 = getOrExtract(InMem, RHS); 
 
+  logout("opname = " << OpName << " opcode = " << BinOp->getOpcode())
+
     
   if (BinOp->getOpcode() == Instruction::Add) {
     return Domain::add(val1, val2);
@@ -87,7 +91,7 @@ Domain *eval(BinaryOperator *BinOp, const Memory *InMem) {
   else if (BinOp->getOpcode() == Instruction::Mul) {
     return Domain::mul(val1, val2);
   }
-  else if (BinOp->getOpcode() == Instruction::SDiv) {
+  else if (BinOp->getOpcode() == Instruction::SDiv || BinOp->getOpcode() == Instruction::UDiv) {
     return Domain::div(val1, val2);
   }
 
@@ -179,6 +183,7 @@ Domain *eval(CmpInst *Cmp, const Memory *InMem) {
 
 void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
                                Memory &NOut) {
+  logout("reached transfer")
   if (isInput(Inst)) {
     // The instruction is a user controlled input, it can have any value.
     NOut[variable(Inst)] = new Domain(Domain::MaybeZero);
@@ -207,7 +212,15 @@ void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
   } else if (auto Return = dyn_cast<ReturnInst>(Inst)) {
     // Analysis is intra-procedural, so do nothing here.
   } else {
-    errs() << "Unhandled instruction: " << *Inst << "\n";
+    errs() << "Unhandled instruction (set to uninit): " << *Inst << "\n";
+
+    // code likely not necessary   but just in case 
+    std::string instName = "%" + Inst->getName().str();
+    while (instName.size() != 8) {
+      instName += " ";
+    }
+    NOut[instName] = new Domain(Domain::Uninit);
+    logout("successfully set to nothing")
   }
 }
 
