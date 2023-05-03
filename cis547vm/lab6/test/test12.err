@@ -1,396 +1,1001 @@
+init push = 0x823278   %call = call i32 @getchar()
+init push = 0x823438   br label %while.cond
+init push = 0x823bf8   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+init push = 0x823d10   %cmp = icmp slt i32 %sum.0, 50
+init push = 0x7c7be8   br i1 %cmp, label %while.body, label %while.end
+init push = 0x823e80   %add = add nsw i32 %sum.0, %call
+init push = 0x8233d8   br label %while.cond
+init push = 0x823ef0   %sub = sub nsw i32 %sum.0, 55
+init push = 0x823f80   %div = sdiv i32 %call, %sub
+init push = 0x823fe0   ret void
 inst =   %call = call i32 @getchar() name = %call   
 b4 flow in
 b5 flow in
+prev inst map = 
+
+prev inst map = %sum.0  
+
+prev inst map = 
+
+prev inst map = %call   
+
+prev inst map = %cmp    
+
+prev inst map = 
+
+prev inst map = 
+
+prev inst map = %div    
+
+prev inst map = %sub    
+
+prev inst map = %add    
+
+prev out memory = 
+
+size of it is 0
 b4 transfer
-reached transfer
+reached transfer where inst =   %call = call i32 @getchar() 0x823278
 b5 transfer
+prev out memory = 
+
+size of it is 0
 b4 flowout
+mems = 
+
+    [ %call    |-> MaybeZero ]
 inst name = %call    for inst   %call = call i32 @getchar()
 domains = 
-Uninit   MaybeZeroMaybeZerob4 construct map
+Uninit   MaybeZeroMaybeZerodomains differ, add successors? if they were they would be
+succ = 
+succ = %sum.0  
+succ = %cmp    
+succ = 
+succ = %add    
+succ = %sub    
+succ = 
+(prevmem) we just may be loopin. found   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] and 1
+b4 construct map
 b5 construct map
 b5 flowout
 inst =   br label %while.cond name = 
 b4 flow in
-path len = 0
+path len = 1
+sizeof predsinst = 1
 code goes here
-pred name = %call    and   %call = call i32 @getchar()
+pred name = %call    and   %call = call i32 @getchar() with size = 8
+outmem = 
+    [ %call    |-> MaybeZero ]
 join i = %call   
 pre count
+joined mem = 
+    [ %call    |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
 flowin-b5 make pair
-b5 flow in
+total mem map = 
+%call    
+MaybeZerob5 flow in
+prev inst map = 
+
+prev inst map = %sum.0  
+
+prev inst map = 
+
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+
+prev inst map = 
+
+prev inst map = 
+
+prev inst map = %div    
+
+prev inst map = %sub    
+
+prev inst map = %add    
+
+(prevmeminst) pred = %call   
+prev out memory = 
+
+size of it is 0
 b4 transfer
-reached transfer
+reached transfer where inst =   br label %while.cond 0x823438
 b5 transfer
-pred = %call   
+prev out memory = 
+
+size of it is 0
 b4 flowout
+mems = 
+
+
 b5 flowout
 inst =   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] name = %sum.0  
 b4 flow in
-path len = 0
+names = %call    %sum.0  
+path len = 1
+sizeof predsinst = 2
 code goes here
-pred name =  and   br label %while.cond
+pred name =  and   br label %while.cond with size = 0
 code goes here
-pred name =  and   br label %while.cond
-path len = 2
-code goes here
-pred name = %add     and   %add = add nsw i32 %sum.0, %call
-flowin-b4 make pair
+pred name =  and   br label %while.cond with size = 0
 path len = 3
+sizeof predsinst = 1
 code goes here
-pred name =  and   br i1 %cmp, label %while.body, label %while.end
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+
+join i (d2) = %call   
+joined mem = 
+    [ %call    |-> MaybeZero ]
+flowin-b4 make pair
+done size check
 path len = 4
+sizeof predsinst = 1
 code goes here
-pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
-flowin-b4 make pair
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
 path len = 5
+sizeof predsinst = 1
 code goes here
-pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+
+join i (d2) = %call   
+joined mem = 
+    [ %call    |-> MaybeZero ]
 flowin-b4 make pair
+done size check
 path len = 6
+sizeof predsinst = 1
 code goes here
-(flowin) we just may be loopin. found   br label %while.cond and 1
+(flowin) we just may be loopin. found   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] and 1
 b5 flow in
+prev inst map = 
+
+prev inst map = %sum.0  
+
+prev inst map = 
+
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+
+prev inst map = %sub    
+
+prev inst map = %add    
+
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+prev out memory = 
+
+size of it is 0
 b4 transfer
-reached transfer
+reached transfer where inst =   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] 0x823bf8
 b5 transfer
-pred = 
-pred = 
-pred = %add    
-pred = 
-pred = %cmp    
-pred = %sum.0  
+prev out memory = 
+
+size of it is 0
 b4 flowout
+mems = 
+
+    [ %sum.0   |-> Zero      ]
 inst name = %sum.0   for inst   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
 domains = 
-Zero     Zero     Zero     b4 construct map
+Uninit   Zero     Zero     domains differ, add successors? if they were they would be
+succ = %cmp    
+succ = 
+succ = %add    
+succ = %sub    
+succ = 
+succ = %sum.0  
+(prevmem) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
+b4 construct map
 (cmap) we just may be loopin. found   br label %while.cond and 1
 b5 construct map
 b5 flowout
 inst =   %cmp = icmp slt i32 %sum.0, 50 name = %cmp    
 b4 flow in
-path len = 0
+names = %call    %cmp    
+path len = 1
+sizeof predsinst = 1
 code goes here
-pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
+pre count
+join i = %call   
 pre count
 join i = %cmp    
 pre count
 join i = %sum.0  
 pre count
+join i (d2) = %call   
+joined mem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
 flowin-b5 make pair
-path len = 1
+total mem map = 
+%call    
+MaybeZero%sum.0   
+Zero     path len = 2
+sizeof predsinst = 2
 code goes here
-pred name =  and   br label %while.cond
+pred name =  and   br label %while.cond with size = 0
 code goes here
-pred name =  and   br label %while.cond
-path len = 3
-code goes here
-pred name = %add     and   %add = add nsw i32 %sum.0, %call
-join i (d2) = %sum.0  
-flowin-b4 make pair
-done size check
+pred name =  and   br label %while.cond with size = 0
 path len = 4
+sizeof predsinst = 1
 code goes here
-pred name =  and   br i1 %cmp, label %while.body, label %while.end
-path len = 5
-code goes here
-pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+
+join i (d2) = %call   
 join i (d2) = %sum.0  
+joined mem = 
+    [ %call    |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
-path len = 6
+path len = 5
+sizeof predsinst = 1
 code goes here
-(flowin) we just may be loopin. found   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] and 1
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 6
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
 b5 flow in
+prev inst map = 
+
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+
+prev inst map = %sub    
+
+prev inst map = %add    
+
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+prev out memory = 
+
+size of it is 0
 b4 transfer
-reached transfer
+reached transfer where inst =   %cmp = icmp slt i32 %sum.0, 50 0x823d10
 b5 transfer
-pred = %sum.0  
-pred = 
-pred = 
-pred = %add    
-pred = 
-pred = %cmp    
+prev out memory = 
+
+size of it is 0
 b4 flowout
+mems = 
+
+    [ %cmp     |-> MaybeZero ]
 inst name = %cmp     for inst   %cmp = icmp slt i32 %sum.0, 50
 domains = 
-MaybeZeroMaybeZeroMaybeZerob4 construct map
+Uninit   MaybeZeroMaybeZerodomains differ, add successors? if they were they would be
+succ = 
+succ = %add    
+succ = %sub    
+succ = 
+succ = %sum.0  
+succ = %cmp    
+(prevmem) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b4 construct map
 (cmap) we just may be loopin. found   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] and 1
 b5 construct map
 b5 flowout
 inst =   br i1 %cmp, label %while.body, label %while.end name = 
 b4 flow in
-path len = 0
-code goes here
-pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
+names = %call    
+names = %sum.0   
 path len = 1
+sizeof predsinst = 1
 code goes here
-pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
+pre count
+join i = %call   
 pre count
 join i = %cmp    
 pre count
 join i = %sum.0  
 pre count
-join i (d2) = %cmp    
+join i (d2) = %call   
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
 flowin-b5 make pair
-path len = 2
+total mem map = 
+%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 2
+sizeof predsinst = 1
 code goes here
-pred name =  and   br label %while.cond
-code goes here
-pred name =  and   br label %while.cond
-path len = 4
-code goes here
-pred name = %add     and   %add = add nsw i32 %sum.0, %call
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 3
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
 path len = 5
+sizeof predsinst = 1
 code goes here
-pred name =  and   br i1 %cmp, label %while.body, label %while.end
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
 path len = 6
+sizeof predsinst = 1
 code goes here
-(flowin) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
+(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 flow in
+prev inst map = 
+
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+
+prev inst map = %sub    
+
+prev inst map = %add    
+
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+prev out memory = 
+
+size of it is 0
 b4 transfer
-reached transfer
+reached transfer where inst =   br i1 %cmp, label %while.body, label %while.end 0x7c7be8
 b5 transfer
-pred = %cmp    
-pred = %sum.0  
-pred = 
+prev out memory = 
+
+size of it is 0
 b4 flowout
+mems = 
+
+
 (cmap) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
 b5 flowout
 inst =   %add = add nsw i32 %sum.0, %call name = %add    
 b4 flow in
-path len = 0
-code goes here
-pred name =  and   br i1 %cmp, label %while.body, label %while.end
+names = %call    %add    
+names = %cmp     %add    
+names = %sum.0   %add    
 path len = 1
+sizeof predsinst = 1
 code goes here
-pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
 path len = 2
+sizeof predsinst = 1
 code goes here
-pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
+pre count
+join i = %call   
 pre count
 join i = %cmp    
 pre count
 join i = %sum.0  
 pre count
-join i (d2) = %cmp    
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
-path len = 3
-code goes here
-pred name =  and   br label %while.cond
-code goes here
-pred name =  and   br label %while.cond
-path len = 5
-code goes here
-pred name = %add     and   %add = add nsw i32 %sum.0, %call
+join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
-path len = 6
+done count check
+flowin-b5 make pair
+total mem map = 
+%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 3
+sizeof predsinst = 1
 code goes here
-(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 4
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
+path len = 6
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   %add = add nsw i32 %sum.0, %call and 1
 b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+
+prev inst map = %sub    
+
+prev inst map = %add    
+
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+prev out memory = 
+
+size of it is 0
 b4 transfer
-reached transfer
+reached transfer where inst =   %add = add nsw i32 %sum.0, %call 0x823e80
 opname = add opcode = 12
 b5 transfer
-pred = 
-pred = %cmp    
-pred = %sum.0  
-pred = 
-pred = 
-pred = %add    
+prev out memory = 
+
+size of it is 0
 b4 flowout
+mems = 
+
+    [ %add     |-> MaybeZero ]
 inst name = %add     for inst   %add = add nsw i32 %sum.0, %call
 domains = 
-Uninit   Uninit   Uninit   b4 construct map
+Uninit   MaybeZeroMaybeZerodomains differ, add successors? if they were they would be
+succ = 
+succ = %sum.0  
+succ = %cmp    
+succ = 
+succ = %add    
+succ = %sub    
+(prevmem) we just may be loopin. found   br label %while.cond and 1
+b4 construct map
 (cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 construct map
 b5 flowout
 inst =   br label %while.cond name = 
 b4 flow in
-path len = 0
-code goes here
-pred name = %add     and   %add = add nsw i32 %sum.0, %call
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
+names = %call    
+names = %cmp     
+names = %sum.0   
 path len = 1
+sizeof predsinst = 1
 code goes here
-pred name =  and   br i1 %cmp, label %while.body, label %while.end
-path len = 2
-code goes here
-pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
+pre count
+join i = %call   
 pre count
 join i = %cmp    
 pre count
 join i = %sum.0  
 pre count
-join i (d2) = %add    
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
-path len = 3
-code goes here
-pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
-join i (d2) = %add    
+join i (d2) = %call   
 join i (d2) = %cmp    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
 flowin-b5 make pair
-path len = 4
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 2
+sizeof predsinst = 1
 code goes here
-pred name =  and   br label %while.cond
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 3
+sizeof predsinst = 1
 code goes here
-pred name =  and   br label %while.cond
-path len = 6
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 4
+sizeof predsinst = 1
 code goes here
-(flowin) we just may be loopin. found   %add = add nsw i32 %sum.0, %call and 1
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 5
+sizeof predsinst = 2
+code goes here
+(flowin) we just may be loopin. found   br label %while.cond and 1
 b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+
+prev inst map = %sub    
+
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = %add    
+(prevmeminst) pred = 
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
 b4 transfer
-reached transfer
+reached transfer where inst =   br label %while.cond 0x8233d8
 b5 transfer
-pred = %add    
-pred = 
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
 b4 flowout
+mems = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+
 (cmap) we just may be loopin. found   %add = add nsw i32 %sum.0, %call and 1
 b5 flowout
 inst =   %sub = sub nsw i32 %sum.0, 55 name = %sub    
 b4 flow in
-path len = 0
-code goes here
-pred name =  and   br i1 %cmp, label %while.body, label %while.end
+names = %add     %sub    
+names = %call    %sub    
+names = %cmp     %sub    
+names = %sum.0   %sub    
 path len = 1
+sizeof predsinst = 1
 code goes here
-pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
 path len = 2
+sizeof predsinst = 1
 code goes here
-pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
+pre count
+join i = %call   
 pre count
 join i = %cmp    
 pre count
 join i = %sum.0  
 pre count
-join i (d2) = %cmp    
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
-path len = 3
-code goes here
-pred name =  and   br label %while.cond
-code goes here
-pred name =  and   br label %while.cond
-path len = 5
-code goes here
-pred name = %add     and   %add = add nsw i32 %sum.0, %call
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
+join i (d2) = %add    
+join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
 flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 4
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
 path len = 6
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 7
+sizeof predsinst = 1
 code goes here
 (flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+
+prev inst map = %sub    
+
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+(prevmem) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+prev out memory = 
+
+size of it is 0
 b4 transfer
-reached transfer
+reached transfer where inst =   %sub = sub nsw i32 %sum.0, 55 0x823ef0
 opname = sub opcode = 14
 b5 transfer
-pred = 
-pred = %cmp    
-pred = %sum.0  
-pred = 
-pred = 
-pred = %add    
-(prevmem) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+prev out memory = 
+
+size of it is 0
 b4 flowout
+mems = 
+
+    [ %sub     |-> NonZero   ]
 inst name = %sub     for inst   %sub = sub nsw i32 %sum.0, 55
 domains = 
-Uninit   NonZero  NonZero  b4 construct map
+Uninit   NonZero  NonZero  domains differ, add successors? if they were they would be
+succ = %div    
+succ = 
+b4 construct map
 (cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 construct map
 b5 flowout
 inst =   %div = sdiv i32 %call, %sub name = %div    
 b4 flow in
-path len = 0
+names = %add     %div    
+names = %call    %div    
+names = %cmp     %div    
+names = %sum.0   %div    
+path len = 1
+sizeof predsinst = 1
 code goes here
-pred name = %sub     and   %sub = sub nsw i32 %sum.0, 55
+pred name = %sub     and   %sub = sub nsw i32 %sum.0, 55 with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
+pre count
+join i = %call   
 pre count
 join i = %cmp    
 pre count
@@ -398,92 +1003,245 @@ join i = %sub
 pre count
 join i = %sum.0  
 pre count
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
-path len = 1
-code goes here
-pred name =  and   br i1 %cmp, label %while.body, label %while.end
-path len = 2
-code goes here
-pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
-join i (d2) = %sub    
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
-path len = 3
-code goes here
-pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
+join i (d2) = %add    
+join i (d2) = %call   
 join i (d2) = %cmp    
-join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
 flowin-b5 make pair
-path len = 4
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 2
+sizeof predsinst = 1
 code goes here
-pred name =  and   br label %while.cond
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 3
+sizeof predsinst = 1
 code goes here
-pred name =  and   br label %while.cond
-path len = 6
-code goes here
-pred name = %add     and   %add = add nsw i32 %sum.0, %call
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
+pre count
+join i = %call   
 pre count
 join i = %cmp    
 pre count
 join i = %sum.0  
 pre count
+join i (d2) = %add    
+join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %sub    
 join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
 flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 4
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 5
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
 path len = 7
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 8
+sizeof predsinst = 1
 code goes here
 (flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = %sub    
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+(prevmem) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+prev out memory = 
+
+size of it is 0
 b4 transfer
-reached transfer
+reached transfer where inst =   %div = sdiv i32 %call, %sub 0x823f80
 opname = sdiv opcode = 19
 b5 transfer
-pred = %sub    
-pred = 
-pred = %cmp    
-pred = %sum.0  
-pred = 
-pred = 
-pred = %add    
-(prevmem) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+prev out memory = 
+
+size of it is 0
 b4 flowout
+mems = 
+
+    [ %div     |-> MaybeZero ]
 inst name = %div     for inst   %div = sdiv i32 %call, %sub
 domains = 
-Uninit   Uninit   Uninit   b4 construct map
+Uninit   MaybeZeroMaybeZerodomains differ, add successors? if they were they would be
+succ = 
+b4 construct map
 (cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 construct map
 b5 flowout
 inst =   ret void name = 
 b4 flow in
-path len = 0
+names = %add     
+names = %call    
+names = %cmp     
+names = %sub     
+names = %sum.0   
+path len = 1
+sizeof predsinst = 1
 code goes here
-pred name = %div     and   %div = sdiv i32 %call, %sub
+pred name = %div     and   %div = sdiv i32 %call, %sub with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
+pre count
+join i = %call   
 pre count
 join i = %cmp    
 pre count
@@ -493,14 +1251,42 @@ join i = %sub
 pre count
 join i = %sum.0  
 pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
 flowin-b5 make pair
-path len = 1
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 2
+sizeof predsinst = 1
 code goes here
-pred name = %sub     and   %sub = sub nsw i32 %sum.0, 55
+pred name = %sub     and   %sub = sub nsw i32 %sum.0, 55 with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
+pre count
+join i = %call   
 pre count
 join i = %cmp    
 pre count
@@ -508,78 +1294,2237 @@ join i = %sub
 pre count
 join i = %sum.0  
 pre count
-join i (d2) = %div    
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
-path len = 2
-code goes here
-pred name =  and   br i1 %cmp, label %while.body, label %while.end
-path len = 3
-code goes here
-pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
-join i (d2) = %div    
-join i (d2) = %sub    
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
-path len = 4
-code goes here
-pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
-join i (d2) = %cmp    
-join i (d2) = %div    
-join i (d2) = %sub    
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
-path len = 5
-code goes here
-pred name =  and   br label %while.cond
-code goes here
-pred name =  and   br label %while.cond
-path len = 7
-code goes here
-pred name = %add     and   %add = add nsw i32 %sum.0, %call
-join i = %add    
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
+join i (d2) = %add    
+join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %div    
 join i (d2) = %sub    
 join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
 flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 3
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 4
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 5
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 6
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
 path len = 8
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 9
+sizeof predsinst = 1
 code goes here
 (flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = %div    
+(prevmeminst) pred = %sub    
+(prevmeminst) pred = 
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
 b4 transfer
-reached transfer
+reached transfer where inst =   ret void 0x823fe0
 b5 transfer
-pred = %div    
-pred = %sub    
-pred = 
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
 b4 flowout
+mems = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+
+(cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flowout
+inst =   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] name = %sum.0  
+b4 flow in
+names = %add     %sum.0  
+names = %call    %sum.0  
+names = %cmp     %sum.0  
+names = %div     %sum.0  
+names = %sub     %sum.0  
+names = %sum.0   %sum.0  
+path len = 1
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
+path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 4
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 5
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 6
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] and 1
+b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %div    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
+b4 transfer
+reached transfer where inst =   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] 0x823bf8
+b5 transfer
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
+b4 flowout
+mems = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> MaybeZero ]
+inst name = %sum.0   for inst   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
+domains = 
+Zero     MaybeZeroMaybeZerodomains differ, add successors? if they were they would be
+succ = %cmp    
+succ = 
+succ = %add    
+succ = %sub    
+succ = 
+succ = %sum.0  
+(prevmem) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
+b4 construct map
+(cmap) we just may be loopin. found   br label %while.cond and 1
+b5 construct map
+b5 flowout
+inst =   %cmp = icmp slt i32 %sum.0, 50 name = %cmp    
+b4 flow in
+names = %add     %cmp    
+names = %call    %cmp    
+names = %cmp     %cmp    
+names = %div     %cmp    
+names = %sub     %cmp    
+names = %sum.0   %cmp    
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 2
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
+path len = 4
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 5
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 6
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
+b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %div    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
+b4 transfer
+reached transfer where inst =   %cmp = icmp slt i32 %sum.0, 50 0x823d10
+b5 transfer
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
+b4 flowout
+mems = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+inst name = %cmp     for inst   %cmp = icmp slt i32 %sum.0, 50
+domains = 
+MaybeZeroMaybeZeroMaybeZerob4 construct map
+(cmap) we just may be loopin. found   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] and 1
+b5 construct map
+b5 flowout
+inst =   br i1 %cmp, label %while.body, label %while.end name = 
+b4 flow in
+names = %add     
+names = %call    
+names = %cmp     
+names = %div     
+names = %sub     
+names = %sum.0   
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 3
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
+path len = 5
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 6
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %div    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+prev out memory = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
+b4 transfer
+reached transfer where inst =   br i1 %cmp, label %while.body, label %while.end 0x7c7be8
+b5 transfer
+prev out memory = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
+b4 flowout
+mems = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(cmap) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
+b5 flowout
+inst =   %add = add nsw i32 %sum.0, %call name = %add    
+b4 flow in
+names = %add     %add    
+names = %call    %add    
+names = %cmp     %add    
+names = %div     %add    
+names = %sub     %add    
+names = %sum.0   %add    
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 4
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
+path len = 6
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   %add = add nsw i32 %sum.0, %call and 1
+b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %div    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+prev out memory = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
+b4 transfer
+reached transfer where inst =   %add = add nsw i32 %sum.0, %call 0x823e80
+opname = add opcode = 12
+b5 transfer
+prev out memory = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+size of it is 4
+b4 flowout
+mems = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+inst name = %add     for inst   %add = add nsw i32 %sum.0, %call
+domains = 
+MaybeZeroMaybeZeroMaybeZerob4 construct map
+(cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 construct map
+b5 flowout
+inst =   %sub = sub nsw i32 %sum.0, 55 name = %sub    
+b4 flow in
+names = %add     %sub    
+names = %call    %sub    
+names = %cmp     %sub    
+names = %div     %sub    
+names = %sub     %sub    
+names = %sum.0   %sub    
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 4
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
+path len = 6
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 7
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %div    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+(prevmem) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %sub = sub nsw i32 %sum.0, 55 0x823ef0
+opname = sub opcode = 14
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+inst name = %sub     for inst   %sub = sub nsw i32 %sum.0, 55
+domains = 
+Uninit   NonZero  NonZero  domains differ, add successors? if they were they would be
+succ = %div    
+succ = 
+b4 construct map
+(cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 construct map
+b5 flowout
+inst =   br label %while.cond name = 
+b4 flow in
+names = %add     
+names = %call    
+names = %cmp     
+names = %div     
+names = %sub     
+names = %sum.0   
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 2
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 4
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 5
+sizeof predsinst = 2
+code goes here
+(flowin) we just may be loopin. found   br label %while.cond and 1
+b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %div    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = %add    
+(prevmeminst) pred = 
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+size of it is 6
+b4 transfer
+reached transfer where inst =   br label %while.cond 0x8233d8
+b5 transfer
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+size of it is 6
+b4 flowout
+mems = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+(cmap) we just may be loopin. found   %add = add nsw i32 %sum.0, %call and 1
+b5 flowout
+inst =   %div = sdiv i32 %call, %sub name = %div    
+b4 flow in
+names = %add     %div    
+names = %call    %div    
+names = %cmp     %div    
+names = %div     %div    
+names = %sub     %div    
+names = %sum.0   %div    
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %sub     and   %sub = sub nsw i32 %sum.0, 55 with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 2
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 4
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 5
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
+path len = 7
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 8
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %div    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = %sub    
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+(prevmeminst) pred = %sum.0  
+(prevmeminst) pred = 
+(prevmeminst) pred = 
+(prevmeminst) pred = %add    
+(prevmem) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %div = sdiv i32 %call, %sub 0x823f80
+opname = sdiv opcode = 19
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+inst name = %div     for inst   %div = sdiv i32 %call, %sub
+domains = 
+Uninit   MaybeZeroMaybeZerodomains differ, add successors? if they were they would be
+succ = 
+b4 construct map
+(cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 construct map
+b5 flowout
+inst =   ret void name = 
+b4 flow in
+names = %add     
+names = %call    
+names = %cmp     
+names = %div     
+names = %sub     
+names = %sum.0   
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %div     and   %div = sdiv i32 %call, %sub with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %sub     and   %sub = sub nsw i32 %sum.0, 55 with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 3
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
+path len = 4
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 5
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 6
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %while.cond with size = 0
+code goes here
+pred name =  and   br label %while.cond with size = 0
+path len = 8
+sizeof predsinst = 1
+code goes here
+pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
+outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i = %sub    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %div    
+join i (d2) = %sub    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+flowin-b5 make pair
+total mem map = 
+%add     
+MaybeZero%call    
+MaybeZero%cmp     
+MaybeZero%div     
+MaybeZero%sub     
+NonZero  %sum.0   
+Zero     path len = 9
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
+b5 flow in
+prev inst map = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sum.0  
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = %cmp    
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = 
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %div    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %sub    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+prev inst map = %add    
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+(prevmeminst) pred = %div    
+(prevmeminst) pred = %sub    
+(prevmeminst) pred = 
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+size of it is 6
+b4 transfer
+reached transfer where inst =   ret void 0x823fe0
+b5 transfer
+prev out memory = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+size of it is 6
+b4 flowout
+mems = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 (cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 flowout
 Dataflow Analysis Results:
@@ -597,83 +3542,124 @@ Out set:
 
 Instruction:   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
 In set: 
-
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
 Out set: 
     [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
-    [ %sum.0   |-> Zero      ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 
 Instruction:   %cmp = icmp slt i32 %sum.0, 50
 In set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 Out set: 
     [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 
 Instruction:   br i1 %cmp, label %while.body, label %while.end
 In set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 Out set: 
     [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 
 Instruction:   %add = add nsw i32 %sum.0, %call
 In set: 
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 Out set: 
-    [ %add     |-> Uninit    ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 
 Instruction:   br label %while.cond
 In set: 
-    [ %add     |-> Uninit    ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 Out set: 
-    [ %add     |-> Uninit    ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 
 Instruction:   %sub = sub nsw i32 %sum.0, 55
 In set: 
-    [ %add     |-> Uninit    ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 Out set: 
-    [ %add     |-> Uninit    ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 
 Instruction:   %div = sdiv i32 %call, %sub
 In set: 
-    [ %add     |-> Uninit    ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 Out set: 
-    [ %add     |-> Uninit    ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
-    [ %div     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 
 Instruction:   ret void
 In set: 
-    [ %add     |-> Uninit    ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
-    [ %div     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 Out set: 
-    [ %add     |-> Uninit    ]
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
-    [ %div     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 

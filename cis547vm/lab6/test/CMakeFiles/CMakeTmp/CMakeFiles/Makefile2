@@ -63,39 +63,39 @@ CMAKE_SOURCE_DIR = /lab6/test/CMakeFiles/CMakeTmp
 CMAKE_BINARY_DIR = /lab6/test/CMakeFiles/CMakeTmp
 
 #=============================================================================
-# Target rules for target CMakeFiles/cmTC_46c85.dir
+# Target rules for target CMakeFiles/cmTC_46779.dir
 
 # All Build rule for target.
-CMakeFiles/cmTC_46c85.dir/all:
-	$(MAKE) -f CMakeFiles/cmTC_46c85.dir/build.make CMakeFiles/cmTC_46c85.dir/depend
-	$(MAKE) -f CMakeFiles/cmTC_46c85.dir/build.make CMakeFiles/cmTC_46c85.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/lab6/test/CMakeFiles/CMakeTmp/CMakeFiles --progress-num=1,2 "Built target cmTC_46c85"
-.PHONY : CMakeFiles/cmTC_46c85.dir/all
+CMakeFiles/cmTC_46779.dir/all:
+	$(MAKE) -f CMakeFiles/cmTC_46779.dir/build.make CMakeFiles/cmTC_46779.dir/depend
+	$(MAKE) -f CMakeFiles/cmTC_46779.dir/build.make CMakeFiles/cmTC_46779.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/lab6/test/CMakeFiles/CMakeTmp/CMakeFiles --progress-num=1,2 "Built target cmTC_46779"
+.PHONY : CMakeFiles/cmTC_46779.dir/all
 
 # Include target in all.
-all: CMakeFiles/cmTC_46c85.dir/all
+all: CMakeFiles/cmTC_46779.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/cmTC_46c85.dir/rule: cmake_check_build_system
+CMakeFiles/cmTC_46779.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/test/CMakeFiles/CMakeTmp/CMakeFiles 2
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/cmTC_46c85.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/cmTC_46779.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /lab6/test/CMakeFiles/CMakeTmp/CMakeFiles 0
-.PHONY : CMakeFiles/cmTC_46c85.dir/rule
+.PHONY : CMakeFiles/cmTC_46779.dir/rule
 
 # Convenience name for target.
-cmTC_46c85: CMakeFiles/cmTC_46c85.dir/rule
+cmTC_46779: CMakeFiles/cmTC_46779.dir/rule
 
-.PHONY : cmTC_46c85
-
-# clean rule for target.
-CMakeFiles/cmTC_46c85.dir/clean:
-	$(MAKE) -f CMakeFiles/cmTC_46c85.dir/build.make CMakeFiles/cmTC_46c85.dir/clean
-.PHONY : CMakeFiles/cmTC_46c85.dir/clean
+.PHONY : cmTC_46779
 
 # clean rule for target.
-clean: CMakeFiles/cmTC_46c85.dir/clean
+CMakeFiles/cmTC_46779.dir/clean:
+	$(MAKE) -f CMakeFiles/cmTC_46779.dir/build.make CMakeFiles/cmTC_46779.dir/clean
+.PHONY : CMakeFiles/cmTC_46779.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/cmTC_46779.dir/clean
 
 .PHONY : clean
 

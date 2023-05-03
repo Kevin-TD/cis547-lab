@@ -14,7 +14,7 @@
 // make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test01.ll test01.c ; opt -mem2reg -S test01.ll -o test01.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll > test01.out 2> test01.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll ; cd ../ ; cd build
 
 
-#define DEBUG false
+#define DEBUG true
 #if DEBUG
 #define logout(x) errs() << x << "\n";
 #else
@@ -80,6 +80,16 @@ Domain *eval(BinaryOperator *BinOp, const Memory *InMem) {
   auto val2 = getOrExtract(InMem, RHS); 
 
   logout("opname = " << OpName << " opcode = " << BinOp->getOpcode())
+
+
+  // %sub = sub nsw i32 %sum.0, 55
+  //  %add = add nsw i32 %sum.0, %call
+  // %div = sdiv i32 %call, %sub
+
+  // hope is that after calling:
+  //  %add = add nsw i32 %sum.0, %call
+  // merge domains differ, %sum.0 is added back to work list after adding all successros 
+
 
     
   if (BinOp->getOpcode() == Instruction::Add) {
@@ -183,7 +193,7 @@ Domain *eval(CmpInst *Cmp, const Memory *InMem) {
 
 void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
                                Memory &NOut) {
-  logout("reached transfer")
+  logout("reached transfer where inst = " << *Inst << " " << Inst)
   if (isInput(Inst)) {
     // The instruction is a user controlled input, it can have any value.
     NOut[variable(Inst)] = new Domain(Domain::MaybeZero);

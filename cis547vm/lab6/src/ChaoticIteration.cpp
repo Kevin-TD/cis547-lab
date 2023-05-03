@@ -3,16 +3,21 @@
 
 typedef llvm::ValueMap<llvm::Instruction *, dataflow::Memory *> MapType;
 
-#define DEBUG false
+#define DEBUG true
 #if DEBUG
 #define logout(x) errs() << x << "\n";
 #define logDomain(x) x->print(errs()); 
+#define logOutMemory(x) printMemory(x);
 #else
 #define logout(x) 
 #define logDomain(x) 
+#define logOutMemory(x) 
 #endif 
 
 namespace dataflow {
+
+std::map<std::string, dataflow::Domain*> totalInstDomainMap; 
+
 // instruction names, as stored in Memory, have a "%" and extra padding to them. I suspect this is so when the program begins loggin the in and out map, it's formatted nicely. Thus, the function adds the necessary extra padding. I do wish that had been mentioned more explicitly! 
 std::string getInstName(Instruction* I) {
   if (I->getName().size() == 0) return "";
@@ -77,15 +82,26 @@ std::vector<Instruction *> getSuccessors(Instruction *Inst) {
   return Ret;
 }
 
+Memory* copyMemory(Memory* mem) {
+  Memory* copy = new Memory();
+  for (auto Pair : *mem) {
+    copy->emplace(std::make_pair(Pair.first, Pair.second));
+  }
+  return copy; 
+}
 // finds in outmap a memory of the same instruction name; if it is not found, an empty memory is returned
 Memory* getPrevMemOfInst(Instruction* I, MapType& Map) {
   std::string instName = getInstName(I);
   std::vector<llvm::Instruction*> predsInst = getPredecessors(I);
-  SetVector<Instruction *> instructionPathTaken; 
+  SetVector<Instruction *> instructionPathTaken;
+  // instructionPathTaken.insert(I);
+  
+  for (auto Pair : Map) {
+    logout("prev inst map = " << getInstName(Pair.first))
+    logOutMemory(Pair.second)
+  }
   
   while (predsInst.size() != 0) {
-    
-
     for (auto pred : predsInst) {
       int sizeBefore = instructionPathTaken.size();
       instructionPathTaken.insert(pred);
@@ -96,9 +112,10 @@ Memory* getPrevMemOfInst(Instruction* I, MapType& Map) {
       return new Memory(); 
     }
 
-      logout("pred = " << getInstName(pred))
+      logout("(prevmeminst) pred = " << getInstName(pred))
       if (getInstName(pred) != instName) continue;
-      return Map[pred];
+      
+      return copyMemory(Map[pred]);
     }
     predsInst = getPredecessors(predsInst[0]);
   }
@@ -109,6 +126,11 @@ Memory* getPrevMemOfInst(Instruction* I, MapType& Map) {
 void constructMap(Instruction* I, MapType& Map) {
   auto predsInst = getPredecessors(I);
   SetVector<Instruction *> instructionPathTaken; 
+
+  for (auto Pair : totalInstDomainMap) {
+     Map[I]->emplace(std::make_pair(Pair.first, Pair.second));
+  }
+
   while (predsInst.size() != 0) {
     for (auto pred : predsInst) {
       int sizeBefore = instructionPathTaken.size();
@@ -200,9 +222,18 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
 
   std::vector<llvm::Instruction*> predsInst = getPredecessors(Inst);
   SetVector<Instruction *> instructionPathTaken; 
+  instructionPathTaken.insert(Inst);
+
+
+  for (auto Pair : totalInstDomainMap) {
+    logout("names = " << Pair.first << " " << getInstName(Inst))
+    if (Pair.first == getInstName(Inst)) continue; 
+     InMem->emplace(std::make_pair(Pair.first, Pair.second));
+  }
 
   while(predsInst.size() != 0) {
     logout("path len = " << instructionPathTaken.size())
+    logout("sizeof predsinst = " << predsInst.size())
 
     for (llvm::Instruction* pred : predsInst) {
       logout("code goes here")
@@ -215,12 +246,17 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
         return; 
       }
 
-      logout("pred name = " << getInstName(pred) << " and " << *pred)
+      logout("pred name = " << getInstName(pred) << " and " << *pred << " with size = " << getInstName(pred).size() )
       if (getInstName(pred).size() == 0) continue; 
+
       Memory* outMem = OutMap[pred];
+      logout("outmem = ")
+      logOutMemory(outMem)
       std::string predName = getInstName(pred);
 
       Memory* joinedMemory = join(outMem, InMem); 
+      logout("joined mem = ")
+      logOutMemory(joinedMemory)
       logout("flowin-b4 make pair")
 
       if (joinedMemory->size() == 0) continue; 
@@ -230,6 +266,13 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
 
       InMem->emplace(std::make_pair(predName, joinedMemory->at(predName))); // ⭐️ the line of code that changed everything (i.e., made it actually work)
       logout("flowin-b5 make pair")
+      totalInstDomainMap.emplace(std::make_pair(predName, joinedMemory->at(predName)));
+      logout("total mem map = ")
+      for (auto Pair : totalInstDomainMap) {
+        logout(Pair.first << " ")
+        logDomain(Pair.second)
+      }
+
 
     }
     predsInst = getPredecessors(predsInst[0]);
@@ -247,6 +290,9 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
    * and post-transfer memory, and update the OutMap.
    * If the OutMap changed then also update the WorkSet.
    */
+  logout("mems = ")
+  logOutMemory(Pre)
+  logOutMemory(Post)
 
   // instruction is something that transfer function does not handle; e.g., "ret i32 0". simply do nothing with it, but construct the outmap accordingly 
   if (getInstName(Inst).size() == 0) {
@@ -276,6 +322,31 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
   
   
   if (!Domain::equal(*PreDomain, *MergedDomain)) {
+    logout("domains differ, add successors? if they were they would be")
+
+    std::string instName = getInstName(Inst);
+    std::vector<llvm::Instruction*> succsInst = getSuccessors(Inst);
+    SetVector<Instruction *> instructionPathTaken; 
+    bool broken = false;
+    while (succsInst.size() != 0) {
+      if (broken) break; 
+      for (auto succ : succsInst) {
+        int sizeBefore = instructionPathTaken.size();
+        instructionPathTaken.insert(succ);
+        int sizeAfter = instructionPathTaken.size();
+
+        if (sizeBefore == sizeAfter) {
+          logout("(prevmem) we just may be loopin. found " << *succsInst[0] << " and " << instructionPathTaken.count(succsInst[0]))
+          broken = true; 
+          break; 
+        }
+
+        logout("succ = " << getInstName(succ))
+        WorkSet.insert(succ);
+      }
+      succsInst = getSuccessors(succsInst[0]);
+    }
+
     OutMap[Inst]->at(InstName) = MergedDomain;
   }
 
@@ -304,7 +375,9 @@ void DivZeroAnalysis::doAnalysis(Function &F) {
    */
 
   for(inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I) {
+
     WorkSet.insert(&(*I));
+    logout("init push = " << &(*I) << " " << *I)
   }
   
   while(!WorkSet.empty()) {
@@ -317,13 +390,22 @@ void DivZeroAnalysis::doAnalysis(Function &F) {
     flowIn(top, topMemory); // construct top memory 
     logout("b5 flow in")
 
+    Memory* prevOutMemory = getPrevMemOfInst(top, OutMap); 
+    logout("prev out memory = ")
+    logOutMemory(prevOutMemory)
+    logout("size of it is " << prevOutMemory->size())
+
     logout("b4 transfer")
     transfer(top, topMemory, *OutMap[top]); // use top memory to evaluate instruction's domain. put result into outmap 
     logout("b5 transfer")
 
+    logout("prev out memory = ")
+    logOutMemory(prevOutMemory)
+    logout("size of it is " << prevOutMemory->size())
+
     Memory* outMemory = OutMap[top];
 
-    Memory* prevOutMemory = getPrevMemOfInst(top, OutMap); 
+    
 
     // compare pre and post out memory for differences. if there are differneces, adjust outmap's result
     logout("b4 flowout")
