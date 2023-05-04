@@ -1,0 +1,598 @@
+init push = 0x8234f0   %cmp = icmp eq i32 0, 0
+init push = 0x822e38   %conv = zext i1 %cmp to i32
+init push = 0x8235a0   %div = sdiv i32 0, %conv
+init push = 0x823630   %div1 = sdiv i32 %div, %div
+init push = 0x8236a8   ret i32 0
+inst =   %cmp = icmp eq i32 0, 0 name = %cmp    
+b4 flow in
+b5 flow in
+prev inst map = %div    
+
+prev inst map = %cmp    
+
+prev inst map = 
+
+prev inst map = %conv   
+
+prev inst map = %div1   
+
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %cmp = icmp eq i32 0, 0 0x8234f0
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+    [ %cmp     |-> NonZero   ]
+inst name = %cmp     for inst   %cmp = icmp eq i32 0, 0
+domains = 
+Uninit   NonZero  NonZero  domains differ, add successors? if they were they would be
+succ = %conv   
+succ = %div    
+succ = %div1   
+succ = 
+b4 construct map
+b5 construct map
+b5 flowout
+inst =   %conv = zext i1 %cmp to i32 name = %conv   
+b4 flow in
+names = %cmp     %conv   
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp eq i32 0, 0 with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+join i = %cmp    
+pre count
+join i (d2) = %cmp    
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  b5 flow in
+prev inst map = %div    
+
+prev inst map = %cmp    
+    [ %cmp     |-> NonZero   ]
+prev inst map = 
+
+prev inst map = %conv   
+
+prev inst map = %div1   
+
+(prevmeminst) pred = %cmp    
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %conv = zext i1 %cmp to i32 0x822e38
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+    [ %conv    |-> NonZero   ]
+inst name = %conv    for inst   %conv = zext i1 %cmp to i32
+domains = 
+Uninit   NonZero  NonZero  domains differ, add successors? if they were they would be
+succ = %div    
+succ = %div1   
+succ = 
+b4 construct map
+b5 construct map
+b5 flowout
+inst =   %div = sdiv i32 0, %conv name = %div    
+b4 flow in
+names = %cmp     %div    
+names = %conv    %div    
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %conv    and   %conv = zext i1 %cmp to i32 with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+join i = %cmp    
+pre count
+join i = %conv   
+pre count
+join i (d2) = %cmp    
+join i (d2) = %conv   
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  %conv    
+NonZero  path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp eq i32 0, 0 with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+join i = %cmp    
+pre count
+join i (d2) = %cmp    
+join i (d2) = %conv   
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  %conv    
+NonZero  b5 flow in
+prev inst map = %div    
+
+prev inst map = %cmp    
+    [ %cmp     |-> NonZero   ]
+prev inst map = 
+
+prev inst map = %conv   
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+prev inst map = %div1   
+
+(prevmeminst) pred = %conv   
+(prevmeminst) pred = %cmp    
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %div = sdiv i32 0, %conv 0x8235a0
+opname = sdiv opcode = 19
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+    [ %div     |-> Zero      ]
+inst name = %div     for inst   %div = sdiv i32 0, %conv
+domains = 
+Uninit   Zero     Zero     domains differ, add successors? if they were they would be
+succ = %div1   
+succ = 
+b4 construct map
+b5 construct map
+b5 flowout
+inst =   %div1 = sdiv i32 %div, %div name = %div1   
+b4 flow in
+names = %cmp     %div1   
+names = %conv    %div1   
+names = %div     %div1   
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %div     and   %div = sdiv i32 0, %conv with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+join i = %cmp    
+pre count
+join i = %conv   
+pre count
+join i = %div    
+pre count
+join i (d2) = %cmp    
+join i (d2) = %conv   
+join i (d2) = %div    
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  %conv    
+NonZero  %div     
+Zero     path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %conv    and   %conv = zext i1 %cmp to i32 with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+join i = %cmp    
+pre count
+join i = %conv   
+pre count
+join i (d2) = %cmp    
+join i (d2) = %conv   
+join i (d2) = %div    
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  %conv    
+NonZero  %div     
+Zero     path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp eq i32 0, 0 with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+join i = %cmp    
+pre count
+join i (d2) = %cmp    
+join i (d2) = %conv   
+join i (d2) = %div    
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  %conv    
+NonZero  %div     
+Zero     b5 flow in
+prev inst map = %div    
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+prev inst map = %cmp    
+    [ %cmp     |-> NonZero   ]
+prev inst map = 
+
+prev inst map = %conv   
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+prev inst map = %div1   
+
+(prevmeminst) pred = %div    
+(prevmeminst) pred = %conv   
+(prevmeminst) pred = %cmp    
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %div1 = sdiv i32 %div, %div 0x823630
+opname = sdiv opcode = 19
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+    [ %div1    |-> Uninit    ]
+inst name = %div1    for inst   %div1 = sdiv i32 %div, %div
+domains = 
+Uninit   Uninit   Uninit   b4 construct map
+b5 construct map
+b5 flowout
+inst =   ret i32 0 name = 
+b4 flow in
+names = %cmp     
+names = %conv    
+names = %div     
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %div1    and   %div1 = sdiv i32 %div, %div with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+join i = %cmp    
+pre count
+join i = %conv   
+pre count
+join i = %div    
+pre count
+join i = %div1   
+pre count
+join i (d2) = %cmp    
+join i (d2) = %conv   
+join i (d2) = %div    
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  %conv    
+NonZero  %div     
+Zero     %div1    
+Uninit   path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %div     and   %div = sdiv i32 0, %conv with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+join i = %cmp    
+pre count
+join i = %conv   
+pre count
+join i = %div    
+pre count
+join i (d2) = %cmp    
+join i (d2) = %conv   
+join i (d2) = %div    
+join i (d2) = %div1   
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  %conv    
+NonZero  %div     
+Zero     %div1    
+Uninit   path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %conv    and   %conv = zext i1 %cmp to i32 with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+join i = %cmp    
+pre count
+join i = %conv   
+pre count
+join i (d2) = %cmp    
+join i (d2) = %conv   
+join i (d2) = %div    
+join i (d2) = %div1   
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  %conv    
+NonZero  %div     
+Zero     %div1    
+Uninit   path len = 4
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp eq i32 0, 0 with size = 8
+outmem = 
+    [ %cmp     |-> NonZero   ]
+inmem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+join i = %cmp    
+pre count
+join i (d2) = %cmp    
+join i (d2) = %conv   
+join i (d2) = %div    
+join i (d2) = %div1   
+joined mem = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+NonZero  %conv    
+NonZero  %div     
+Zero     %div1    
+Uninit   b5 flow in
+prev inst map = %div    
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+prev inst map = %cmp    
+    [ %cmp     |-> NonZero   ]
+prev inst map = 
+
+prev inst map = %conv   
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+prev inst map = %div1   
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+(prevmeminst) pred = %div1   
+(prevmeminst) pred = %div    
+(prevmeminst) pred = %conv   
+(prevmeminst) pred = %cmp    
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   ret i32 0 0x8236a8
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+
+b5 flowout
+Dataflow Analysis Results:
+Instruction:   %cmp = icmp eq i32 0, 0
+In set: 
+
+Out set: 
+    [ %cmp     |-> NonZero   ]
+
+Instruction:   %conv = zext i1 %cmp to i32
+In set: 
+    [ %cmp     |-> NonZero   ]
+Out set: 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+
+Instruction:   %div = sdiv i32 0, %conv
+In set: 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+Out set: 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+
+Instruction:   %div1 = sdiv i32 %div, %div
+In set: 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+Out set: 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+
+Instruction:   ret i32 0
+In set: 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+Out set: 
+    [ %cmp     |-> NonZero   ]
+    [ %conv    |-> NonZero   ]
+    [ %div     |-> Zero      ]
+    [ %div1    |-> Uninit    ]
+

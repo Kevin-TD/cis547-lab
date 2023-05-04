@@ -149,7 +149,8 @@ Domain *eval(CmpInst *Cmp, const Memory *InMem) {
   Value *RHS = Cmp->getOperand(1); 
   auto val1 = getOrExtract(InMem, LHS); 
   auto val2 = getOrExtract(InMem, RHS); 
-  
+
+    
   if (op == CmpInst::ICMP_EQ) {
     // 0 and 0 case (1)
     if (Domain::equal(*val1, Domain::Element::Zero) && Domain::equal(*val2, Domain::Element::Zero)) {
@@ -170,7 +171,7 @@ Domain *eval(CmpInst *Cmp, const Memory *InMem) {
   else if (op == CmpInst::ICMP_NE) {
      // 0 and 0 case (1)
     if (Domain::equal(*val1, Domain::Element::Zero) && Domain::equal(*val2, Domain::Element::Zero)) {
-      auto* d = new Domain(Domain::Element::Zero);
+      auto* d = new Domain(Domain::Element::NonZero);
       return d;
     }
     

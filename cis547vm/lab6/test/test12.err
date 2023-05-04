@@ -43,6 +43,9 @@ size of it is 0
 b4 flowout
 mems = 
 
+
+--spacing--
+
     [ %call    |-> MaybeZero ]
 inst name = %call    for inst   %call = call i32 @getchar()
 domains = 
@@ -60,19 +63,25 @@ b5 construct map
 b5 flowout
 inst =   br label %while.cond name = 
 b4 flow in
+names = %call    
 path len = 1
 sizeof predsinst = 1
 code goes here
 pred name = %call    and   %call = call i32 @getchar() with size = 8
 outmem = 
     [ %call    |-> MaybeZero ]
+inmem = 
+    [ %call    |-> MaybeZero ]
 join i = %call   
 pre count
+join i (d2) = %call   
 joined mem = 
     [ %call    |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %call    |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %call    
@@ -111,6 +120,9 @@ b4 flowout
 mems = 
 
 
+--spacing--
+
+
 b5 flowout
 inst =   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] name = %sum.0  
 b4 flow in
@@ -127,6 +139,8 @@ code goes here
 pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
 outmem = 
 
+inmem = 
+    [ %call    |-> MaybeZero ]
 join i (d2) = %call   
 joined mem = 
     [ %call    |-> MaybeZero ]
@@ -142,6 +156,8 @@ code goes here
 pred name = %cmp     and   %cmp = icmp slt i32 %sum.0, 50 with size = 8
 outmem = 
 
+inmem = 
+    [ %call    |-> MaybeZero ]
 join i (d2) = %call   
 joined mem = 
     [ %call    |-> MaybeZero ]
@@ -190,6 +206,9 @@ size of it is 0
 b4 flowout
 mems = 
 
+
+--spacing--
+
     [ %sum.0   |-> Zero      ]
 inst name = %sum.0   for inst   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ]
 domains = 
@@ -208,6 +227,7 @@ b5 flowout
 inst =   %cmp = icmp slt i32 %sum.0, 50 name = %cmp    
 b4 flow in
 names = %call    %cmp    
+names = %sum.0   %cmp    
 path len = 1
 sizeof predsinst = 1
 code goes here
@@ -216,6 +236,9 @@ outmem =
     [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %call    |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
@@ -226,6 +249,7 @@ pre count
 join i = %sum.0  
 pre count
 join i (d2) = %call   
+join i (d2) = %sum.0  
 joined mem = 
     [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
@@ -234,6 +258,11 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %call    
@@ -250,14 +279,34 @@ code goes here
 pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
 outmem = 
 
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+join i (d2) = %add    
 join i (d2) = %call   
+join i (d2) = %cmp    
 join i (d2) = %sum.0  
 joined mem = 
+    [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
     [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
-path len = 5
+done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+flowin-b5 make pair
+total mem map = 
+%add     
+Uninit   %call    
+MaybeZero%sum.0   
+Zero     path len = 5
 sizeof predsinst = 1
 code goes here
 pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
@@ -307,6 +356,9 @@ size of it is 0
 b4 flowout
 mems = 
 
+
+--spacing--
+
     [ %cmp     |-> MaybeZero ]
 inst name = %cmp     for inst   %cmp = icmp slt i32 %sum.0, 50
 domains = 
@@ -324,7 +376,9 @@ b5 construct map
 b5 flowout
 inst =   br i1 %cmp, label %while.body, label %while.end name = 
 b4 flow in
+names = %add     
 names = %call    
+names = %cmp     
 names = %sum.0   
 path len = 1
 sizeof predsinst = 1
@@ -335,38 +389,11 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
-join i = %add    
-pre count
-join i = %call   
-pre count
-join i = %cmp    
-pre count
-join i = %sum.0  
-pre count
-join i (d2) = %call   
-join i (d2) = %sum.0  
-joined mem = 
+inmem = 
     [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
-flowin-b4 make pair
-done size check
-done count check
-flowin-b5 make pair
-total mem map = 
-%call    
-MaybeZero%cmp     
-MaybeZero%sum.0   
-Zero     path len = 2
-sizeof predsinst = 1
-code goes here
-pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
-outmem = 
-    [ %add     |-> Uninit    ]
-    [ %call    |-> MaybeZero ]
-    [ %cmp     |-> Uninit    ]
-    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -375,6 +402,7 @@ join i = %cmp
 pre count
 join i = %sum.0  
 pre count
+join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %sum.0  
@@ -386,9 +414,60 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
-%call    
+%add     
+Uninit   %call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %sum.0   and   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] with size = 8
+outmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i = %add    
+pre count
+join i = %call   
+pre count
+join i = %cmp    
+pre count
+join i = %sum.0  
+pre count
+join i (d2) = %add    
+join i (d2) = %call   
+join i (d2) = %cmp    
+join i (d2) = %sum.0  
+joined mem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+flowin-b5 make pair
+total mem map = 
+%add     
+Uninit   %call    
 MaybeZero%cmp     
 MaybeZero%sum.0   
 Zero     path len = 3
@@ -403,16 +482,35 @@ code goes here
 pred name = %add     and   %add = add nsw i32 %sum.0, %call with size = 8
 outmem = 
 
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %sum.0  
 joined mem = 
+    [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
-path len = 6
+done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+flowin-b5 make pair
+total mem map = 
+%add     
+Uninit   %call    
+MaybeZero%cmp     
+MaybeZero%sum.0   
+Zero     path len = 6
 sizeof predsinst = 1
 code goes here
 (flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
@@ -459,10 +557,14 @@ b4 flowout
 mems = 
 
 
+--spacing--
+
+
 (cmap) we just may be loopin. found   %cmp = icmp slt i32 %sum.0, 50 and 1
 b5 flowout
 inst =   %add = add nsw i32 %sum.0, %call name = %add    
 b4 flow in
+names = %add     %add    
 names = %call    %add    
 names = %cmp     %add    
 names = %sum.0   %add    
@@ -479,6 +581,11 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -487,6 +594,7 @@ join i = %cmp
 pre count
 join i = %sum.0  
 pre count
+join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %sum.0  
@@ -498,9 +606,15 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
-%call    
+%add     
+Uninit   %call    
 MaybeZero%cmp     
 MaybeZero%sum.0   
 Zero     path len = 3
@@ -512,6 +626,11 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -520,6 +639,7 @@ join i = %cmp
 pre count
 join i = %sum.0  
 pre count
+join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %sum.0  
@@ -531,9 +651,15 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
-%call    
+%add     
+Uninit   %call    
 MaybeZero%cmp     
 MaybeZero%sum.0   
 Zero     path len = 4
@@ -595,6 +721,9 @@ size of it is 0
 b4 flowout
 mems = 
 
+
+--spacing--
+
     [ %add     |-> MaybeZero ]
 inst name = %add     for inst   %add = add nsw i32 %sum.0, %call
 domains = 
@@ -612,6 +741,7 @@ b5 construct map
 b5 flowout
 inst =   br label %while.cond name = 
 b4 flow in
+names = %add     
 names = %call    
 names = %cmp     
 names = %sum.0   
@@ -624,6 +754,11 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -632,6 +767,7 @@ join i = %cmp
 pre count
 join i = %sum.0  
 pre count
+join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %sum.0  
@@ -643,6 +779,11 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -662,6 +803,11 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -682,6 +828,11 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -697,6 +848,11 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -717,6 +873,11 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -784,6 +945,9 @@ mems =
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 
+--spacing--
+
+
 (cmap) we just may be loopin. found   %add = add nsw i32 %sum.0, %call and 1
 b5 flowout
 inst =   %sub = sub nsw i32 %sum.0, 55 name = %sub    
@@ -805,6 +969,11 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -825,6 +994,11 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -840,6 +1014,11 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -860,6 +1039,11 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -881,6 +1065,11 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -901,6 +1090,11 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -967,6 +1161,9 @@ size of it is 0
 b4 flowout
 mems = 
 
+
+--spacing--
+
     [ %sub     |-> NonZero   ]
 inst name = %sub     for inst   %sub = sub nsw i32 %sum.0, 55
 domains = 
@@ -982,12 +1179,19 @@ b4 flow in
 names = %add     %div    
 names = %call    %div    
 names = %cmp     %div    
+names = %sub     %div    
 names = %sum.0   %div    
 path len = 1
 sizeof predsinst = 1
 code goes here
 pred name = %sub     and   %sub = sub nsw i32 %sum.0, 55 with size = 8
 outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+inmem = 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
@@ -1006,6 +1210,7 @@ pre count
 join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
+join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
     [ %add     |-> MaybeZero ]
@@ -1016,6 +1221,12 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1036,6 +1247,12 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1058,6 +1275,12 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1074,6 +1297,12 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1096,6 +1325,12 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1118,6 +1353,12 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1140,6 +1381,12 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1212,6 +1459,9 @@ size of it is 0
 b4 flowout
 mems = 
 
+
+--spacing--
+
     [ %div     |-> MaybeZero ]
 inst name = %div     for inst   %div = sdiv i32 %call, %sub
 domains = 
@@ -1226,6 +1476,7 @@ b4 flow in
 names = %add     
 names = %call    
 names = %cmp     
+names = %div     
 names = %sub     
 names = %sum.0   
 path len = 1
@@ -1233,6 +1484,13 @@ sizeof predsinst = 1
 code goes here
 pred name = %div     and   %div = sdiv i32 %call, %sub with size = 8
 outmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+inmem = 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
@@ -1254,6 +1512,7 @@ pre count
 join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
+join i (d2) = %div    
 join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
@@ -1266,6 +1525,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1282,6 +1548,13 @@ outmem =
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 join i = %add    
@@ -1310,6 +1583,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1331,6 +1611,13 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1355,6 +1642,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1372,6 +1666,13 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1396,6 +1697,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1419,6 +1727,13 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1443,6 +1758,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1525,6 +1847,9 @@ mems =
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 
+--spacing--
+
+
 (cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 flowout
 inst =   %sum.0 = phi i32 [ 0, %entry ], [ %add, %while.body ] name = %sum.0  
@@ -1550,6 +1875,13 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1563,6 +1895,7 @@ join i (d2) = %call
 join i (d2) = %cmp    
 join i (d2) = %div    
 join i (d2) = %sub    
+join i (d2) = %sum.0  
 joined mem = 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
@@ -1573,6 +1906,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1594,6 +1934,13 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1607,6 +1954,7 @@ join i (d2) = %call
 join i (d2) = %cmp    
 join i (d2) = %div    
 join i (d2) = %sub    
+join i (d2) = %sum.0  
 joined mem = 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
@@ -1617,6 +1965,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1706,6 +2061,9 @@ mems =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
     [ %sum.0   |-> Zero      ]
+
+--spacing--
+
     [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
@@ -1743,6 +2101,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> MaybeZero ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1757,11 +2122,12 @@ join i = %sum.0
 pre count
 join i (d2) = %add    
 join i (d2) = %call   
+join i (d2) = %cmp    
 join i (d2) = %div    
 join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
-    [ %add     |-> MaybeZero ]
+    [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> Uninit    ]
     [ %div     |-> MaybeZero ]
@@ -1770,15 +2136,22 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
-MaybeZero%call    
+Uninit   %call    
 MaybeZero%cmp     
-MaybeZero%div     
+Uninit   %div     
 MaybeZero%sub     
 NonZero  %sum.0   
-Zero     path len = 2
+MaybeZeropath len = 2
 sizeof predsinst = 2
 code goes here
 pred name =  and   br label %while.cond with size = 0
@@ -1793,6 +2166,13 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Uninit    ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 join i = %add    
 pre count
 join i = %call   
@@ -1803,6 +2183,7 @@ join i = %sum.0
 pre count
 join i (d2) = %add    
 join i (d2) = %call   
+join i (d2) = %cmp    
 join i (d2) = %div    
 join i (d2) = %sub    
 join i (d2) = %sum.0  
@@ -1812,10 +2193,17 @@ joined mem =
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -1824,7 +2212,7 @@ MaybeZero%cmp
 MaybeZero%div     
 MaybeZero%sub     
 NonZero  %sum.0   
-Zero     path len = 5
+MaybeZeropath len = 5
 sizeof predsinst = 1
 code goes here
 pred name =  and   br i1 %cmp, label %while.body, label %while.end with size = 0
@@ -1911,6 +2299,9 @@ mems =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+
+--spacing--
+
     [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
@@ -1940,6 +2331,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -1959,7 +2357,7 @@ join i (d2) = %div
 join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
-    [ %add     |-> MaybeZero ]
+    [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
@@ -1968,10 +2366,17 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
-MaybeZero%call    
+Uninit   %call    
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
@@ -1987,6 +2392,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> MaybeZero ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2006,7 +2418,7 @@ join i (d2) = %div
 join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
-    [ %add     |-> MaybeZero ]
+    [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
@@ -2015,15 +2427,22 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
-MaybeZero%call    
+Uninit   %call    
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
 NonZero  %sum.0   
-Zero     path len = 3
+MaybeZeropath len = 3
 sizeof predsinst = 2
 code goes here
 pred name =  and   br label %while.cond with size = 0
@@ -2038,6 +2457,13 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 join i = %add    
 pre count
 join i = %call   
@@ -2058,10 +2484,17 @@ joined mem =
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -2070,7 +2503,7 @@ MaybeZero%cmp
 MaybeZero%div     
 MaybeZero%sub     
 NonZero  %sum.0   
-Zero     path len = 6
+MaybeZeropath len = 6
 sizeof predsinst = 1
 code goes here
 (flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
@@ -2152,6 +2585,9 @@ mems =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+
+--spacing--
+
     [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
@@ -2181,6 +2617,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2193,6 +2636,7 @@ join i = %sub
 pre count
 join i = %sum.0  
 pre count
+join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %div    
@@ -2208,10 +2652,17 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
-MaybeZero%call    
+Uninit   %call    
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
@@ -2227,6 +2678,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> MaybeZero ]
+inmem = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2239,6 +2697,7 @@ join i = %sub
 pre count
 join i = %sum.0  
 pre count
+join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %div    
@@ -2254,15 +2713,22 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> Uninit    ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
-MaybeZero%call    
+Uninit   %call    
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
 NonZero  %sum.0   
-Zero     path len = 4
+MaybeZeropath len = 4
 sizeof predsinst = 2
 code goes here
 pred name =  and   br label %while.cond with size = 0
@@ -2356,6 +2822,9 @@ mems =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
+
+--spacing--
+
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
@@ -2389,6 +2858,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2405,6 +2881,7 @@ join i (d2) = %add
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %div    
+join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
     [ %add     |-> MaybeZero ]
@@ -2416,6 +2893,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -2435,6 +2919,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> MaybeZero ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2451,6 +2942,7 @@ join i (d2) = %add
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %div    
+join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
     [ %add     |-> MaybeZero ]
@@ -2462,6 +2954,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -2470,7 +2969,7 @@ MaybeZero%cmp
 MaybeZero%div     
 MaybeZero%sub     
 NonZero  %sum.0   
-Zero     path len = 4
+MaybeZeropath len = 4
 sizeof predsinst = 2
 code goes here
 pred name =  and   br label %while.cond with size = 0
@@ -2487,6 +2986,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 join i = %add    
 pre count
 join i = %call   
@@ -2503,6 +3009,7 @@ join i (d2) = %add
 join i (d2) = %call   
 join i (d2) = %cmp    
 join i (d2) = %div    
+join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
     [ %add     |-> MaybeZero ]
@@ -2510,10 +3017,17 @@ joined mem =
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -2522,7 +3036,7 @@ MaybeZero%cmp
 MaybeZero%div     
 MaybeZero%sub     
 NonZero  %sum.0   
-Zero     path len = 7
+MaybeZeropath len = 7
 sizeof predsinst = 1
 code goes here
 (flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
@@ -2604,14 +3118,17 @@ size of it is 0
 b4 flowout
 mems = 
 
+
+--spacing--
+
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 inst name = %sub     for inst   %sub = sub nsw i32 %sum.0, 55
 domains = 
-Uninit   NonZero  NonZero  domains differ, add successors? if they were they would be
+Uninit   MaybeZeroMaybeZerodomains differ, add successors? if they were they would be
 succ = %div    
 succ = 
 b4 construct map
@@ -2637,6 +3154,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2660,11 +3184,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -2672,7 +3203,7 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
+MaybeZero%sum.0   
 Zero     path len = 2
 sizeof predsinst = 1
 code goes here
@@ -2688,6 +3219,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2711,11 +3249,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -2723,7 +3268,7 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
+MaybeZero%sum.0   
 Zero     path len = 4
 sizeof predsinst = 1
 code goes here
@@ -2735,6 +3280,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> MaybeZero ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2758,11 +3310,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -2770,8 +3329,8 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
-Zero     path len = 5
+MaybeZero%sum.0   
+MaybeZeropath len = 5
 sizeof predsinst = 2
 code goes here
 (flowin) we just may be loopin. found   br label %while.cond and 1
@@ -2825,7 +3384,7 @@ prev inst map = %sub
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 prev inst map = %add    
     [ %add     |-> MaybeZero ]
@@ -2863,6 +3422,9 @@ mems =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+
+--spacing--
+
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
@@ -2886,6 +3448,13 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 join i = %add    
@@ -2903,6 +3472,7 @@ pre count
 join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
+join i (d2) = %div    
 join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
@@ -2910,11 +3480,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -2922,7 +3499,7 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
+MaybeZero%sum.0   
 Zero     path len = 2
 sizeof predsinst = 1
 code goes here
@@ -2938,6 +3515,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2953,6 +3537,7 @@ pre count
 join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
+join i (d2) = %div    
 join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
@@ -2960,11 +3545,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -2972,7 +3564,7 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
+MaybeZero%sum.0   
 Zero     path len = 4
 sizeof predsinst = 1
 code goes here
@@ -2984,6 +3576,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> MaybeZero ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -2999,6 +3598,7 @@ pre count
 join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
+join i (d2) = %div    
 join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
@@ -3006,11 +3606,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -3018,8 +3625,8 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
-Zero     path len = 5
+MaybeZero%sum.0   
+MaybeZeropath len = 5
 sizeof predsinst = 2
 code goes here
 pred name =  and   br label %while.cond with size = 0
@@ -3036,6 +3643,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 join i = %add    
 pre count
 join i = %call   
@@ -3051,6 +3665,7 @@ pre count
 join i (d2) = %add    
 join i (d2) = %call   
 join i (d2) = %cmp    
+join i (d2) = %div    
 join i (d2) = %sub    
 join i (d2) = %sum.0  
 joined mem = 
@@ -3058,11 +3673,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -3070,8 +3692,8 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
-Zero     path len = 8
+MaybeZero%sum.0   
+MaybeZeropath len = 8
 sizeof predsinst = 1
 code goes here
 (flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
@@ -3095,7 +3717,7 @@ prev inst map =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 prev inst map = %call   
     [ %call    |-> MaybeZero ]
@@ -3127,7 +3749,7 @@ prev inst map = %sub
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 prev inst map = %add    
     [ %add     |-> MaybeZero ]
@@ -3157,17 +3779,18 @@ size of it is 0
 b4 flowout
 mems = 
 
+
+--spacing--
+
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
-    [ %div     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 inst name = %div     for inst   %div = sdiv i32 %call, %sub
 domains = 
-Uninit   MaybeZeroMaybeZerodomains differ, add successors? if they were they would be
-succ = 
-b4 construct map
+Uninit   Uninit   Uninit   b4 construct map
 (cmap) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
 b5 construct map
 b5 flowout
@@ -3187,6 +3810,13 @@ outmem =
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
@@ -3218,6 +3848,13 @@ joined mem =
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -3235,6 +3872,13 @@ outmem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 join i = %add    
@@ -3260,11 +3904,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -3272,7 +3923,7 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
+MaybeZero%sum.0   
 Zero     path len = 3
 sizeof predsinst = 1
 code goes here
@@ -3288,6 +3939,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -3311,11 +3969,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -3323,7 +3988,7 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
+MaybeZero%sum.0   
 Zero     path len = 5
 sizeof predsinst = 1
 code goes here
@@ -3335,6 +4000,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> MaybeZero ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> Zero      ]
 join i = %add    
 pre count
 join i = %call   
@@ -3358,11 +4030,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -3370,8 +4049,8 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
-Zero     path len = 6
+MaybeZero%sum.0   
+MaybeZeropath len = 6
 sizeof predsinst = 2
 code goes here
 pred name =  and   br label %while.cond with size = 0
@@ -3388,6 +4067,13 @@ outmem =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+inmem = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 join i = %add    
 pre count
 join i = %call   
@@ -3411,11 +4097,18 @@ joined mem =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b4 make pair
 done size check
 done count check
+inmem (2) = 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 flowin-b5 make pair
 total mem map = 
 %add     
@@ -3423,8 +4116,8 @@ MaybeZero%call
 MaybeZero%cmp     
 MaybeZero%div     
 MaybeZero%sub     
-NonZero  %sum.0   
-Zero     path len = 9
+MaybeZero%sum.0   
+MaybeZeropath len = 9
 sizeof predsinst = 1
 code goes here
 (flowin) we just may be loopin. found   br i1 %cmp, label %while.body, label %while.end and 1
@@ -3448,7 +4141,7 @@ prev inst map =
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 prev inst map = %call   
     [ %call    |-> MaybeZero ]
@@ -3472,7 +4165,7 @@ prev inst map = %div
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
-    [ %div     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 prev inst map = %sub    
@@ -3480,7 +4173,7 @@ prev inst map = %sub
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 prev inst map = %add    
     [ %add     |-> MaybeZero ]
@@ -3519,6 +4212,9 @@ mems =
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
+
+--spacing--
+
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
@@ -3547,6 +4243,7 @@ In set:
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> Zero      ]
 Out set: 
     [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
@@ -3559,9 +4256,10 @@ Instruction:   %cmp = icmp slt i32 %sum.0, 50
 In set: 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
+    [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sum.0   |-> MaybeZero ]
 Out set: 
     [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
@@ -3577,7 +4275,7 @@ In set:
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sum.0   |-> MaybeZero ]
 Out set: 
     [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
@@ -3588,11 +4286,12 @@ Out set:
 
 Instruction:   %add = add nsw i32 %sum.0, %call
 In set: 
+    [ %add     |-> Uninit    ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
     [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sum.0   |-> MaybeZero ]
 Out set: 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
@@ -3607,14 +4306,14 @@ In set:
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 Out set: 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 
 Instruction:   %sub = sub nsw i32 %sum.0, 55
@@ -3623,13 +4322,14 @@ In set:
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sum.0   |-> Zero      ]
+    [ %sub     |-> NonZero   ]
+    [ %sum.0   |-> MaybeZero ]
 Out set: 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
+    [ %sub     |-> MaybeZero ]
     [ %sum.0   |-> Zero      ]
 
 Instruction:   %div = sdiv i32 %call, %sub
@@ -3637,13 +4337,14 @@ In set:
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %div     |-> MaybeZero ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 Out set: 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
-    [ %div     |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
     [ %sub     |-> NonZero   ]
     [ %sum.0   |-> Zero      ]
 
@@ -3653,8 +4354,8 @@ In set:
     [ %call    |-> MaybeZero ]
     [ %cmp     |-> MaybeZero ]
     [ %div     |-> MaybeZero ]
-    [ %sub     |-> NonZero   ]
-    [ %sum.0   |-> Zero      ]
+    [ %sub     |-> MaybeZero ]
+    [ %sum.0   |-> MaybeZero ]
 Out set: 
     [ %add     |-> MaybeZero ]
     [ %call    |-> MaybeZero ]

@@ -1,0 +1,366 @@
+init push = 0x823580   %cmp = icmp ne i32 0, 0
+init push = 0x7c7ac8   br i1 %cmp, label %if.then, label %if.end
+init push = 0x823780   %div = sdiv i32 1, 0
+init push = 0x822ec8   br label %if.end
+init push = 0x8236d8   ret i32 0
+inst =   %cmp = icmp ne i32 0, 0 name = %cmp    
+b4 flow in
+b5 flow in
+prev inst map = 
+
+prev inst map = %cmp    
+
+prev inst map = %div    
+
+prev inst map = 
+
+prev inst map = 
+
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %cmp = icmp ne i32 0, 0 0x823580
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+    [ %cmp     |-> Zero      ]
+inst name = %cmp     for inst   %cmp = icmp ne i32 0, 0
+domains = 
+Uninit   Zero     Zero     domains differ, add successors? if they were they would be
+succ = 
+succ = %div    
+succ = 
+succ = 
+(prevmem) we just may be loopin. found   ret i32 0 and 1
+b4 construct map
+b5 construct map
+b5 flowout
+inst =   br i1 %cmp, label %if.then, label %if.end name = 
+b4 flow in
+names = %cmp     
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp ne i32 0, 0 with size = 8
+outmem = 
+    [ %cmp     |-> Zero      ]
+inmem = 
+    [ %cmp     |-> Zero      ]
+join i = %cmp    
+pre count
+join i (d2) = %cmp    
+joined mem = 
+    [ %cmp     |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> Zero      ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+Zero     b5 flow in
+prev inst map = 
+
+prev inst map = %cmp    
+    [ %cmp     |-> Zero      ]
+prev inst map = %div    
+
+prev inst map = 
+
+prev inst map = 
+
+(prevmeminst) pred = %cmp    
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   br i1 %cmp, label %if.then, label %if.end 0x7c7ac8
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+
+b5 flowout
+inst =   %div = sdiv i32 1, 0 name = %div    
+b4 flow in
+names = %cmp     %div    
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %if.then, label %if.end with size = 0
+path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp ne i32 0, 0 with size = 8
+outmem = 
+    [ %cmp     |-> Zero      ]
+inmem = 
+    [ %cmp     |-> Zero      ]
+join i = %cmp    
+pre count
+join i (d2) = %cmp    
+joined mem = 
+    [ %cmp     |-> Zero      ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> Zero      ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+Zero     b5 flow in
+prev inst map = 
+    [ %cmp     |-> Zero      ]
+prev inst map = %cmp    
+    [ %cmp     |-> Zero      ]
+prev inst map = %div    
+
+prev inst map = 
+
+prev inst map = 
+
+(prevmeminst) pred = 
+(prevmeminst) pred = %cmp    
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %div = sdiv i32 1, 0 0x823780
+opname = sdiv opcode = 19
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+    [ %div     |-> Uninit    ]
+inst name = %div     for inst   %div = sdiv i32 1, 0
+domains = 
+Uninit   Uninit   Uninit   b4 construct map
+b5 construct map
+b5 flowout
+inst =   br label %if.end name = 
+b4 flow in
+names = %cmp     
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %div     and   %div = sdiv i32 1, 0 with size = 8
+outmem = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+inmem = 
+    [ %cmp     |-> Zero      ]
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i (d2) = %cmp    
+joined mem = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+Zero     %div     
+Uninit   path len = 2
+sizeof predsinst = 1
+code goes here
+pred name =  and   br i1 %cmp, label %if.then, label %if.end with size = 0
+path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %cmp     and   %cmp = icmp ne i32 0, 0 with size = 8
+outmem = 
+    [ %cmp     |-> Zero      ]
+inmem = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+join i = %cmp    
+pre count
+join i (d2) = %cmp    
+join i (d2) = %div    
+joined mem = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+Zero     %div     
+Uninit   b5 flow in
+prev inst map = 
+    [ %cmp     |-> Zero      ]
+prev inst map = %cmp    
+    [ %cmp     |-> Zero      ]
+prev inst map = %div    
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+prev inst map = 
+
+prev inst map = 
+
+(prevmeminst) pred = %div    
+(prevmeminst) pred = 
+prev out memory = 
+    [ %cmp     |-> Zero      ]
+size of it is 1
+b4 transfer
+reached transfer where inst =   br label %if.end 0x822ec8
+b5 transfer
+prev out memory = 
+    [ %cmp     |-> Zero      ]
+size of it is 1
+b4 flowout
+mems = 
+    [ %cmp     |-> Zero      ]
+
+--spacing--
+
+
+b5 flowout
+inst =   ret i32 0 name = 
+b4 flow in
+names = %cmp     
+names = %div     
+path len = 1
+sizeof predsinst = 2
+code goes here
+pred name =  and   br label %if.end with size = 0
+code goes here
+pred name =  and   br i1 %cmp, label %if.then, label %if.end with size = 0
+path len = 3
+sizeof predsinst = 1
+code goes here
+pred name = %div     and   %div = sdiv i32 1, 0 with size = 8
+outmem = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+inmem = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+join i = %cmp    
+pre count
+join i = %div    
+pre count
+join i (d2) = %cmp    
+join i (d2) = %div    
+joined mem = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+flowin-b5 make pair
+total mem map = 
+%cmp     
+Zero     %div     
+Uninit   path len = 4
+sizeof predsinst = 1
+code goes here
+(flowin) we just may be loopin. found   br i1 %cmp, label %if.then, label %if.end and 1
+b5 flow in
+prev inst map = 
+    [ %cmp     |-> Zero      ]
+prev inst map = %cmp    
+    [ %cmp     |-> Zero      ]
+prev inst map = %div    
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+prev inst map = 
+
+prev inst map = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+(prevmeminst) pred = 
+prev out memory = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+size of it is 2
+b4 transfer
+reached transfer where inst =   ret i32 0 0x8236d8
+b5 transfer
+prev out memory = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+size of it is 2
+b4 flowout
+mems = 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+
+--spacing--
+
+
+(cmap) we just may be loopin. found   br i1 %cmp, label %if.then, label %if.end and 1
+b5 flowout
+Dataflow Analysis Results:
+Instruction:   %cmp = icmp ne i32 0, 0
+In set: 
+
+Out set: 
+    [ %cmp     |-> Zero      ]
+
+Instruction:   br i1 %cmp, label %if.then, label %if.end
+In set: 
+    [ %cmp     |-> Zero      ]
+Out set: 
+    [ %cmp     |-> Zero      ]
+
+Instruction:   %div = sdiv i32 1, 0
+In set: 
+    [ %cmp     |-> Zero      ]
+Out set: 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+
+Instruction:   br label %if.end
+In set: 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+Out set: 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+
+Instruction:   ret i32 0
+In set: 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+Out set: 
+    [ %cmp     |-> Zero      ]
+    [ %div     |-> Uninit    ]
+

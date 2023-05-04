@@ -153,6 +153,8 @@ void constructMap(Instruction* I, MapType& Map) {
         D = Map[pred]->at(predName);
       }
       Map[I]->emplace(std::make_pair(predName, D));
+
+      
     }
     predsInst = getPredecessors(predsInst[0]);
   }
@@ -227,7 +229,6 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
 
   for (auto Pair : totalInstDomainMap) {
     logout("names = " << Pair.first << " " << getInstName(Inst))
-    if (Pair.first == getInstName(Inst)) continue; 
      InMem->emplace(std::make_pair(Pair.first, Pair.second));
   }
 
@@ -252,6 +253,8 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
       Memory* outMem = OutMap[pred];
       logout("outmem = ")
       logOutMemory(outMem)
+      logout("inmem = ")
+      logOutMemory(InMem)
       std::string predName = getInstName(pred);
 
       Memory* joinedMemory = join(outMem, InMem); 
@@ -263,10 +266,23 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
       logout("done size check")
       if (!joinedMemory->count(predName)) continue; 
       logout("done count check")
+      
+      for (auto Pair : *joinedMemory) {
+        if (InMem->count(Pair.first) == 0)
+        InMem->emplace(std::make_pair(Pair.first, joinedMemory->at(Pair.first))); // ⭐️
+        else 
+        InMem->at(Pair.first) = joinedMemory->at(Pair.first); 
 
-      InMem->emplace(std::make_pair(predName, joinedMemory->at(predName))); // ⭐️ the line of code that changed everything (i.e., made it actually work)
+        if (totalInstDomainMap.count(Pair.first) == 0) 
+         totalInstDomainMap.emplace(std::make_pair(predName, joinedMemory->at(predName)));
+         else 
+         totalInstDomainMap[Pair.first] = joinedMemory->at(Pair.first);
+      }
+      
+      logout("inmem (2) = ")
+      logOutMemory(InMem)
       logout("flowin-b5 make pair")
-      totalInstDomainMap.emplace(std::make_pair(predName, joinedMemory->at(predName)));
+     
       logout("total mem map = ")
       for (auto Pair : totalInstDomainMap) {
         logout(Pair.first << " ")
@@ -292,6 +308,7 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
    */
   logout("mems = ")
   logOutMemory(Pre)
+  logout("\n--spacing--\n")
   logOutMemory(Post)
 
   // instruction is something that transfer function does not handle; e.g., "ret i32 0". simply do nothing with it, but construct the outmap accordingly 
@@ -324,6 +341,7 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
   if (!Domain::equal(*PreDomain, *MergedDomain)) {
     logout("domains differ, add successors? if they were they would be")
 
+
     std::string instName = getInstName(Inst);
     std::vector<llvm::Instruction*> succsInst = getSuccessors(Inst);
     SetVector<Instruction *> instructionPathTaken; 
@@ -347,7 +365,11 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
       succsInst = getSuccessors(succsInst[0]);
     }
 
+
+
     OutMap[Inst]->at(InstName) = MergedDomain;
+    totalInstDomainMap[InstName] = MergedDomain;
+
   }
 
   logout("b4 construct map")
