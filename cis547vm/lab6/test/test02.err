@@ -1,0 +1,195 @@
+init push = 0x823098   %call = call i32 @getchar()
+init push = 0x8237d0   %div = sdiv i32 5, %call
+init push = 0x823878   ret i32 0
+inst =   %call = call i32 @getchar() name = %call   
+b4 flow in
+b5 flow in
+prev inst map = %call   
+
+prev inst map = 
+
+prev inst map = %div    
+
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %call = call i32 @getchar() 0x823098
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+    [ %call    |-> MaybeZero ]
+inst name = %call    for inst   %call = call i32 @getchar()
+domains = 
+Uninit   MaybeZeroMaybeZerodomains differ, add successors? if they were they would be
+succ = %div    
+succ = 
+b4 construct map
+b5 construct map
+b5 flowout
+inst =   %div = sdiv i32 5, %call name = %div    
+b4 flow in
+names = %call    %div    
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %call    and   %call = call i32 @getchar() with size = 8
+outmem = 
+    [ %call    |-> MaybeZero ]
+inmem = 
+    [ %call    |-> MaybeZero ]
+join i = %call   
+pre count
+join i (d2) = %call   
+joined mem = 
+    [ %call    |-> MaybeZero ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %call    |-> MaybeZero ]
+flowin-b5 make pair
+total mem map = 
+%call    
+MaybeZerob5 flow in
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+
+(prevmeminst) pred = %call   
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   %div = sdiv i32 5, %call 0x8237d0
+opname = sdiv opcode = 19
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+    [ %div     |-> Uninit    ]
+inst name = %div     for inst   %div = sdiv i32 5, %call
+domains = 
+Uninit   Uninit   Uninit   b4 construct map
+b5 construct map
+b5 flowout
+inst =   ret i32 0 name = 
+b4 flow in
+names = %call    
+path len = 1
+sizeof predsinst = 1
+code goes here
+pred name = %div     and   %div = sdiv i32 5, %call with size = 8
+outmem = 
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+inmem = 
+    [ %call    |-> MaybeZero ]
+join i = %call   
+pre count
+join i = %div    
+pre count
+join i (d2) = %call   
+joined mem = 
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+flowin-b5 make pair
+total mem map = 
+%call    
+MaybeZero%div     
+Uninit   path len = 2
+sizeof predsinst = 1
+code goes here
+pred name = %call    and   %call = call i32 @getchar() with size = 8
+outmem = 
+    [ %call    |-> MaybeZero ]
+inmem = 
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+join i = %call   
+pre count
+join i (d2) = %call   
+join i (d2) = %div    
+joined mem = 
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+flowin-b4 make pair
+done size check
+done count check
+inmem (2) = 
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+flowin-b5 make pair
+total mem map = 
+%call    
+MaybeZero%div     
+Uninit   b5 flow in
+prev inst map = %call   
+    [ %call    |-> MaybeZero ]
+prev inst map = 
+
+prev inst map = %div    
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+(prevmeminst) pred = %div    
+(prevmeminst) pred = %call   
+prev out memory = 
+
+size of it is 0
+b4 transfer
+reached transfer where inst =   ret i32 0 0x823878
+b5 transfer
+prev out memory = 
+
+size of it is 0
+b4 flowout
+mems = 
+
+
+--spacing--
+
+
+b5 flowout
+Dataflow Analysis Results:
+Instruction:   %call = call i32 @getchar()
+In set: 
+
+Out set: 
+    [ %call    |-> MaybeZero ]
+
+Instruction:   %div = sdiv i32 5, %call
+In set: 
+    [ %call    |-> MaybeZero ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+
+Instruction:   ret i32 0
+In set: 
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+

@@ -1,0 +1,3 @@
+Running DivZero on main
+Potential Instructions by DivZero: 
+  %div = sdiv i32 1, 0
