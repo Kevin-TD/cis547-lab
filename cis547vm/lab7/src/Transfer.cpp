@@ -1,6 +1,17 @@
 #include "DivZeroAnalysis.h"
 #include "Utils.h"
 
+#define DEBUG true
+#if DEBUG
+#define logout(x) errs() << x << "\n";
+#define logDomain(x) x->print(errs()); 
+#define logOutMemory(x) printMemory(x);
+#else
+#define logout(x) 
+#define logDomain(x) 
+#define logOutMemory(x) 
+#endif 
+
 namespace dataflow {
 
 /**
@@ -53,7 +64,26 @@ Domain *eval(BinaryOperator *BinOp, const Memory *InMem) {
    * TODO: Write your code here that evaluates +, -, * and /
    * based on the Domains of the operands.
    */
-  return NULL;
+
+  const char *OpName = BinOp->getOpcodeName(); 
+  Value *LHS = BinOp->getOperand(0); 
+  Value *RHS = BinOp->getOperand(1); 
+  auto val1 = getOrExtract(InMem, LHS); 
+  auto val2 = getOrExtract(InMem, RHS); 
+
+  if (BinOp->getOpcode() == Instruction::Add) {
+    return Domain::add(val1, val2);
+  }
+  else if (BinOp->getOpcode() == Instruction::Sub) {
+    return Domain::sub(val1, val2);
+  }
+  else if (BinOp->getOpcode() == Instruction::Mul) {
+    return Domain::mul(val1, val2);
+  }
+  else if (BinOp->getOpcode() == Instruction::SDiv || BinOp->getOpcode() == Instruction::UDiv) {
+    return Domain::div(val1, val2);
+  }
+
 }
 
 /**
@@ -67,7 +97,9 @@ Domain *eval(CastInst *Cast, const Memory *InMem) {
   /**
    * TODO: Write your code here to evaluate Cast instruction.
    */
-  return NULL;
+  unsigned Opcode = Cast->getOpcode();
+  Value *SrcValue = Cast->getOperand(0);
+  return getOrExtract(InMem, SrcValue);
 }
 
 /**
@@ -86,7 +118,30 @@ Domain *eval(CmpInst *Cmp, const Memory *InMem) {
    * NOTE: There is a lot of scope for refining this, but you can just return
    * MaybeZero for comparisons other than equality.
    */
-  return NULL;
+  auto op = Cmp->getPredicate(); 
+  Value *LHS = Cmp->getOperand(0); 
+  Value *RHS = Cmp->getOperand(1); 
+  Domain* val1 = getOrExtract(InMem, LHS); 
+  Domain* val2 = getOrExtract(InMem, RHS); 
+  
+  
+  if (!Domain::equal(*val1, Domain::Element::MaybeZero)) return val1; 
+  if (Domain::equal(*val2, Domain::Element::MaybeZero)) return new Domain(Domain::Element::MaybeZero); 
+  if (Domain::equal(*val2, Domain::Element::Uninit)) return new Domain(Domain::Element::Uninit); 
+
+  // values are now only  LHS = MaybeZero, RHS = Zero or NonZero
+
+   if (op == CmpInst::ICMP_EQ) { // ==
+    return val2; 
+  }
+  else if (op == CmpInst::ICMP_NE || op == CmpInst::ICMP_SLT || op == CmpInst::ICMP_SGE) { // !=, <, > 
+    if (Domain::equal(*val2, Domain::Element::Zero)) return new Domain(Domain::Element::NonZero);
+    return new Domain(Domain::Element::Zero); 
+  }
+  // <=, >=
+  return new Domain(Domain::Element::MaybeZero);
+
+
 }
 
 void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
@@ -126,6 +181,35 @@ void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
      *
      * Hint: You may find getOperand(), getValueOperand(), and getPointerOperand() useful.
      */
+    logout("doing store inst")
+
+    //  store i32 0, i32* %retval
+
+    Value* storingValue = Store->getOperand(0);       // 0 
+    Value* storedToRef = Store->getOperand(1);   // %retval
+
+    logout("stored = " << storingValue << " !!!! " << *storingValue)
+    logout("stored = " << storedToRef << " !!!! " << *storedToRef)
+
+    for (llvm::Value* ptr : PointerSet) {
+      std::string storedName = variable(storedToRef);
+      std::string ptrName = variable(ptr);
+       logout("testing " << ptrName << " !!!! " << storedName)
+      if (PA->alias(ptrName, storedName)) {
+        logout("aliases " << ptrName << " " << storedName)
+        Domain* storedDomain = getOrExtract(In, storingValue);
+        Domain* ptrDomain = getOrExtract(In, ptr);
+        Domain* joinedDomain = Domain::join(storedDomain, ptrDomain);
+        NOut[storedName] = joinedDomain; 
+        logout("stored to storedname")
+
+        logDomain(storedDomain)
+        logDomain(ptrDomain)
+        logout("stored then ptr domain logged")
+      }
+    }
+
+
   } else if (auto Load = dyn_cast<LoadInst>(Inst)) {
     /**
      * TODO: Rely on the existing variables defined within the `In` memory to
@@ -138,6 +222,20 @@ void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
      *
      * Hint: You may use getPointerOperand().
      */
+
+    // %0 = load i32, i32* %a, align 4
+
+    Value* storingValue = Load->getPointerOperand();      
+    logout("i got a (value)" << storingValue << " !! " << *storingValue << " !! " << variable(storingValue))
+    if (In->count(variable(storingValue)) == 0) {
+      logout("i have never seen this value in my life beofre. making it uninit")
+      NOut[variable(Load)] = new Domain(Domain::Uninit);
+    }
+    else {
+      logout("seen it bfore!! its the uhh " << *In->at(variable(storingValue)) )
+      NOut[variable(Load)] = In->at(variable(storingValue));
+    }
+
   } else if (auto Branch = dyn_cast<BranchInst>(Inst)) {
     // Analysis is flow-insensitive, so do nothing here.
   } else if (auto Call = dyn_cast<CallInst>(Inst)) {

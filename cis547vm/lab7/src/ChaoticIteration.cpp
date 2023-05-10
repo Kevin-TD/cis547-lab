@@ -1,7 +1,51 @@
 #include "DivZeroAnalysis.h"
 #include "Utils.h"
 
+// make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test03.c -o test03.ll ; opt -load ../build/DivZeroPass.so -DivZero test03.ll ; cd ../build
+
+typedef llvm::ValueMap<llvm::Instruction *, dataflow::Memory *> MapType;
+
+#define DEBUG true
+#if DEBUG
+#define logout(x) errs() << x << "\n";
+#define logDomain(x) x->print(errs()); 
+#define logOutMemory(x) printMemory(x);
+#else
+#define logout(x) 
+#define logDomain(x) 
+#define logOutMemory(x) 
+#endif 
+
 namespace dataflow {
+
+std::string getInstName(Instruction* I) {
+  std::string instName;
+
+  if (I->getName().size() != 0) {
+    instName = "%" + I->getName().str();
+  }
+  else if (auto Store = dyn_cast<StoreInst>(I)) {
+    Value* ptrValue = Store->getOperand(1);
+    instName = "%" + ptrValue->getName().str(); 
+  }
+  else {
+    return "";
+  }
+
+  while (instName.size() != 8) {
+    instName += " ";
+  }
+
+  return instName; 
+}
+
+Memory* copyMemory(Memory* mem) {
+  Memory* copy = new Memory();
+  for (auto Pair : *mem) {
+    copy->emplace(std::make_pair(Pair.first, Pair.second));
+  }
+  return copy; 
+}
 
 /**
  * @brief Get the Predecessors of a given instruction in the control-flow graph.
@@ -73,7 +117,32 @@ Memory *join(Memory *Mem1, Memory *Mem2) {
    *   domain D2, then Domain::join D1 and D2 to find the new domain D,
    *   and add instruction I with domain D to the Result.
    */
-  return NULL;
+
+  Memory* Result = new Memory();
+
+  // iterate over all instructions in Mem1 and add them to the result
+  for (auto Pair : *Mem1) {
+    std::string I = Pair.first;
+    Domain* D1 = Pair.second;
+    if (!Mem2->count(I)) {
+      Result->emplace(std::make_pair(I, D1));
+    } else {
+      Domain *D2 = Mem2->at(I);
+      Result->emplace(std::make_pair(I, Domain::join(D1, D2)));
+    }
+  }
+
+  // iterate over all instructions in Mem2 that are not already in the result and add them to the result
+  for (auto Pair : *Mem2) {
+    std::string I = Pair.first;
+    Domain *D2 = Pair.second;
+
+    if (!Result->count(I)) {
+      Result->emplace(std::make_pair(I, D2));
+    }
+  }
+
+  return Result;
 }
 
 void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
@@ -84,6 +153,20 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
    *   + Get the Out Memory of Pred using OutMap.
    *   + Join the Out Memory with InMem.
    */
+
+  std::vector<llvm::Instruction*> predsInst = getPredecessors(Inst);
+  while (predsInst.size() != 0) {
+    for (llvm::Instruction* pred : predsInst) {
+      Memory* outMemory = OutMap[pred];
+      Memory* joinedMemory = join(outMemory, InMem); 
+
+      for (auto Pair : *joinedMemory) {
+          InMem->emplace(std::make_pair(Pair.first, joinedMemory->at(Pair.first))); // ⭐️
+      }
+
+    }
+    predsInst = getPredecessors(predsInst[0]);
+  }
 }
 
 /**
@@ -116,6 +199,33 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
    * and post-transfer memory, and update the OutMap.
    * If the OutMap changed then also update the WorkSet.
    */
+
+  std::string InstName = getInstName(Inst);
+  if (Post->count(InstName) == 0) return; 
+
+  Domain *PreDomain; 
+  if (Pre->count(InstName) == 0) {
+    PreDomain = new Domain(Domain::Uninit);
+  }
+  else {
+    PreDomain = Pre->at(InstName);
+  }
+
+  Domain *PostDomain = Post->at(InstName);
+  logout("read post domain")
+
+  Domain *MergedDomain = Domain::join(PreDomain, PostDomain);
+  
+  if (!Domain::equal(*PreDomain, *MergedDomain)) {
+    std::vector<llvm::Instruction*> succsInst = getSuccessors(Inst);
+    for (auto succ : succsInst) {
+      WorkSet.insert(succ);
+    }
+  }
+
+  OutMap[Inst]->at(InstName) = MergedDomain;
+  logout("read outmap[inst]")
+
 }
 
 void DivZeroAnalysis::doAnalysis(Function &F, PointerAnalysis *PA) {
@@ -140,6 +250,42 @@ void DivZeroAnalysis::doAnalysis(Function &F, PointerAnalysis *PA) {
    *   memory, to check if there is a difference between the two to update the
    *   OutMap and add all successors to WorkSet.
    */
+
+  for (inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I) {
+    WorkSet.insert(&(*I));
+    PointerSet.insert(&(*I));
+    logout("init push = " << &(*I) << " " << *I)
+  }
+
+  while(!WorkSet.empty()) {
+    Instruction* top = WorkSet.front(); 
+    Memory* topMemory = InMap[top];
+
+    logout("inst = " << *top << " name = " << getInstName(top))
+    
+    flowIn(top, topMemory);
+    logout("done flow in")
+    logout("top mem read = ")
+    logOutMemory(topMemory)
+
+    Memory* prevOutMemory = copyMemory(OutMap[top]);
+    logout("done copy memory, read = ")
+    logOutMemory(prevOutMemory)
+
+    transfer(top, topMemory, *OutMap[top], PA, PointerSet); 
+    logout("done transfer")
+
+    Memory* currOutMemory = OutMap[top];
+    logout("read curr out")
+    logOutMemory(currOutMemory)
+
+    flowOut(top, prevOutMemory, currOutMemory, WorkSet);
+    logout("done flowout")
+   
+    WorkSet.remove(WorkSet.front());
+  }
+
+
 }
 
 } // namespace dataflow

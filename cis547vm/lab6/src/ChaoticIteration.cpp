@@ -3,7 +3,7 @@
 
 typedef llvm::ValueMap<llvm::Instruction *, dataflow::Memory *> MapType;
 
-#define DEBUG true
+#define DEBUG false
 #if DEBUG
 #define logout(x) errs() << x << "\n";
 #define logDomain(x) x->print(errs()); 

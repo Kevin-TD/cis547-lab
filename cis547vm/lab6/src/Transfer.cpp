@@ -14,7 +14,7 @@
 // make clean ; cmake .. ; make ; cd ../ ; cd test ; clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c -o test01.ll test01.c ; opt -mem2reg -S test01.ll -o test01.opt.ll ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll > test01.out 2> test01.err ; opt -load ../build/DivZeroPass.so -DivZero -disable-output test01.opt.ll ; cd ../ ; cd build
 
 
-#define DEBUG true
+#define DEBUG false
 #if DEBUG
 #define logout(x) errs() << x << "\n";
 #else
@@ -171,9 +171,9 @@ Domain *eval(CmpInst *Cmp, const Memory *InMem) {
     return d;
   }
   else if (op == CmpInst::ICMP_NE) {
-     // 0 and 0 case (1)
+     // 0 and 0 case (0)
     if (Domain::equal(*val1, Domain::Element::Zero) && Domain::equal(*val2, Domain::Element::Zero)) {
-      auto* d = new Domain(Domain::Element::NonZero);
+      auto* d = new Domain(Domain::Element::Zero);
       return d;
     }
     
@@ -187,9 +187,31 @@ Domain *eval(CmpInst *Cmp, const Memory *InMem) {
     auto* d = new Domain(Domain::Element::NonZero);
     return d;
   }
-  
+  else if (op == CmpInst::ICMP_SGT) {
+     // 0 > 0 case: false -> zero
+    if (Domain::equal(*val1, Domain::Element::Zero) && Domain::equal(*val2, Domain::Element::Zero)) {
+      auto* d = new Domain(Domain::Element::Zero);
+      return d;
+    }
+    
+    // S n > S m case -> non zero 
+    if (Domain::equal(*val1, Domain::Element::NonZero) && Domain::equal(*val2, Domain::Element::NonZero)) {
+       auto* d = new Domain(Domain::Element::NonZero);
+       return d;
+    }
+    
+    // S n > 0: true -> nonzero
+     if (Domain::equal(*val1, Domain::Element::NonZero) && Domain::equal(*val2, Domain::Element::Zero)) {
+       auto* d = new Domain(Domain::Element::NonZero);
+       return d;
+    }
+
+    // 0 > S n: false -> zero
+    auto* d = new Domain(Domain::Element::Zero);
+    return d;
+  }
   // IMCP_SLT (signed less than)
-  // SLE, SGT, SGE
+  // SLE, SGE
   auto* d = new Domain(Domain::Element::MaybeZero);
   return d;
   

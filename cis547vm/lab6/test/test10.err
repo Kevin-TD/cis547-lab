@@ -1,0 +1,190 @@
+Dataflow Analysis Results:
+Instruction:   %call = call i32 @getchar()
+In set: 
+
+Out set: 
+    [ %call    |-> MaybeZero ]
+
+Instruction:   %cmp = icmp sgt i32 %call, 0
+In set: 
+    [ %call    |-> MaybeZero ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+
+Instruction:   br i1 %cmp, label %if.then, label %if.else
+In set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+Out set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+
+Instruction:   %add = add nsw i32 100, 2
+In set: 
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+
+Instruction:   br label %if.end5
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+
+Instruction:   %cmp1 = icmp eq i32 %call, 0
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+
+Instruction:   br i1 %cmp1, label %if.then2, label %if.else3
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+
+Instruction:   br label %if.end
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+
+Instruction:   %add4 = add nsw i32 10, 2
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+
+Instruction:   br label %if.end
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+
+Instruction:   %b.0 = phi i32 [ 1, %if.then2 ], [ %add4, %if.else3 ]
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %b.0     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+
+Instruction:   br label %if.end5
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %b.0     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %b.0     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+
+Instruction:   %b.1 = phi i32 [ %add, %if.then ], [ %b.0, %if.end ]
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %b.0     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %b.0     |-> MaybeZero ]
+    [ %b.1     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+
+Instruction:   %div = sdiv i32 10, %b.1
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %b.0     |-> MaybeZero ]
+    [ %b.1     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %b.0     |-> MaybeZero ]
+    [ %b.1     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+    [ %div     |-> Uninit    ]
+
+Instruction:   ret void
+In set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %b.0     |-> MaybeZero ]
+    [ %b.1     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+    [ %div     |-> Uninit    ]
+Out set: 
+    [ %add     |-> MaybeZero ]
+    [ %add4    |-> MaybeZero ]
+    [ %b.0     |-> MaybeZero ]
+    [ %b.1     |-> MaybeZero ]
+    [ %call    |-> MaybeZero ]
+    [ %cmp     |-> Zero      ]
+    [ %cmp1    |-> Zero      ]
+    [ %div     |-> Uninit    ]
+

@@ -1,0 +1,3 @@
+Running DivZero on f
+Potential Instructions by DivZero: 
+  %div = sdiv i32 10, %b.1
