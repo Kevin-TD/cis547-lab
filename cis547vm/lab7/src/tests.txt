@@ -1,0 +1,138 @@
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test01.c -o test01.ll ; opt -load ../build/DivZeroPass.so -DivZero test01.ll ; cd ../build
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test02.c -o test02.ll ; opt -load ../build/DivZeroPass.so -DivZero test02.ll ; cd ../build
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test3.c -o test03.ll ; opt -load ../build/DivZeroPass.so -DivZero test03.ll ; cd ../build
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test04.c -o test04.ll ; opt -load ../build/DivZeroPass.so -DivZero test04.ll ; cd ../build
+-- does not pick up that the condition (x < 1) never runs 
+-- Likely due to flow insensitivity 
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test05.c -o test05.ll ; opt -load ../build/DivZeroPass.so -DivZero test05.ll ; cd ../build
+-- does not pick up that the condition (x != 0) never runs 
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test06.c -o test06.ll ; opt -load ../build/DivZeroPass.so -DivZero test06.ll ; cd ../build
+-- correctly lubs
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test07.c -o test07.ll ; opt -load ../build/DivZeroPass.so -DivZero test07.ll ; cd ../build
+-- lubs but flow insensitivity ... 
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test08.c -o test08.ll ; opt -load ../build/DivZeroPass.so -DivZero test08.ll ; cd ../build
+-- lubs
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test09.c -o test09.ll ; opt -load ../build/DivZeroPass.so -DivZero test09.ll ; cd ../build
+-- lubs 
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test10.c -o test10.ll ; opt -load ../build/DivZeroPass.so -DivZero test10.ll ; cd ../build
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test11.c -o test11.ll ; opt -load ../build/DivZeroPass.so -DivZero test11.ll ; cd ../build
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test12.c -o test12.ll ; opt -load ../build/DivZeroPass.so -DivZero test12.ll ; cd ../build
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test13.c -o test13.ll ; opt -load ../build/DivZeroPass.so -DivZero test13.ll ; cd ../build
+-- Correctly aliases and deduces no div zero
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test14.c -o test14.ll ; opt -load ../build/DivZeroPass.so -DivZero test14.ll ; cd ../build
+-- it works but also doesnt really show that 
+So the out set for this is 
+Out set: 
+    [ %0       |-> Zero      ]
+    [ %1       |-> Zero      ]
+    [ %2       |-> Zero      ]
+    [ %a       |-> Zero      ]
+    [ %c       |-> Uninit    ]
+    [ %d       |-> Uninit    ]
+    [ %div     |-> Uninit    ]
+    [ %e       |-> Uninit    ]
+    [ %x       |-> Uninit    ]
+Potential Instructions by DivZero: 
+  %div = sdiv i32 1, %2
+
+This is a correct deduction. c,d, & e are all aliased to a. When c is set to zero, a is set to zero. as d and a are aliased, d is set to zero, and a div by zero error occurs. The program correctly points this out, only thing is that those proper aliases are stored in %0, %1, etc... rather than %a, %b, etc ... as we expect. BUT the llvm IR, when looking the div operators, refers to the %0, ... and not the %a, ... values 
+
+-- %div = sdiv i32 1, %2  (from test14.ll) 
+So it does work, just that var names are not updated 
+
+
+
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test15.c -o test15.ll ; opt -load ../build/DivZeroPass.so -DivZero test15.ll ; cd ../build
+
+Instruction:   ret i32 0
+In set: 
+    [ %0       |-> Uninit    ]
+    [ %1       |-> MaybeZero ]
+    [ %2       |-> MaybeZero ]
+    [ %a       |-> Zero      ]
+    [ %arg.addr |-> Uninit    ]
+    [ %b       |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+    [ %tobool  |-> NonZero   ]
+    [ %x       |-> MaybeZero ]
+    [ %z       |-> Uninit    ]
+Out set: 
+    [ %0       |-> Uninit    ]
+    [ %1       |-> MaybeZero ]
+    [ %2       |-> MaybeZero ]
+    [ %a       |-> Zero      ]
+    [ %arg.addr |-> Uninit    ]
+    [ %b       |-> MaybeZero ]
+    [ %div     |-> Uninit    ]
+    [ %tobool  |-> NonZero   ]
+    [ %x       |-> MaybeZero ]
+    [ %z       |-> Uninit    ]
+
+Potential Instructions by DivZero: 
+  %div = sdiv i32 1, %2
+
+pretty decent! 
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test16.c -o test16.ll ; opt -load ../build/DivZeroPass.so -DivZero test16.ll ; cd ../build
+
+Instruction:   ret i32 0
+In set: 
+    [ %0       |-> Uninit    ]
+    [ %1       |-> Uninit    ]
+    [ %2       |-> NonZero   ]
+    [ %3       |-> NonZero   ]
+    [ %4       |-> NonZero   ]
+    [ %5       |-> NonZero   ]
+    [ %a       |-> NonZero   ]
+    [ %arg.addr |-> Uninit    ]
+    [ %b       |-> NonZero   ]
+    [ %div     |-> MaybeZero ]
+    [ %tobool  |-> NonZero   ]
+    [ %tobool1 |-> NonZero   ]
+    [ %x       |-> NonZero   ]
+    [ %y       |-> NonZero   ]
+    [ %z       |-> NonZero   ]
+    [ %z2      |-> MaybeZero ]
+Out set: 
+    [ %0       |-> Uninit    ]
+    [ %1       |-> Uninit    ]
+    [ %2       |-> NonZero   ]
+    [ %3       |-> NonZero   ]
+    [ %4       |-> NonZero   ]
+    [ %5       |-> NonZero   ]
+    [ %a       |-> NonZero   ]
+    [ %arg.addr |-> Uninit    ]
+    [ %b       |-> NonZero   ]
+    [ %div     |-> MaybeZero ]
+    [ %tobool  |-> NonZero   ]
+    [ %tobool1 |-> NonZero   ]
+    [ %x       |-> NonZero   ]
+    [ %y       |-> NonZero   ]
+    [ %z       |-> NonZero   ]
+    [ %z2      |-> MaybeZero ]
+
+Potential Instructions by DivZero: 
+
+nothin
+thats good!
+
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test17.c -o test17.ll ; opt -load ../build/DivZeroPass.so -DivZero test17.ll ; cd ../build
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test18.c -o test18.ll ; opt -load ../build/DivZeroPass.so -DivZero test18.ll ; cd ../build
+
+make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test19.c -o test19.ll ; opt -load ../build/DivZeroPass.so -DivZero test19.ll ; cd ../build

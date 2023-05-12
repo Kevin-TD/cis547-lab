@@ -55,6 +55,12 @@ DivZeroAnalysis.h
 /lab7/src/DivZeroAnalysis.h
 Utils.h
 /lab7/src/Utils.h
+list
+-
+fstream
+-
+iostream
+-
 
 /lab7/src/DivZeroAnalysis.cpp
 DivZeroAnalysis.h
@@ -368,6 +374,10 @@ memory
 tuple
 -
 type_traits
+-
+utility
+-
+random
 -
 
 /usr/lib/llvm-8/include/llvm/ADT/SetVector.h

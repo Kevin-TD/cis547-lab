@@ -1,7 +1,12 @@
 #include "DivZeroAnalysis.h"
 #include "Utils.h"
+#include <list>
+#include <fstream>
+#include <iostream>
 
 // make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test03.c -o test03.ll ; opt -load ../build/DivZeroPass.so -DivZero test03.ll ; cd ../build
+
+
 
 typedef llvm::ValueMap<llvm::Instruction *, dataflow::Memory *> MapType;
 
@@ -32,7 +37,7 @@ std::string getInstName(Instruction* I) {
     return "";
   }
 
-  while (instName.size() != 8) {
+  while (instName.size() < 8) {
     instName += " ";
   }
 
@@ -107,7 +112,7 @@ std::vector<Instruction *> getSuccessors(Instruction *Inst) {
  * @param Mem2 Second memory.
  * @return The joined memory.
  */
-Memory *join(Memory *Mem1, Memory *Mem2) {
+Memory *join(Memory *Mem1, Memory *Mem2, llvm::Instruction* currentInst, llvm::Instruction* prevInst) {
   /**
    * TODO: Write your code that joins two memories.
    *
@@ -124,11 +129,29 @@ Memory *join(Memory *Mem1, Memory *Mem2) {
   for (auto Pair : *Mem1) {
     std::string I = Pair.first;
     Domain* D1 = Pair.second;
-    if (!Mem2->count(I)) {
+    logout("join I = " << I)
+    logout("D1 = ")
+    logDomain(D1)
+    if (Mem2->count(I) == 0) {
       Result->emplace(std::make_pair(I, D1));
     } else {
+      logout("found D2 = ")
       Domain *D2 = Mem2->at(I);
-      Result->emplace(std::make_pair(I, Domain::join(D1, D2)));
+      logDomain(D2)
+
+      BasicBlock* currentBlock = currentInst->getParent();
+      BasicBlock* prevBlock = prevInst->getParent();
+
+      if (currentBlock == prevBlock) {
+        logout("same block join")
+        Result->emplace(std::make_pair(I, D1));
+      }
+      else {
+        // logout("diff block join")
+        Result->emplace(std::make_pair(I, Domain::join(D1, D2)));
+      }
+
+      
     }
   }
 
@@ -157,15 +180,44 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
   std::vector<llvm::Instruction*> predsInst = getPredecessors(Inst);
   while (predsInst.size() != 0) {
     for (llvm::Instruction* pred : predsInst) {
+      logout("pred = " << *pred << " with name " << getInstName(pred))
       Memory* outMemory = OutMap[pred];
-      Memory* joinedMemory = join(outMemory, InMem); 
+      Memory* joinedMemory = join(outMemory, InMem, Inst, pred); 
+      logout("out memory = ")
+      logOutMemory(outMemory)
+      logout("in memory = ")
+      logOutMemory(InMem)
+      logout("joined memory = ")
+      logOutMemory(joinedMemory)
 
       for (auto Pair : *joinedMemory) {
-          InMem->emplace(std::make_pair(Pair.first, joinedMemory->at(Pair.first))); // ⭐️
+          if (InMem->count(Pair.first) == 0) {
+             InMem->emplace(std::make_pair(Pair.first, joinedMemory->at(Pair.first))); // ⭐️
+          }
+          else {
+            BasicBlock* instBlock = Inst->getParent();
+            BasicBlock* predBlock = pred->getParent();
+
+            if (instBlock == predBlock) {
+              // logout("same block flowin")
+              InMem->at(Pair.first) = Pair.second; 
+            }
+            else {
+              logout("diff block flowin")
+              Domain* prevOut = InMem->at(Pair.first);
+              Domain* curOut = Pair.second; 
+              Domain* joined = Domain::join(prevOut, curOut);
+              InMem->at(Pair.first) = joined; 
+            }
+            
+          }
+         
       }
+      logout("inmem = ")
+      logOutMemory(InMem)
 
     }
-    predsInst = getPredecessors(predsInst[0]);
+    predsInst = getPredecessors(predsInst[predsInst.size() - 1]);
   }
 }
 
@@ -200,10 +252,23 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
    * If the OutMap changed then also update the WorkSet.
    */
 
+  // construct outmap memory
+  std::vector<llvm::Instruction*> predsInst = getPredecessors(Inst);
+  while (predsInst.size() != 0) {
+    for (llvm::Instruction* pred : predsInst) {
+      for (auto Pair : *InMap[Inst]) {
+          OutMap[Inst]->emplace(std::make_pair(Pair.first, InMap[Inst]->at(Pair.first)));
+      }
+
+    }
+    predsInst = getPredecessors(predsInst[predsInst.size() - 1]);
+  }
+
   std::string InstName = getInstName(Inst);
   if (Post->count(InstName) == 0) return; 
 
   Domain *PreDomain; 
+
   if (Pre->count(InstName) == 0) {
     PreDomain = new Domain(Domain::Uninit);
   }
@@ -215,17 +280,43 @@ void DivZeroAnalysis::flowOut(Instruction *Inst, Memory *Pre, Memory *Post,
   logout("read post domain")
 
   Domain *MergedDomain = Domain::join(PreDomain, PostDomain);
+
+  logout("pre post merged domain = ")
+  logDomain(PreDomain)
+  logDomain(PostDomain)
+  logDomain(MergedDomain)
   
   if (!Domain::equal(*PreDomain, *MergedDomain)) {
     std::vector<llvm::Instruction*> succsInst = getSuccessors(Inst);
-    for (auto succ : succsInst) {
-      WorkSet.insert(succ);
+    while (succsInst.size() != 0) {
+      for (llvm::Instruction* succ : succsInst) {
+        for (auto succ : succsInst) {
+          WorkSet.insert(succ);
+        }
+
+      }
+      succsInst = getSuccessors(succsInst[succsInst.size() - 1]);
     }
+
   }
 
   OutMap[Inst]->at(InstName) = MergedDomain;
   logout("read outmap[inst]")
 
+}
+
+Memory* getPrevMemOfInst(Instruction* I, MapType& Map) {
+  std::string instName = getInstName(I);
+  std::vector<llvm::Instruction*> predsInst = getPredecessors(I);
+  
+  while (predsInst.size() != 0) {
+    for (auto pred : predsInst) {
+      if (getInstName(pred) != instName) continue;
+      return copyMemory(Map[pred]);
+    }
+    predsInst = getPredecessors(predsInst[predsInst.size() - 1]);
+  }
+  return new Memory(); 
 }
 
 void DivZeroAnalysis::doAnalysis(Function &F, PointerAnalysis *PA) {
@@ -268,7 +359,7 @@ void DivZeroAnalysis::doAnalysis(Function &F, PointerAnalysis *PA) {
     logout("top mem read = ")
     logOutMemory(topMemory)
 
-    Memory* prevOutMemory = copyMemory(OutMap[top]);
+    Memory* prevOutMemory = getPrevMemOfInst(top, OutMap);
     logout("done copy memory, read = ")
     logOutMemory(prevOutMemory)
 
@@ -276,11 +367,16 @@ void DivZeroAnalysis::doAnalysis(Function &F, PointerAnalysis *PA) {
     logout("done transfer")
 
     Memory* currOutMemory = OutMap[top];
-    logout("read curr out")
+    logout("read current outmap top memory post transfer")
     logOutMemory(currOutMemory)
 
     flowOut(top, prevOutMemory, currOutMemory, WorkSet);
     logout("done flowout")
+
+    logout("top memory final = ")
+    logOutMemory(topMemory)
+    logout("outmap top memory final = ")
+    logOutMemory(OutMap[top])
    
     WorkSet.remove(WorkSet.front());
   }

@@ -6,7 +6,7 @@ void f() {
   int b = 2;
 
   if (in > 0) {
-    b = 100 + b;
+    b = 100 + b;  // marked as MaybeZero since NonZero + NonZero |-> MaybeZero    simply unfortunate 
   } else if (in == 0) {
     b = 1;
   } else {

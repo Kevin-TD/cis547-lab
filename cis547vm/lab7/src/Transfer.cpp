@@ -121,26 +121,81 @@ Domain *eval(CmpInst *Cmp, const Memory *InMem) {
   auto op = Cmp->getPredicate(); 
   Value *LHS = Cmp->getOperand(0); 
   Value *RHS = Cmp->getOperand(1); 
-  Domain* val1 = getOrExtract(InMem, LHS); 
-  Domain* val2 = getOrExtract(InMem, RHS); 
+  Domain* domain1 = getOrExtract(InMem, LHS); 
+  Domain* domain2 = getOrExtract(InMem, RHS); 
   
-  
-  if (!Domain::equal(*val1, Domain::Element::MaybeZero)) return val1; 
-  if (Domain::equal(*val2, Domain::Element::MaybeZero)) return new Domain(Domain::Element::MaybeZero); 
-  if (Domain::equal(*val2, Domain::Element::Uninit)) return new Domain(Domain::Element::Uninit); 
+  // in the code somewhere else we'll need smarter type refinement after an if statement 
+  // this code interprets it as asking a true or false statement then assigns NonZero if true and Zero if false
 
-  // values are now only  LHS = MaybeZero, RHS = Zero or NonZero
+  if (op == CmpInst::ICMP_EQ) {
+    // 0 and 0 case (1)
+    if (Domain::equal(*domain1, Domain::Element::Zero) && Domain::equal(*domain2, Domain::Element::Zero)) {
+      return new Domain(Domain::Element::NonZero);
+    }
+    
+    // S n and S m case 
+    if (Domain::equal(*domain1, Domain::Element::NonZero) && Domain::equal(*domain2, Domain::Element::NonZero)) {
+       return new Domain(Domain::Element::MaybeZero);
+    }
+    
+    // 0 and S n case or S n and 0 case 
+    return new Domain(Domain::Element::Zero);
+  }
+  else if (op == CmpInst::ICMP_NE) {
+     // 0 and 0 case (0)
+    if (Domain::equal(*domain1, Domain::Element::Zero) && Domain::equal(*domain2, Domain::Element::Zero)) {
+      return new Domain(Domain::Element::Zero);
+    }
+    
+    // S n and S m case 
+    if (Domain::equal(*domain1, Domain::Element::NonZero) && Domain::equal(*domain2, Domain::Element::NonZero)) {
+       return new Domain(Domain::Element::MaybeZero);
+    }
+    
+    // 0 and S n case or S n and 0 case 
+    return new Domain(Domain::Element::NonZero);
+  }
+  else if (op == CmpInst::ICMP_SGT) {
+     // 0 > 0 case: false -> zero
+    if (Domain::equal(*domain1, Domain::Element::Zero) && Domain::equal(*domain2, Domain::Element::Zero)) {
+      return new Domain(Domain::Element::Zero);
+    }
+    
+    // S n > S m case -> could be true or false   maybezero 
+    if (Domain::equal(*domain1, Domain::Element::NonZero) && Domain::equal(*domain2, Domain::Element::NonZero)) {
+       return new Domain(Domain::Element::MaybeZero);
+    }
+    
+    // S n > 0: true -> nonzero
+     if (Domain::equal(*domain1, Domain::Element::NonZero) && Domain::equal(*domain2, Domain::Element::Zero)) {
+       return new Domain(Domain::Element::NonZero);
+    }
 
-   if (op == CmpInst::ICMP_EQ) { // ==
-    return val2; 
+    // 0 > S n: false -> zero
+    return new Domain(Domain::Element::Zero);
   }
-  else if (op == CmpInst::ICMP_NE || op == CmpInst::ICMP_SLT || op == CmpInst::ICMP_SGE) { // !=, <, > 
-    if (Domain::equal(*val2, Domain::Element::Zero)) return new Domain(Domain::Element::NonZero);
-    return new Domain(Domain::Element::Zero); 
+  else if (op == CmpInst::ICMP_SLT) {  // signed less than 
+     // 0 < 0 case: false -> zero
+    if (Domain::equal(*domain1, Domain::Element::Zero) && Domain::equal(*domain2, Domain::Element::Zero)) {
+      return new Domain(Domain::Element::Zero);
+    }
+    
+    // S n < S m case -> could be true or false   maybezero 
+    if (Domain::equal(*domain1, Domain::Element::NonZero) && Domain::equal(*domain2, Domain::Element::NonZero)) {
+       return new Domain(Domain::Element::MaybeZero);
+    }
+    
+    // S n < 0: false -> zero
+     if (Domain::equal(*domain1, Domain::Element::NonZero) && Domain::equal(*domain2, Domain::Element::Zero)) {
+       return new Domain(Domain::Element::Zero);
+    }
+
+    // 0 < S n: true -> nonzero
+    return new Domain(Domain::Element::NonZero);
+
   }
-  // <=, >=
+  // SLE, SGE
   return new Domain(Domain::Element::MaybeZero);
-
 
 }
 
@@ -181,7 +236,7 @@ void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
      *
      * Hint: You may find getOperand(), getValueOperand(), and getPointerOperand() useful.
      */
-    logout("doing store inst")
+    logout("doing store inst " << *Inst)
 
     //  store i32 0, i32* %retval
 
@@ -199,8 +254,21 @@ void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
         logout("aliases " << ptrName << " " << storedName)
         Domain* storedDomain = getOrExtract(In, storingValue);
         Domain* ptrDomain = getOrExtract(In, ptr);
-        Domain* joinedDomain = Domain::join(storedDomain, ptrDomain);
-        NOut[storedName] = joinedDomain; 
+
+        BasicBlock* storedBlock = Inst->getParent();
+        BasicBlock* ptrBlock = dyn_cast<Instruction>(ptr)->getParent();
+        
+        if (storedBlock == ptrBlock) {
+          logout("same block transfer")
+          NOut[storedName] = storedDomain; 
+          NOut[ptrName] = storedDomain; 
+        }
+        else {
+          logout("diff block transfer")
+          Domain* joinedDomain = Domain::join(storedDomain, ptrDomain);
+          NOut[storedName] = joinedDomain; 
+          NOut[ptrName] = joinedDomain; 
+        }
         logout("stored to storedname")
 
         logDomain(storedDomain)
@@ -232,7 +300,7 @@ void DivZeroAnalysis::transfer(Instruction *Inst, const Memory *In,
       NOut[variable(Load)] = new Domain(Domain::Uninit);
     }
     else {
-      logout("seen it bfore!! its the uhh " << *In->at(variable(storingValue)) )
+      logout("seen it bfore!! its the uhh " << *In->at(variable(storingValue)) << " and " << variable(storingValue))
       NOut[variable(Load)] = In->at(variable(storingValue));
     }
 

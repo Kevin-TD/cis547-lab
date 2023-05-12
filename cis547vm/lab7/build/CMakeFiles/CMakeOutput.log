@@ -28,28 +28,28 @@ The CXX compiler identification is Clang, found in "/lab7/build/CMakeFiles/3.10.
 Determining if the C compiler works passed with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_afeb3/fast"
-/usr/bin/make -f CMakeFiles/cmTC_afeb3.dir/build.make CMakeFiles/cmTC_afeb3.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_03c7b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_03c7b.dir/build.make CMakeFiles/cmTC_03c7b.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_afeb3.dir/testCCompiler.c.o
-/usr/bin/clang    -o CMakeFiles/cmTC_afeb3.dir/testCCompiler.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_afeb3
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_afeb3.dir/link.txt --verbose=1
-/usr/bin/clang      -rdynamic CMakeFiles/cmTC_afeb3.dir/testCCompiler.c.o  -o cmTC_afeb3 
+Building C object CMakeFiles/cmTC_03c7b.dir/testCCompiler.c.o
+/usr/bin/clang    -o CMakeFiles/cmTC_03c7b.dir/testCCompiler.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_03c7b
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_03c7b.dir/link.txt --verbose=1
+/usr/bin/clang      -rdynamic CMakeFiles/cmTC_03c7b.dir/testCCompiler.c.o  -o cmTC_03c7b 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_7c4bd/fast"
-/usr/bin/make -f CMakeFiles/cmTC_7c4bd.dir/build.make CMakeFiles/cmTC_7c4bd.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_52756/fast"
+/usr/bin/make -f CMakeFiles/cmTC_52756.dir/build.make CMakeFiles/cmTC_52756.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_7c4bd.dir/CMakeCCompilerABI.c.o
-/usr/bin/clang    -o CMakeFiles/cmTC_7c4bd.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_7c4bd
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7c4bd.dir/link.txt --verbose=1
-/usr/bin/clang     -v -rdynamic CMakeFiles/cmTC_7c4bd.dir/CMakeCCompilerABI.c.o  -o cmTC_7c4bd 
+Building C object CMakeFiles/cmTC_52756.dir/CMakeCCompilerABI.c.o
+/usr/bin/clang    -o CMakeFiles/cmTC_52756.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_52756
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_52756.dir/link.txt --verbose=1
+/usr/bin/clang     -v -rdynamic CMakeFiles/cmTC_52756.dir/CMakeCCompilerABI.c.o  -o cmTC_52756 
 clang version 8.0.1- (branches/release_80)
 Target: x86_64-pc-linux-gnu
 Thread model: posix
@@ -67,7 +67,7 @@ Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/8
 Selected GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0
 Candidate multilib: .;@m64
 Selected multilib: .;@m64
- "/usr/bin/ld" -export-dynamic -z relro --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_7c4bd /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../.. -L/usr/lib/llvm-8/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_7c4bd.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crtn.o
+ "/usr/bin/ld" -export-dynamic -z relro --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_52756 /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../.. -L/usr/lib/llvm-8/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_52756.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crtn.o
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
@@ -75,14 +75,14 @@ Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /lab7/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_7c4bd/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_7c4bd.dir/build.make CMakeFiles/cmTC_7c4bd.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_52756/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_52756.dir/build.make CMakeFiles/cmTC_52756.dir/build]
   ignore line: [make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building C object CMakeFiles/cmTC_7c4bd.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/usr/bin/clang    -o CMakeFiles/cmTC_7c4bd.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_7c4bd]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7c4bd.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/clang     -v -rdynamic CMakeFiles/cmTC_7c4bd.dir/CMakeCCompilerABI.c.o  -o cmTC_7c4bd ]
+  ignore line: [Building C object CMakeFiles/cmTC_52756.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/clang    -o CMakeFiles/cmTC_52756.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.10/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_52756]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_52756.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/clang     -v -rdynamic CMakeFiles/cmTC_52756.dir/CMakeCCompilerABI.c.o  -o cmTC_52756 ]
   ignore line: [clang version 8.0.1- (branches/release_80)]
   ignore line: [Target: x86_64-pc-linux-gnu]
   ignore line: [Thread model: posix]
@@ -102,7 +102,7 @@ Parsed C implicit link information from above output:
   ignore line: [@m64]
   ignore line: [Selected multilib: .]
   ignore line: [@m64]
-  link line: [ "/usr/bin/ld" -export-dynamic -z relro --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_7c4bd /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../.. -L/usr/lib/llvm-8/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_7c4bd.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crtn.o]
+  link line: [ "/usr/bin/ld" -export-dynamic -z relro --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_52756 /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../.. -L/usr/lib/llvm-8/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_52756.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/bin/ld] ==> ignore
     arg [-export-dynamic] ==> ignore
     arg [-zrelro] ==> ignore
@@ -115,7 +115,7 @@ Parsed C implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_7c4bd] ==> ignore
+    arg [cmTC_52756] ==> ignore
     arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o] ==> ignore
@@ -128,7 +128,7 @@ Parsed C implicit link information from above output:
     arg [-L/usr/lib/llvm-8/bin/../lib] ==> dir [/usr/lib/llvm-8/bin/../lib]
     arg [-L/lib] ==> dir [/lib]
     arg [-L/usr/lib] ==> dir [/usr/lib]
-    arg [CMakeFiles/cmTC_7c4bd.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_52756.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [--as-needed] ==> ignore
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -159,14 +159,14 @@ Parsed C implicit link information from above output:
 Detecting C [-std=c11] compiler features compiled with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_41049/fast"
-/usr/bin/make -f CMakeFiles/cmTC_41049.dir/build.make CMakeFiles/cmTC_41049.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_9bbda/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9bbda.dir/build.make CMakeFiles/cmTC_9bbda.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_41049.dir/feature_tests.c.o
-/usr/bin/clang   -std=c11 -o CMakeFiles/cmTC_41049.dir/feature_tests.c.o   -c /lab7/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_41049
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_41049.dir/link.txt --verbose=1
-/usr/bin/clang      -rdynamic CMakeFiles/cmTC_41049.dir/feature_tests.c.o  -o cmTC_41049 
+Building C object CMakeFiles/cmTC_9bbda.dir/feature_tests.c.o
+/usr/bin/clang   -std=c11 -o CMakeFiles/cmTC_9bbda.dir/feature_tests.c.o   -c /lab7/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_9bbda
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9bbda.dir/link.txt --verbose=1
+/usr/bin/clang      -rdynamic CMakeFiles/cmTC_9bbda.dir/feature_tests.c.o  -o cmTC_9bbda 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
@@ -179,14 +179,14 @@ make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 Detecting C [-std=c99] compiler features compiled with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_b6ff0/fast"
-/usr/bin/make -f CMakeFiles/cmTC_b6ff0.dir/build.make CMakeFiles/cmTC_b6ff0.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_dca49/fast"
+/usr/bin/make -f CMakeFiles/cmTC_dca49.dir/build.make CMakeFiles/cmTC_dca49.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_b6ff0.dir/feature_tests.c.o
-/usr/bin/clang   -std=c99 -o CMakeFiles/cmTC_b6ff0.dir/feature_tests.c.o   -c /lab7/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_b6ff0
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b6ff0.dir/link.txt --verbose=1
-/usr/bin/clang      -rdynamic CMakeFiles/cmTC_b6ff0.dir/feature_tests.c.o  -o cmTC_b6ff0 
+Building C object CMakeFiles/cmTC_dca49.dir/feature_tests.c.o
+/usr/bin/clang   -std=c99 -o CMakeFiles/cmTC_dca49.dir/feature_tests.c.o   -c /lab7/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_dca49
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dca49.dir/link.txt --verbose=1
+/usr/bin/clang      -rdynamic CMakeFiles/cmTC_dca49.dir/feature_tests.c.o  -o cmTC_dca49 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
@@ -199,14 +199,14 @@ make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 Detecting C [-std=c90] compiler features compiled with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_35110/fast"
-/usr/bin/make -f CMakeFiles/cmTC_35110.dir/build.make CMakeFiles/cmTC_35110.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_f1a84/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f1a84.dir/build.make CMakeFiles/cmTC_f1a84.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_35110.dir/feature_tests.c.o
-/usr/bin/clang   -std=c90 -o CMakeFiles/cmTC_35110.dir/feature_tests.c.o   -c /lab7/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_35110
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_35110.dir/link.txt --verbose=1
-/usr/bin/clang      -rdynamic CMakeFiles/cmTC_35110.dir/feature_tests.c.o  -o cmTC_35110 
+Building C object CMakeFiles/cmTC_f1a84.dir/feature_tests.c.o
+/usr/bin/clang   -std=c90 -o CMakeFiles/cmTC_f1a84.dir/feature_tests.c.o   -c /lab7/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_f1a84
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f1a84.dir/link.txt --verbose=1
+/usr/bin/clang      -rdynamic CMakeFiles/cmTC_f1a84.dir/feature_tests.c.o  -o cmTC_f1a84 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
@@ -217,28 +217,28 @@ make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_fba47/fast"
-/usr/bin/make -f CMakeFiles/cmTC_fba47.dir/build.make CMakeFiles/cmTC_fba47.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_fda26/fast"
+/usr/bin/make -f CMakeFiles/cmTC_fda26.dir/build.make CMakeFiles/cmTC_fda26.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_fba47.dir/testCXXCompiler.cxx.o
-/usr/bin/clang++     -o CMakeFiles/cmTC_fba47.dir/testCXXCompiler.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_fba47
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fba47.dir/link.txt --verbose=1
-/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_fba47.dir/testCXXCompiler.cxx.o  -o cmTC_fba47 
+Building CXX object CMakeFiles/cmTC_fda26.dir/testCXXCompiler.cxx.o
+/usr/bin/clang++     -o CMakeFiles/cmTC_fda26.dir/testCXXCompiler.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_fda26
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fda26.dir/link.txt --verbose=1
+/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_fda26.dir/testCXXCompiler.cxx.o  -o cmTC_fda26 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_47b96/fast"
-/usr/bin/make -f CMakeFiles/cmTC_47b96.dir/build.make CMakeFiles/cmTC_47b96.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_d6344/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d6344.dir/build.make CMakeFiles/cmTC_d6344.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_47b96.dir/CMakeCXXCompilerABI.cpp.o
-/usr/bin/clang++     -o CMakeFiles/cmTC_47b96.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_47b96
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_47b96.dir/link.txt --verbose=1
-/usr/bin/clang++      -v -rdynamic CMakeFiles/cmTC_47b96.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_47b96 
+Building CXX object CMakeFiles/cmTC_d6344.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/clang++     -o CMakeFiles/cmTC_d6344.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_d6344
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d6344.dir/link.txt --verbose=1
+/usr/bin/clang++      -v -rdynamic CMakeFiles/cmTC_d6344.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_d6344 
 clang version 8.0.1- (branches/release_80)
 Target: x86_64-pc-linux-gnu
 Thread model: posix
@@ -256,7 +256,7 @@ Found candidate GCC installation: /usr/lib/gcc/x86_64-linux-gnu/8
 Selected GCC installation: /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0
 Candidate multilib: .;@m64
 Selected multilib: .;@m64
- "/usr/bin/ld" -export-dynamic -z relro --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_47b96 /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../.. -L/usr/lib/llvm-8/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_47b96.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crtn.o
+ "/usr/bin/ld" -export-dynamic -z relro --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_d6344 /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../.. -L/usr/lib/llvm-8/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_d6344.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crtn.o
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
@@ -264,14 +264,14 @@ Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /lab7/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_47b96/fast"]
-  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_47b96.dir/build.make CMakeFiles/cmTC_47b96.dir/build]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_d6344/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_d6344.dir/build.make CMakeFiles/cmTC_d6344.dir/build]
   ignore line: [make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp']
-  ignore line: [Building CXX object CMakeFiles/cmTC_47b96.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/usr/bin/clang++     -o CMakeFiles/cmTC_47b96.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_47b96]
-  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_47b96.dir/link.txt --verbose=1]
-  ignore line: [/usr/bin/clang++      -v -rdynamic CMakeFiles/cmTC_47b96.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_47b96 ]
+  ignore line: [Building CXX object CMakeFiles/cmTC_d6344.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/clang++     -o CMakeFiles/cmTC_d6344.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_d6344]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d6344.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/clang++      -v -rdynamic CMakeFiles/cmTC_d6344.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_d6344 ]
   ignore line: [clang version 8.0.1- (branches/release_80)]
   ignore line: [Target: x86_64-pc-linux-gnu]
   ignore line: [Thread model: posix]
@@ -291,7 +291,7 @@ Parsed CXX implicit link information from above output:
   ignore line: [@m64]
   ignore line: [Selected multilib: .]
   ignore line: [@m64]
-  link line: [ "/usr/bin/ld" -export-dynamic -z relro --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_47b96 /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../.. -L/usr/lib/llvm-8/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_47b96.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crtn.o]
+  link line: [ "/usr/bin/ld" -export-dynamic -z relro --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_d6344 /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0 -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu -L/lib/x86_64-linux-gnu -L/lib/../lib64 -L/usr/lib/x86_64-linux-gnu -L/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../.. -L/usr/lib/llvm-8/bin/../lib -L/lib -L/usr/lib CMakeFiles/cmTC_d6344.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtend.o /usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crtn.o]
     arg [/usr/bin/ld] ==> ignore
     arg [-export-dynamic] ==> ignore
     arg [-zrelro] ==> ignore
@@ -304,7 +304,7 @@ Parsed CXX implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_47b96] ==> ignore
+    arg [cmTC_d6344] ==> ignore
     arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crt1.o] ==> ignore
     arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/../../../x86_64-linux-gnu/crti.o] ==> ignore
     arg [/usr/bin/../lib/gcc/x86_64-linux-gnu/7.5.0/crtbegin.o] ==> ignore
@@ -317,7 +317,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/llvm-8/bin/../lib] ==> dir [/usr/lib/llvm-8/bin/../lib]
     arg [-L/lib] ==> dir [/lib]
     arg [-L/usr/lib] ==> dir [/usr/lib]
-    arg [CMakeFiles/cmTC_47b96.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_d6344.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]
@@ -346,14 +346,14 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++1z] compiler features compiled with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_b86ba/fast"
-/usr/bin/make -f CMakeFiles/cmTC_b86ba.dir/build.make CMakeFiles/cmTC_b86ba.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_078b0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_078b0.dir/build.make CMakeFiles/cmTC_078b0.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_b86ba.dir/feature_tests.cxx.o
-/usr/bin/clang++    -std=c++1z -o CMakeFiles/cmTC_b86ba.dir/feature_tests.cxx.o -c /lab7/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_b86ba
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b86ba.dir/link.txt --verbose=1
-/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_b86ba.dir/feature_tests.cxx.o  -o cmTC_b86ba 
+Building CXX object CMakeFiles/cmTC_078b0.dir/feature_tests.cxx.o
+/usr/bin/clang++    -std=c++1z -o CMakeFiles/cmTC_078b0.dir/feature_tests.cxx.o -c /lab7/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_078b0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_078b0.dir/link.txt --verbose=1
+/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_078b0.dir/feature_tests.cxx.o  -o cmTC_078b0 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
@@ -419,14 +419,14 @@ make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_22a6b/fast"
-/usr/bin/make -f CMakeFiles/cmTC_22a6b.dir/build.make CMakeFiles/cmTC_22a6b.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_f7181/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f7181.dir/build.make CMakeFiles/cmTC_f7181.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_22a6b.dir/feature_tests.cxx.o
-/usr/bin/clang++    -std=c++14 -o CMakeFiles/cmTC_22a6b.dir/feature_tests.cxx.o -c /lab7/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_22a6b
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_22a6b.dir/link.txt --verbose=1
-/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_22a6b.dir/feature_tests.cxx.o  -o cmTC_22a6b 
+Building CXX object CMakeFiles/cmTC_f7181.dir/feature_tests.cxx.o
+/usr/bin/clang++    -std=c++14 -o CMakeFiles/cmTC_f7181.dir/feature_tests.cxx.o -c /lab7/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_f7181
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f7181.dir/link.txt --verbose=1
+/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_f7181.dir/feature_tests.cxx.o  -o cmTC_f7181 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
@@ -492,14 +492,14 @@ make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_67e63/fast"
-/usr/bin/make -f CMakeFiles/cmTC_67e63.dir/build.make CMakeFiles/cmTC_67e63.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_8b38a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8b38a.dir/build.make CMakeFiles/cmTC_8b38a.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_67e63.dir/feature_tests.cxx.o
-/usr/bin/clang++    -std=c++11 -o CMakeFiles/cmTC_67e63.dir/feature_tests.cxx.o -c /lab7/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_67e63
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_67e63.dir/link.txt --verbose=1
-/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_67e63.dir/feature_tests.cxx.o  -o cmTC_67e63 
+Building CXX object CMakeFiles/cmTC_8b38a.dir/feature_tests.cxx.o
+/usr/bin/clang++    -std=c++11 -o CMakeFiles/cmTC_8b38a.dir/feature_tests.cxx.o -c /lab7/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_8b38a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8b38a.dir/link.txt --verbose=1
+/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_8b38a.dir/feature_tests.cxx.o  -o cmTC_8b38a 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
@@ -565,14 +565,14 @@ make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_82355/fast"
-/usr/bin/make -f CMakeFiles/cmTC_82355.dir/build.make CMakeFiles/cmTC_82355.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_ca343/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ca343.dir/build.make CMakeFiles/cmTC_ca343.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_82355.dir/feature_tests.cxx.o
-/usr/bin/clang++    -std=c++98 -o CMakeFiles/cmTC_82355.dir/feature_tests.cxx.o -c /lab7/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_82355
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_82355.dir/link.txt --verbose=1
-/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_82355.dir/feature_tests.cxx.o  -o cmTC_82355 
+Building CXX object CMakeFiles/cmTC_ca343.dir/feature_tests.cxx.o
+/usr/bin/clang++    -std=c++98 -o CMakeFiles/cmTC_ca343.dir/feature_tests.cxx.o -c /lab7/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_ca343
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ca343.dir/link.txt --verbose=1
+/usr/bin/clang++       -rdynamic CMakeFiles/cmTC_ca343.dir/feature_tests.cxx.o  -o cmTC_ca343 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 
@@ -636,14 +636,14 @@ make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 Performing C++ SOURCE FILE Test LLVM_LIBSTDCXX_MIN succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_79e39/fast"
-/usr/bin/make -f CMakeFiles/cmTC_79e39.dir/build.make CMakeFiles/cmTC_79e39.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_f5343/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f5343.dir/build.make CMakeFiles/cmTC_f5343.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_79e39.dir/src.cxx.o
-/usr/bin/clang++    -DLLVM_LIBSTDCXX_MIN  -std=c++0x   -o CMakeFiles/cmTC_79e39.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_79e39
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_79e39.dir/link.txt --verbose=1
-/usr/bin/clang++   -DLLVM_LIBSTDCXX_MIN  -std=c++0x    CMakeFiles/cmTC_79e39.dir/src.cxx.o  -o cmTC_79e39 
+Building CXX object CMakeFiles/cmTC_f5343.dir/src.cxx.o
+/usr/bin/clang++    -DLLVM_LIBSTDCXX_MIN  -std=c++0x   -o CMakeFiles/cmTC_f5343.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_f5343
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f5343.dir/link.txt --verbose=1
+/usr/bin/clang++   -DLLVM_LIBSTDCXX_MIN  -std=c++0x    CMakeFiles/cmTC_f5343.dir/src.cxx.o  -o cmTC_f5343 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -659,14 +659,14 @@ int main() { return 0; }
 Performing C++ SOURCE FILE Test LLVM_LIBSTDCXX_SOFT_ERROR succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_36ce0/fast"
-/usr/bin/make -f CMakeFiles/cmTC_36ce0.dir/build.make CMakeFiles/cmTC_36ce0.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_8925a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8925a.dir/build.make CMakeFiles/cmTC_8925a.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_36ce0.dir/src.cxx.o
-/usr/bin/clang++    -DLLVM_LIBSTDCXX_SOFT_ERROR  -std=c++0x   -o CMakeFiles/cmTC_36ce0.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_36ce0
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_36ce0.dir/link.txt --verbose=1
-/usr/bin/clang++   -DLLVM_LIBSTDCXX_SOFT_ERROR  -std=c++0x    CMakeFiles/cmTC_36ce0.dir/src.cxx.o  -o cmTC_36ce0 
+Building CXX object CMakeFiles/cmTC_8925a.dir/src.cxx.o
+/usr/bin/clang++    -DLLVM_LIBSTDCXX_SOFT_ERROR  -std=c++0x   -o CMakeFiles/cmTC_8925a.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_8925a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8925a.dir/link.txt --verbose=1
+/usr/bin/clang++   -DLLVM_LIBSTDCXX_SOFT_ERROR  -std=c++0x    CMakeFiles/cmTC_8925a.dir/src.cxx.o  -o cmTC_8925a 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -682,14 +682,14 @@ int main() { return 0; }
 Performing C SOURCE FILE Test C_SUPPORTS_FPIC succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_ee909/fast"
-/usr/bin/make -f CMakeFiles/cmTC_ee909.dir/build.make CMakeFiles/cmTC_ee909.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_77b6d/fast"
+/usr/bin/make -f CMakeFiles/cmTC_77b6d.dir/build.make CMakeFiles/cmTC_77b6d.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_ee909.dir/src.c.o
-/usr/bin/clang   -DC_SUPPORTS_FPIC   -Werror -fPIC -o CMakeFiles/cmTC_ee909.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_ee909
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ee909.dir/link.txt --verbose=1
-/usr/bin/clang  -DC_SUPPORTS_FPIC    CMakeFiles/cmTC_ee909.dir/src.c.o  -o cmTC_ee909 
+Building C object CMakeFiles/cmTC_77b6d.dir/src.c.o
+/usr/bin/clang   -DC_SUPPORTS_FPIC   -Werror -fPIC -o CMakeFiles/cmTC_77b6d.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_77b6d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_77b6d.dir/link.txt --verbose=1
+/usr/bin/clang  -DC_SUPPORTS_FPIC    CMakeFiles/cmTC_77b6d.dir/src.c.o  -o cmTC_77b6d 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -697,14 +697,14 @@ int main(void) { return 0; }
 Performing C++ SOURCE FILE Test CXX_SUPPORTS_FPIC succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_6680e/fast"
-/usr/bin/make -f CMakeFiles/cmTC_6680e.dir/build.make CMakeFiles/cmTC_6680e.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_227dd/fast"
+/usr/bin/make -f CMakeFiles/cmTC_227dd.dir/build.make CMakeFiles/cmTC_227dd.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_6680e.dir/src.cxx.o
-/usr/bin/clang++    -DCXX_SUPPORTS_FPIC   -Werror -fPIC -o CMakeFiles/cmTC_6680e.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_6680e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6680e.dir/link.txt --verbose=1
-/usr/bin/clang++   -DCXX_SUPPORTS_FPIC    CMakeFiles/cmTC_6680e.dir/src.cxx.o  -o cmTC_6680e 
+Building CXX object CMakeFiles/cmTC_227dd.dir/src.cxx.o
+/usr/bin/clang++    -DCXX_SUPPORTS_FPIC   -Werror -fPIC -o CMakeFiles/cmTC_227dd.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_227dd
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_227dd.dir/link.txt --verbose=1
+/usr/bin/clang++   -DCXX_SUPPORTS_FPIC    CMakeFiles/cmTC_227dd.dir/src.cxx.o  -o cmTC_227dd 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -712,14 +712,14 @@ int main() { return 0; }
 Performing C++ SOURCE FILE Test SUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_0d433/fast"
-/usr/bin/make -f CMakeFiles/cmTC_0d433.dir/build.make CMakeFiles/cmTC_0d433.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_334d8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_334d8.dir/build.make CMakeFiles/cmTC_334d8.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_0d433.dir/src.cxx.o
-/usr/bin/clang++    -fPIC -DSUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG   -fvisibility-inlines-hidden -o CMakeFiles/cmTC_0d433.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_0d433
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0d433.dir/link.txt --verbose=1
-/usr/bin/clang++   -fPIC -DSUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG    CMakeFiles/cmTC_0d433.dir/src.cxx.o  -o cmTC_0d433 
+Building CXX object CMakeFiles/cmTC_334d8.dir/src.cxx.o
+/usr/bin/clang++    -fPIC -DSUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG   -fvisibility-inlines-hidden -o CMakeFiles/cmTC_334d8.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_334d8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_334d8.dir/link.txt --verbose=1
+/usr/bin/clang++   -fPIC -DSUPPORTS_FVISIBILITY_INLINES_HIDDEN_FLAG    CMakeFiles/cmTC_334d8.dir/src.cxx.o  -o cmTC_334d8 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -727,14 +727,14 @@ int main() { return 0; }
 Performing C SOURCE FILE Test C_SUPPORTS_WERROR_DATE_TIME succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_e696f/fast"
-/usr/bin/make -f CMakeFiles/cmTC_e696f.dir/build.make CMakeFiles/cmTC_e696f.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_d491c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d491c.dir/build.make CMakeFiles/cmTC_d491c.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_e696f.dir/src.c.o
-/usr/bin/clang   -fPIC -DC_SUPPORTS_WERROR_DATE_TIME   -Werror -Werror=date-time -o CMakeFiles/cmTC_e696f.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_e696f
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e696f.dir/link.txt --verbose=1
-/usr/bin/clang  -fPIC -DC_SUPPORTS_WERROR_DATE_TIME    CMakeFiles/cmTC_e696f.dir/src.c.o  -o cmTC_e696f 
+Building C object CMakeFiles/cmTC_d491c.dir/src.c.o
+/usr/bin/clang   -fPIC -DC_SUPPORTS_WERROR_DATE_TIME   -Werror -Werror=date-time -o CMakeFiles/cmTC_d491c.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_d491c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d491c.dir/link.txt --verbose=1
+/usr/bin/clang  -fPIC -DC_SUPPORTS_WERROR_DATE_TIME    CMakeFiles/cmTC_d491c.dir/src.c.o  -o cmTC_d491c 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -742,14 +742,14 @@ int main(void) { return 0; }
 Performing C++ SOURCE FILE Test CXX_SUPPORTS_WERROR_DATE_TIME succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_36125/fast"
-/usr/bin/make -f CMakeFiles/cmTC_36125.dir/build.make CMakeFiles/cmTC_36125.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_e6d16/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e6d16.dir/build.make CMakeFiles/cmTC_e6d16.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_36125.dir/src.cxx.o
-/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -DCXX_SUPPORTS_WERROR_DATE_TIME   -Werror -Werror=date-time -o CMakeFiles/cmTC_36125.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_36125
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_36125.dir/link.txt --verbose=1
-/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -DCXX_SUPPORTS_WERROR_DATE_TIME    CMakeFiles/cmTC_36125.dir/src.cxx.o  -o cmTC_36125 
+Building CXX object CMakeFiles/cmTC_e6d16.dir/src.cxx.o
+/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -DCXX_SUPPORTS_WERROR_DATE_TIME   -Werror -Werror=date-time -o CMakeFiles/cmTC_e6d16.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_e6d16
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e6d16.dir/link.txt --verbose=1
+/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -DCXX_SUPPORTS_WERROR_DATE_TIME    CMakeFiles/cmTC_e6d16.dir/src.cxx.o  -o cmTC_e6d16 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -757,14 +757,14 @@ int main() { return 0; }
 Performing C SOURCE FILE Test C_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_6685f/fast"
-/usr/bin/make -f CMakeFiles/cmTC_6685f.dir/build.make CMakeFiles/cmTC_6685f.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_53330/fast"
+/usr/bin/make -f CMakeFiles/cmTC_53330.dir/build.make CMakeFiles/cmTC_53330.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_6685f.dir/src.c.o
-/usr/bin/clang   -fPIC -Werror=date-time -DC_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW   -Werror -Werror=unguarded-availability-new -o CMakeFiles/cmTC_6685f.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_6685f
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6685f.dir/link.txt --verbose=1
-/usr/bin/clang  -fPIC -Werror=date-time -DC_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW    CMakeFiles/cmTC_6685f.dir/src.c.o  -o cmTC_6685f 
+Building C object CMakeFiles/cmTC_53330.dir/src.c.o
+/usr/bin/clang   -fPIC -Werror=date-time -DC_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW   -Werror -Werror=unguarded-availability-new -o CMakeFiles/cmTC_53330.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_53330
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_53330.dir/link.txt --verbose=1
+/usr/bin/clang  -fPIC -Werror=date-time -DC_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW    CMakeFiles/cmTC_53330.dir/src.c.o  -o cmTC_53330 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -772,14 +772,14 @@ int main(void) { return 0; }
 Performing C++ SOURCE FILE Test CXX_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_d68bb/fast"
-/usr/bin/make -f CMakeFiles/cmTC_d68bb.dir/build.make CMakeFiles/cmTC_d68bb.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_b713d/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b713d.dir/build.make CMakeFiles/cmTC_b713d.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_d68bb.dir/src.cxx.o
-/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -Werror=date-time -DCXX_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW   -Werror -Werror=unguarded-availability-new -o CMakeFiles/cmTC_d68bb.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_d68bb
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d68bb.dir/link.txt --verbose=1
-/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -DCXX_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW    CMakeFiles/cmTC_d68bb.dir/src.cxx.o  -o cmTC_d68bb 
+Building CXX object CMakeFiles/cmTC_b713d.dir/src.cxx.o
+/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -Werror=date-time -DCXX_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW   -Werror -Werror=unguarded-availability-new -o CMakeFiles/cmTC_b713d.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_b713d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b713d.dir/link.txt --verbose=1
+/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -DCXX_SUPPORTS_WERROR_UNGUARDED_AVAILABILITY_NEW    CMakeFiles/cmTC_b713d.dir/src.cxx.o  -o cmTC_b713d 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -787,14 +787,14 @@ int main() { return 0; }
 Performing C++ SOURCE FILE Test CXX_SUPPORTS_CXX11 succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_89540/fast"
-/usr/bin/make -f CMakeFiles/cmTC_89540.dir/build.make CMakeFiles/cmTC_89540.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_9ca42/fast"
+/usr/bin/make -f CMakeFiles/cmTC_9ca42.dir/build.make CMakeFiles/cmTC_9ca42.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_89540.dir/src.cxx.o
-/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -DCXX_SUPPORTS_CXX11   -std=c++11 -o CMakeFiles/cmTC_89540.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_89540
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_89540.dir/link.txt --verbose=1
-/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -DCXX_SUPPORTS_CXX11    CMakeFiles/cmTC_89540.dir/src.cxx.o  -o cmTC_89540 
+Building CXX object CMakeFiles/cmTC_9ca42.dir/src.cxx.o
+/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -DCXX_SUPPORTS_CXX11   -std=c++11 -o CMakeFiles/cmTC_9ca42.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_9ca42
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9ca42.dir/link.txt --verbose=1
+/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -DCXX_SUPPORTS_CXX11    CMakeFiles/cmTC_9ca42.dir/src.cxx.o  -o cmTC_9ca42 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -802,14 +802,14 @@ int main() { return 0; }
 Performing C SOURCE FILE Test C_SUPPORTS_FNO_FUNCTION_SECTIONS succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_00a7e/fast"
-/usr/bin/make -f CMakeFiles/cmTC_00a7e.dir/build.make CMakeFiles/cmTC_00a7e.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_513b2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_513b2.dir/build.make CMakeFiles/cmTC_513b2.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_00a7e.dir/src.c.o
-/usr/bin/clang   -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -DC_SUPPORTS_FNO_FUNCTION_SECTIONS   -Werror -fno-function-sections -o CMakeFiles/cmTC_00a7e.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_00a7e
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_00a7e.dir/link.txt --verbose=1
-/usr/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -DC_SUPPORTS_FNO_FUNCTION_SECTIONS    CMakeFiles/cmTC_00a7e.dir/src.c.o  -o cmTC_00a7e 
+Building C object CMakeFiles/cmTC_513b2.dir/src.c.o
+/usr/bin/clang   -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -DC_SUPPORTS_FNO_FUNCTION_SECTIONS   -Werror -fno-function-sections -o CMakeFiles/cmTC_513b2.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_513b2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_513b2.dir/link.txt --verbose=1
+/usr/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -DC_SUPPORTS_FNO_FUNCTION_SECTIONS    CMakeFiles/cmTC_513b2.dir/src.c.o  -o cmTC_513b2 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -817,14 +817,14 @@ int main(void) { return 0; }
 Performing C SOURCE FILE Test C_SUPPORTS_FFUNCTION_SECTIONS succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_db962/fast"
-/usr/bin/make -f CMakeFiles/cmTC_db962.dir/build.make CMakeFiles/cmTC_db962.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_8f0d3/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8f0d3.dir/build.make CMakeFiles/cmTC_8f0d3.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_db962.dir/src.c.o
-/usr/bin/clang   -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -DC_SUPPORTS_FFUNCTION_SECTIONS   -Werror -ffunction-sections -o CMakeFiles/cmTC_db962.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_db962
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_db962.dir/link.txt --verbose=1
-/usr/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -DC_SUPPORTS_FFUNCTION_SECTIONS    CMakeFiles/cmTC_db962.dir/src.c.o  -o cmTC_db962 
+Building C object CMakeFiles/cmTC_8f0d3.dir/src.c.o
+/usr/bin/clang   -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -DC_SUPPORTS_FFUNCTION_SECTIONS   -Werror -ffunction-sections -o CMakeFiles/cmTC_8f0d3.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_8f0d3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8f0d3.dir/link.txt --verbose=1
+/usr/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -DC_SUPPORTS_FFUNCTION_SECTIONS    CMakeFiles/cmTC_8f0d3.dir/src.c.o  -o cmTC_8f0d3 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -832,14 +832,14 @@ int main(void) { return 0; }
 Performing C++ SOURCE FILE Test CXX_SUPPORTS_FFUNCTION_SECTIONS succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_8d2d8/fast"
-/usr/bin/make -f CMakeFiles/cmTC_8d2d8.dir/build.make CMakeFiles/cmTC_8d2d8.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_98efb/fast"
+/usr/bin/make -f CMakeFiles/cmTC_98efb.dir/build.make CMakeFiles/cmTC_98efb.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_8d2d8.dir/src.cxx.o
-/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -std=c++11 -w -DCXX_SUPPORTS_FFUNCTION_SECTIONS   -Werror -ffunction-sections -o CMakeFiles/cmTC_8d2d8.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_8d2d8
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8d2d8.dir/link.txt --verbose=1
-/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -std=c++11 -w -DCXX_SUPPORTS_FFUNCTION_SECTIONS    CMakeFiles/cmTC_8d2d8.dir/src.cxx.o  -o cmTC_8d2d8 
+Building CXX object CMakeFiles/cmTC_98efb.dir/src.cxx.o
+/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -std=c++11 -w -DCXX_SUPPORTS_FFUNCTION_SECTIONS   -Werror -ffunction-sections -o CMakeFiles/cmTC_98efb.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_98efb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_98efb.dir/link.txt --verbose=1
+/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -std=c++11 -w -DCXX_SUPPORTS_FFUNCTION_SECTIONS    CMakeFiles/cmTC_98efb.dir/src.cxx.o  -o cmTC_98efb 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -847,14 +847,14 @@ int main() { return 0; }
 Performing C SOURCE FILE Test C_SUPPORTS_FDATA_SECTIONS succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_c7206/fast"
-/usr/bin/make -f CMakeFiles/cmTC_c7206.dir/build.make CMakeFiles/cmTC_c7206.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_1b810/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1b810.dir/build.make CMakeFiles/cmTC_1b810.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_c7206.dir/src.c.o
-/usr/bin/clang   -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -ffunction-sections -DC_SUPPORTS_FDATA_SECTIONS   -Werror -fdata-sections -o CMakeFiles/cmTC_c7206.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
-Linking C executable cmTC_c7206
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c7206.dir/link.txt --verbose=1
-/usr/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -ffunction-sections -DC_SUPPORTS_FDATA_SECTIONS    CMakeFiles/cmTC_c7206.dir/src.c.o  -o cmTC_c7206 
+Building C object CMakeFiles/cmTC_1b810.dir/src.c.o
+/usr/bin/clang   -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -ffunction-sections -DC_SUPPORTS_FDATA_SECTIONS   -Werror -fdata-sections -o CMakeFiles/cmTC_1b810.dir/src.c.o   -c /lab7/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_1b810
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1b810.dir/link.txt --verbose=1
+/usr/bin/clang  -fPIC -Werror=date-time -Werror=unguarded-availability-new -w -ffunction-sections -DC_SUPPORTS_FDATA_SECTIONS    CMakeFiles/cmTC_1b810.dir/src.c.o  -o cmTC_1b810 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
@@ -862,14 +862,14 @@ int main(void) { return 0; }
 Performing C++ SOURCE FILE Test CXX_SUPPORTS_FDATA_SECTIONS succeeded with the following output:
 Change Dir: /lab7/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_c2c46/fast"
-/usr/bin/make -f CMakeFiles/cmTC_c2c46.dir/build.make CMakeFiles/cmTC_c2c46.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_f986f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f986f.dir/build.make CMakeFiles/cmTC_f986f.dir/build
 make[1]: Entering directory '/lab7/build/CMakeFiles/CMakeTmp'
-Building CXX object CMakeFiles/cmTC_c2c46.dir/src.cxx.o
-/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -std=c++11 -w -ffunction-sections -DCXX_SUPPORTS_FDATA_SECTIONS   -Werror -fdata-sections -o CMakeFiles/cmTC_c2c46.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
-Linking CXX executable cmTC_c2c46
-/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c2c46.dir/link.txt --verbose=1
-/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -std=c++11 -w -ffunction-sections -DCXX_SUPPORTS_FDATA_SECTIONS    CMakeFiles/cmTC_c2c46.dir/src.cxx.o  -o cmTC_c2c46 
+Building CXX object CMakeFiles/cmTC_f986f.dir/src.cxx.o
+/usr/bin/clang++    -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -std=c++11 -w -ffunction-sections -DCXX_SUPPORTS_FDATA_SECTIONS   -Werror -fdata-sections -o CMakeFiles/cmTC_f986f.dir/src.cxx.o -c /lab7/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_f986f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f986f.dir/link.txt --verbose=1
+/usr/bin/clang++   -fPIC -fvisibility-inlines-hidden -Werror=date-time -Werror=unguarded-availability-new -std=c++11 -w -ffunction-sections -DCXX_SUPPORTS_FDATA_SECTIONS    CMakeFiles/cmTC_f986f.dir/src.cxx.o  -o cmTC_f986f 
 make[1]: Leaving directory '/lab7/build/CMakeFiles/CMakeTmp'
 
 Source file was:
