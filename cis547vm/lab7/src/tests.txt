@@ -136,3 +136,7 @@ make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-va
 make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test18.c -o test18.ll ; opt -load ../build/DivZeroPass.so -DivZero test18.ll ; cd ../build
 
 make clean ; cmake .. ; make ; cd ../test ;  clang -emit-llvm -S -fno-discard-value-names -Xclang -disable-O0-optnone -c test19.c -o test19.ll ; opt -load ../build/DivZeroPass.so -DivZero test19.ll ; cd ../build
+
+
+
+-- Main issue is that when there are two statements, it has difficulty knowning whether to lub or to replace. Knowing when two statements of same name are in same block or not is tricky 

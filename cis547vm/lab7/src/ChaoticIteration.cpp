@@ -139,19 +139,7 @@ Memory *join(Memory *Mem1, Memory *Mem2, llvm::Instruction* currentInst, llvm::I
       Domain *D2 = Mem2->at(I);
       logDomain(D2)
 
-      BasicBlock* currentBlock = currentInst->getParent();
-      BasicBlock* prevBlock = prevInst->getParent();
-
-      if (currentBlock == prevBlock) {
-        logout("same block join")
-        Result->emplace(std::make_pair(I, D1));
-      }
-      else {
-        // logout("diff block join")
-        Result->emplace(std::make_pair(I, Domain::join(D1, D2)));
-      }
-
-      
+      Result->emplace(std::make_pair(I, Domain::join(D1, D2)));
     }
   }
 
@@ -177,8 +165,19 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
    *   + Join the Out Memory with InMem.
    */
 
+  std::vector<llvm::Instruction*> predsInst1 = getPredecessors(Inst);
+  while (predsInst1.size() != 0) {
+    for (llvm::Instruction* pred : predsInst1) {
+      Memory* outMemory = OutMap[pred];
+      for (auto Pair : *outMemory) {
+        InMem->emplace(std::make_pair(Pair.first, outMemory->at(Pair.first)));
+      }
+    }
+    predsInst1 = getPredecessors(predsInst1[predsInst1.size() - 1]);
+  }
+
   std::vector<llvm::Instruction*> predsInst = getPredecessors(Inst);
-  while (predsInst.size() != 0) {
+  // while (predsInst.size() != 0) {
     for (llvm::Instruction* pred : predsInst) {
       logout("pred = " << *pred << " with name " << getInstName(pred))
       Memory* outMemory = OutMap[pred];
@@ -216,8 +215,8 @@ void DivZeroAnalysis::flowIn(Instruction *Inst, Memory *InMem) {
       logout("inmem = ")
       logOutMemory(InMem)
 
-    }
-    predsInst = getPredecessors(predsInst[predsInst.size() - 1]);
+    // }
+    // predsInst = getPredecessors(predsInst[predsInst.size() - 1]);
   }
 }
 
